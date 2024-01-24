@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+:root{
+  --mdc-outlined-text-field-focus-label-text-color: rgb(255, 255, 255);
+  --mat-icon-color: rgb(255, 255, 255);;
+}
+
+html, body { height: 100%; }
+body { background-color: #303030;
+  margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  }
+
+.bg-body-tertiary {
+  background-color: #303030 !important;
+  h1, span{
+    color: aliceblue;
+  }
+}
+
+.mat-mdc-form-field{
+  width: 100%;
+
+}

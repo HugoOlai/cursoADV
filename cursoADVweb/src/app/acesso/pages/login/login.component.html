@@ -1,18 +1,77 @@
 <div class="row">
-  <div class="col-6">
-    <form class="example-form flex-wrap">
-      <mat-form-field class="example-full-width">
-        <mat-label>Favorite food</mat-label>
-        <input matInput placeholder="Ex. Pizza" value="Sushi">
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Leave a comment</mat-label>
-        <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-      </mat-form-field>
-    </form>
+  <div class="row">
+    <div class="quadrado {{possuiCadastro? 'login':'cadastro'}}">
+      <button (click)="possuiCadastro = !possuiCadastro" mat-fab extended color="{{!possuiCadastro?'primary':'accent'}}">
+        <mat-icon>favorite</mat-icon>
+        {{!possuiCadastro?'Cadastrar':'Possuo cadastro'}}
+      </button>
+    </div>
   </div>
-  <div class="col-6">
-    teste2
+  <div class="col-6 container px-4 py-5">
+      <div class="row align-items-center g-lg-5 py-5 example-container">
+        <div class="w-100 mx-auto ">
+          <form class="p-4 m-5 p-md-5 border rounded-3 bg-body-tertiary">
+            <h1 class="mb-4">Já estuda com a gente?</h1>
+            <div class="w-100">
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="email@gmail.com">
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="w-100">
+              <mat-form-field appearance="outline">
+                <mat-label>Senha</mat-label>
+                <input matInput placeholder="Digite sua senha">
+                <button mat-icon-button matSuffix (click)="visivel = !visivel" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="visivel">
+                  <mat-icon>{{visivel ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+            <hr class="my-4">
+            <!-- <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small> -->
+          </form>
+        </div>
+      </div>
+  </div>
+  <div class="col-6 container px-4 py-5">
+      <div class="row align-items-center g-lg-5 py-5">
+        <div class="w-100 mx-auto">
+          <form class="p-4 m-5 p-md-5 border rounded-3 bg-body-tertiary">
+            <h1>Complete a sua matrícula na <b>centroProInfo</b></h1>
+            <div class="form-floating mb-3">
+              <input type="nomeCompleto" class="form-control" id="nomeCompleto" placeholder="email@examplo.com">
+              <label for="nomeCompleto">Nome Completo</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control" id="email" placeholder="email">
+              <label for="email">Email</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="telefone" class="form-control" id="telefone" placeholder="telefone">
+              <label for="telefone">Telefone</label>
+            </div>
+
+            <!-- <div class="checkbox mb-3">
+              <label>
+                <input type="checkbox" value="remember-me"> Lembrar
+              </label>
+            </div> -->
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Cadastrar</button>
+            <button mat-fab extended color="primary">
+              <mat-icon>favorite</mat-icon>
+              Primary
+            </button>
+            <hr class="my-4">
+            <!-- <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small> -->
+          </form>
+        </div>
+      </div>
   </div>
 </div>
+
+

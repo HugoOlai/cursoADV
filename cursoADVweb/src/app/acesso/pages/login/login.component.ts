@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
+  visivel: boolean = false;
+  possuiCadastro: boolean = true;
+
   constructor(){
 
   }

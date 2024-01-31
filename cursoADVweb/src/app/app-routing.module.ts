@@ -2,12 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AcessoModule } from './acesso/acesso.module';
+import { AuthComponent } from './auth/auth.component';
+import { AuthAdminComponent } from './auth/auth-admin.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'acesso', pathMatch: 'full' },
   { path: 'acesso', loadChildren: () => import('./acesso/acesso.module').then(m => m.AcessoModule)},
-
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  { path: 'Auth/:hash', component: AuthComponent },
+  { path: 'AuthAdmin/:hash', component: AuthAdminComponent },
 ];
 
 @NgModule({

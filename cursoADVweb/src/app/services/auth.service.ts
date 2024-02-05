@@ -1,7 +1,7 @@
-import { HttpBackend, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments';
 import { Observable, catchError, map, take, throwError, timeout } from 'rxjs';
+import { HttpBackend, HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 
 interface Auth {
@@ -28,12 +28,6 @@ export class AuthService {
 
   autenticar(user: Auth) : Observable<any> {
     console.log('autenticar')
-    // return this.http.get(`${environment.baseUrl}/WeatherForecast/Login/teste`)
-    //   .pipe(
-    //     take(1),
-    //     map(result => result)
-    //   );
-
     return this.http.post(`${environment.baseUrl}/Autenticador`, user)
       .pipe(
         take(1),

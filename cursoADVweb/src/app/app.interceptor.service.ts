@@ -16,7 +16,6 @@ export class AppInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('passei aqui ')
-    console.log(req)
     req = req.clone({
       headers: req.headers
         .set("Content-Type", "application/json")
@@ -27,6 +26,8 @@ export class AppInterceptor implements HttpInterceptor {
         .set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
         .set("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
     });
+
+    console.log(req)
     req = this.addAuthenticationToken(req);
 
     return next.handle(req).pipe(
@@ -48,7 +49,7 @@ export class AppInterceptor implements HttpInterceptor {
     // let objUsuario: any = {
     //   Email: '@teste',
     //   Sistema: 3,
-    //   AccessKey: 'testeeeee'
+    //   AccessKey: environment.key
     // }
 
     // this.auth.autenticar(objUsuario).subscribe({

@@ -10,7 +10,7 @@
   <div class="col-6 container px-4 py-5">
       <div class="row align-items-center g-lg-5 py-5 example-container">
         <div class="w-100 mx-auto ">
-          <form class="p-4 m-5 p-md-5 border rounded-3 bg-body-tertiary">
+          <form [formGroup]="formularioLogin" class="p-4 m-5 p-md-5 border rounded-3 bg-body-tertiary">
             <h1 class="mb-4">Já estuda com a gente?</h1>
             <div class="w-100">
               <mat-form-field appearance="outline">
@@ -41,19 +41,27 @@
   <div class="col-6 container px-4 py-5">
       <div class="row align-items-center g-lg-5 py-5">
         <div class="w-100 mx-auto">
-          <form class="p-4 m-5 p-md-5 border rounded-3 bg-body-tertiary">
-            <h1>Complete a sua matrícula na <b>centroProInfo</b></h1>
+          <form [formGroup]="formularioCadastro" class="p-4 m-5 p-md-5 border rounded-3 bg-body-tertiary">
+            <h1>Faça a sua matrícula na <b>centroProInfo</b></h1>
             <div class="form-floating mb-3">
-              <input type="nomeCompleto" class="form-control" id="nomeCompleto" placeholder="email@examplo.com">
-              <label for="nomeCompleto">Nome Completo</label>
+              <input type="Nome" formControlName="Nome" class="form-control" id="Nome" placeholder="Nome">
+              <label for="Nome">Nome</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="email" placeholder="email">
+              <input type="SobreNome" formControlName="SobreNome" class="form-control" id="SobreNome" placeholder="Sobrenome">
+              <label for="SobreNome">Sobrenome</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="email" formControlName="Email" class="form-control" id="email" placeholder="email">
               <label for="email">Email</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="telefone" class="form-control" id="telefone" placeholder="telefone">
+              <input type="telefone" formControlName="Telefone" class="form-control" id="telefone" placeholder="telefone">
               <label for="telefone">Telefone</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="telefone" formControlName="Senha" class="form-control" id="telefone" placeholder="telefone">
+              <label for="telefone">Senha</label>
             </div>
 
             <!-- <div class="checkbox mb-3">
@@ -61,11 +69,7 @@
                 <input type="checkbox" value="remember-me"> Lembrar
               </label>
             </div> -->
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Cadastrar</button>
-            <button mat-fab extended color="primary">
-              <mat-icon>favorite</mat-icon>
-              Primary
-            </button>
+            <button (click)="cadastrar()" class="w-100 btn btn-lg btn-primary" type="button">Cadastrar</button>
             <hr class="my-4">
             <!-- <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small> -->
           </form>

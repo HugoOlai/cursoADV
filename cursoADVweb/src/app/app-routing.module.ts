@@ -7,7 +7,8 @@ import { AuthAdminComponent } from './auth/auth-admin.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'acesso', pathMatch: 'full' },
+  { path: '', redirectTo: 'blog', pathMatch: 'full' },
+  { path: 'blog', loadChildren: () => import('./blog/blog.module').then(m => m.BlogModule)},
   { path: 'acesso', loadChildren: () => import('./acesso/acesso.module').then(m => m.AcessoModule)},
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: 'Auth/:hash', component: AuthComponent },

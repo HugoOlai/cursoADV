@@ -1,17 +1,23 @@
 <div class="d-flex flex-wrap w-100 justify-content-center main">
-  <div class="col-sm-12 col-md-4 col-lg-4">
-    <img src="../../../assets/imgs/logo.png" height="95">
+  <div class="col-sm-12 col-md-3 col-lg-3">
+    <img src="../../../assets/imgs/LogoTeste.png" height="80">
 
   </div>
-  <div class="col-sm-6 col-md-6 col-lg-6 d-flex align-self-center">
-    <div class="col-6">
-      <input type="text" class="w-100">
+  <div class="col-sm-6 col-md-6 col-lg-6 d-flex align-self-center pt-3">
+    <div class="col-8 form-angular-material">
+      <mat-form-field class="ms-3" style="width: 93%;" appearance="outline">
+        <mat-label>Procure no site...</mat-label>
+        <input (click)="buscar()" matInput formControlName="pesquisa" placeholder="Procure no site..." type="text" autocomplete="off">
+        <mat-icon style="color: #842723"  class="text-secondary ms-2 pointer" matSuffix>
+          search
+        </mat-icon>
+      </mat-form-field>
     </div>
-    <div class="col-1 d-flex justify-content-center"> | </div>
-    <div class="col-5">
-      <button>A+</button>
-      <button>A-</button>
-      <button>C</button>
+    <div style="color: #842723" class="col-1 d-flex justify-content-center fs-1 pt-2"> | </div>
+    <div class="col-3 pt-1">
+      <button disabled class="btn btn-sm btn-outline-secondary me-2">A+</button>
+      <button disabled class="btn btn-sm btn-outline-secondary me-2">A-</button>
+      <button disabled class="btn btn-sm btn-outline-secondary">C</button>
     </div>
   </div>
   <div class="col-sm-6 col-md-2 col-lg-2 align-self-center d-flex justify-content-end">

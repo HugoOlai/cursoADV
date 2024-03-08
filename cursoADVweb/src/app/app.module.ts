@@ -8,13 +8,13 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { AppInterceptor } from './app.interceptor.service';
 import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SidebarModule } from './components/sidebar/sidebar.module';
 
 
 
 @NgModule({
-  declarations: [AppComponent, SidebarComponent],
-  exports: [SidebarComponent],
+  declarations: [AppComponent],
+  exports: [],
   bootstrap: [AppComponent],
   imports: [
     AppRoutingModule,
@@ -22,6 +22,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     CommonModule,
     HttpClientModule,
     FormsModule,
+    SidebarModule,
     BrowserAnimationsModule
   ],
   providers:[

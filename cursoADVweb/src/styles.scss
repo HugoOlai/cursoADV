@@ -34,11 +34,32 @@ body { background-color: #fdfdfd;
   }
 }
 
+@font-face {
+  font-family: 'Gordita';
+  src: url('assets/fonts/Gordita-Regular.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('assets/fonts/OpenSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .mat-mdc-form-field{
   width: 100%;
 
 }
 
+.defineFontBtns{
+  font-family: Gordita;
+}
+
+.defineFont{
+  font-family: Open Sans;
+}
 
 .main{
   margin-top: 44px;

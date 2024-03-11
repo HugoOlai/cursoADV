@@ -1,5 +1,18 @@
 <div>
-  menuuuu
+  <ul class="nav {{isMobile? 'flex-column ms-3':'justify-content-center'}} mt-5">
+    <li *ngFor="let item of menu; let i = index" class="nav-item fs-4">
+      <a (click)="marcarComoSelecionado(item.Nome)"
+      style="padding-right: 0px; padding-left: 0px;"
+      class="nav-link active d-flex" href="{{item.Link}}" [ariaDisabled]="!item.Ativo">
+        <span id="{{item.Nome}}" class="pb-2">
+        {{item.Nome.toLocaleUpperCase()}}
+        </span>
+        <span *ngIf="menu.length != i+1 && !isMobile" class="ms-4 me-4">
+          |
+        </span>
+      </a>
+    </li>
+  </ul>
 </div>
 <div>
   <router-outlet></router-outlet>

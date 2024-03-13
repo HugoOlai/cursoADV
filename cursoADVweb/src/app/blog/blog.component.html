@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!isMobile">
   <ul class="nav {{isMobile? 'flex-column ms-3':'justify-content-center'}} mt-5">
     <li *ngFor="let item of menu; let i = index" class="nav-item fs-4">
       <a (click)="marcarComoSelecionado(item.Nome)"
@@ -14,7 +14,39 @@
     </li>
   </ul>
 </div>
+
+<nav *ngIf="isMobile" class="navbar navbar-light bg-light defineCorBar fixed-top">
+  <div class="container-fluid">
+    <img src="../../assets/imgs/logoMobile.png" height="40">
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon text-white"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <img src="../../assets/imgs/LogoTeste.png" height="60">
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="nav {{isMobile? 'flex-column ms-3':'justify-content-center'}} mt-5">
+          <li *ngFor="let item of menu; let i = index" class="nav-item fs-4">
+            <a (click)="marcarComoSelecionado(item.Nome)"
+            style="padding-right: 0px; padding-left: 0px;"
+            class="nav-link active d-flex" href="{{item.Link}}" [ariaDisabled]="!item.Ativo" >
+              <span id="{{item.Nome}}" class="pb-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+              {{item.Nome.toLocaleUpperCase()}}
+              </span>
+              <span *ngIf="menu.length != i+1 && !isMobile" class="ms-4 me-4">
+                |
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
 <div>
   <router-outlet></router-outlet>
-
 </div>

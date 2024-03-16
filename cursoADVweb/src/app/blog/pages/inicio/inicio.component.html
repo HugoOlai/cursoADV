@@ -1,13 +1,15 @@
-<div id="carouselExampleDark" class="carousel carousel-dark slide">
-  <div class="carousel-indicators">
+<div id="carouselExampleDark" class="carousel slide">
+  <div class="carousel-indicators" >
     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
   <div class="carousel-inner">
-    <div class="carousel-item active" data-bs-interval="10000">
-      <img src="../../../../assets/imgs/bannerrotativo1.png" class="d-block w-100" alt="...">
-    </div>
+    @for(banner of ListaBanners; track banner; let i = $index){
+      <div class="carousel-item {{i==0?'active':''}}">
+        <img src="{{banner.src}}" class="d-block w-100" alt="...">
+      </div>
+    }
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -17,4 +19,62 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
+</div>
+
+<div class="col-12 d-flex flex-wrap" [style]="isMobile? 'margin-top: 5rem !important;':'padding-left: 3rem !important; margin-top: 5rem !important;'">
+  <div class="col-sm-12 col-md-6 col-lg-6 defineFont {{isMobile? 'mx-3':'pe-5'}}">
+    <h1 class="" style="color:#EE5b54"> <strong style="font-size: 33px;">O CENTRO PROINF</strong></h1>
+    <p class="fs-5 mt-4" style="text-align: justify; line-height:1.5">
+      A ProInf emerge como um farol de excelência e
+      inovação no campo da proteção à infância e
+      juventude, dedicando-se a capacitar aqueles
+      que desejam fazer a diferença. Inspirada na
+      cooperação em rede, a ProInf não é apenas um
+      centro de estudos; é um movimento para
+      fortalecer o ensino jurídico com foco na
+      proteção infantojuvenil, superando barreiras
+      de incompreensão para tecer uma rede de
+      conhecimento, apoio e ação conjunta.</p>
+      <div class="col-12 align-self-center d-flex justify-content-start mt-3">
+        <button class="w-100" type="button"
+        class="overlay-layer btn btn-sm btn-outline-dark icon-button d-flex text-start shadow-sm rounded">
+          <i style="font-size: 46px;" class="material-icons me-2">perm_identity</i>
+          <strong class="defineFontBtns ps-2 pt-1" style="font-size: 25px;">
+            Conheça nossa equipe...
+          </strong>
+          <img src="../../../../assets/imgs/setaVermelha.png" height="40">
+        </button>
+      </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-6 {{isMobile? 'mx-3 mt-3':''}}">
+    <img src="../../../../assets/imgs/quem somos inicio.png" class="" height="{{isMobile?'450':'600'}}">
+
+  </div>
+</div>
+
+<div class="col-12 d-flex flex-wrap {{isMobile?'':'px-5'}}"  [style]="isMobile? 'margin-top: 5rem !important;':''">
+  <div class="col-sm-12 col-md-12 col-lg-12 defineFont {{isMobile? 'mx-3':'pe-5'}}">
+    <h1 class="" style="color:#EE5b54"> <strong style="font-size: 33px;">NOSSOS FUNDAMENTOS</strong></h1>
+    <p class="fs-5 mt-4" style="text-align: justify; line-height:1.5">
+      Na busca por oferecer a mais completa e eficaz preparação para concursos na área de Defensoria
+      Pública, com foco especial no Direito da Criança e do Adolescente, estabelecemos três pilares
+      fundamentais que norteiam todo o nosso processo educacional. Estes pilares são projetados para
+      garantir não apenas a absorção do conteúdo necessário, mas também para desenvolver uma
+      compreensão profunda e aplicada do material.</p>
+  </div>
+  <div class="col-12 d-flex flex-wrap justify-content-center">
+    <div class="col-sm-12 col-md-4 col-lg-4 container {{isMobile? 'mx-3 mt-3':'pe-2'}}">
+      <img src="../../../../assets/imgs/fundamento 1.png" class="image" height="350" width="100%">
+      <p class="text defineFont"><strong><h1 class="text-center">ESPECIALIZAÇÃO PROFUNDA EM ECA</h1></strong></p>
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-4 container {{isMobile? 'mx-3 mt-3':'pe-2'}}">
+      <img src="../../../../assets/imgs/fundamento 2.png" class="image" height="350" width="100%">
+      <p class="text defineFont"><strong><h1 class="text-center">METODOLOGIA INOVADORA</h1></strong></p>
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-4 container {{isMobile? 'mx-3 mt-3':'pe-2'}}">
+      <img src="../../../../assets/imgs/fundamento 3.png" class="image" height="350" width="100%">
+      <p class="text defineFont"><strong><h1 class="text-center">SUPORTE PERSONALIZADO E COMUNIDADE</h1></strong></p>
+    </div>
+
+  </div>
 </div>

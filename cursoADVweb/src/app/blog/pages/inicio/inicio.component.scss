@@ -1,0 +1,19 @@
+.container {
+  position: relative;
+}
+
+.image {
+  display: block;
+  width: 100%;
+}
+
+.text {
+  position: absolute;
+  transform: translate(-50%, -50%); /* tcharaaaaaannnnn */
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+
+  color:azure;
+  padding: 1rem;
+}

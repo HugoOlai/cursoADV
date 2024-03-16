@@ -6,6 +6,7 @@
   --vermelhoProInf: #842723;
   --bs-link-color: #842723;
   --bs-link-hover-color: #e64944;
+  --laranja: #ed8f00
 }
 
 .defineCorBar{
@@ -45,7 +46,31 @@
 
 .navbar {
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(132,39,35, 1), 37, 41, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
 
+.carousel-control-next-icon {
+  background-image: url('./assets/imgs/seta\ 2.png');
+}
+
+.carousel-control-prev-icon {
+  background-image: url('./assets/imgs/seta\ 1.png');
+
+}
+
+.carousel-indicators [data-bs-target] {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+
+.carousel-indicators .active {
+  background-color: var(--laranja);
+}
+
+
+.carousel-control, .carousel-control:hover {
+  opacity: 0;
+  color: #fdfdfd;
 }
 
 html, body { height: 100%; }
@@ -92,7 +117,10 @@ body { background-color: #fdfdfd;
   padding-right: 69px;
 }
 
-
+.escala {
+  transform: scale(0.7, 0.7);
+  transform-origin: left top;
+}
 
 
 .mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {

@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 :root{
+  --ver-img: none;
+  --define-tamanho: 0;
   --mdc-outlined-text-field-focus-label-text-color: #842723;
   --mat-icon-color: rgb(255, 255, 255);
   --bs-box-shadow-sm: 0 0.225rem 0.25rem rgba(0, 0, 0, 0.095);
@@ -11,6 +13,10 @@
 
 .defineCorBar{
   background-color: #ffedeb !important;
+}
+
+.fundoRosa{
+  background-color: #FFEDEB;
 }
 
 .btn-warning {
@@ -42,6 +48,23 @@
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+}
+
+.btn-danger {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #e64944;
+  --bs-btn-border-color: #842723;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #842723;
+  --bs-btn-hover-border-color: #842723;
+  --bs-btn-focus-shadow-rgb: 225, 83, 97;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #842723;
+  --bs-btn-active-border-color: #842723;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #842723;
+  --bs-btn-disabled-border-color: #842723;
 }
 
 .navbar {
@@ -98,18 +121,143 @@ body { background-color: #fdfdfd;
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Open SansBold';
+  src: url('assets/fonts/OpenSans_Condensed-ExtraBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.defineFontBtns{
+  font-family: Gordita !important;
+}
+
+.defineFont{
+  font-family: Open Sans !important;
+}
+
+.defineFontBold{
+  font-family: Open SansBold !important;
+}
+
+.dataCard{
+  position: absolute;
+  z-index: 2;
+  background-color: #fdfdfd;
+  width: 49px;
+  padding: 6px;
+  border-radius: 6px;
+  justify-content: center;
+  display: grid;
+}
+
+// .imagensQueViram {
+
+//   &__Primeira {
+//     display: block;
+//     // transform: scalex(1);
+//     // transition: transform 1s;
+//     &:hover{
+//       animation-duration: 1s;
+//       animation-name: vira;
+//       // display: none;
+//       // transform: scalex(0);
+//     }
+//   }
+
+//   &__Segunda{
+//     display: none;
+//     transform: scalex(0);
+
+//   }
+
+//   &__Terceiro{
+//     animation-duration: 2s;
+//     animation-name: desvira;
+//     display: block;
+
+//     // transform: scalex(1);
+//     // transition: transform 1s;
+
+//   }
+//   // &__Primeira {
+//   //   transform: scalex(1);
+//   //   transition: transform 1s;
+
+//   //   &:hover{
+//   //     --ver-img: block;
+//   //     --define-tamanho: 1;
+//   //     transform: scalex(0);
+//   //   }
+//   // }
+// }
+
+.virar{
+  animation-duration: 1s;
+  animation-name: vira;
+}
+
+.desVirar{
+  animation-duration: 1s;
+  animation-name: desvira;
+}
+
+@keyframes vira {
+  from{
+    transform: scalex(1);
+  }
+  to{
+    transform: scalex(0);
+
+  }
+}
+
+@keyframes desvira {
+  from{
+    transform: scalex(0);
+  }
+  to{
+    transform: scalex(1);
+
+  }
+}
+
+.pequeno{
+  animation-duration: 1s;
+  animation-name: diminuir;
+}
+
+.grande{
+  animation-duration: 1s;
+  animation-name: aumentar;
+}
+
+@keyframes diminuir {
+  from{
+    transform: scale(1);
+  }
+  to{
+    transform: scale(0.5);
+
+  }
+}
+
+@keyframes aumentar {
+  from{
+    transform: scale(0.5);
+  }
+  to{
+    transform: scale(1);
+
+  }
+}
+
 .mat-mdc-form-field{
   width: 100%;
 
 }
 
-.defineFontBtns{
-  font-family: Gordita;
-}
 
-.defineFont{
-  font-family: Open Sans;
-}
 
 .main{
   margin-top: 44px;

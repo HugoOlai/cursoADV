@@ -151,47 +151,6 @@ body { background-color: #fdfdfd;
   display: grid;
 }
 
-// .imagensQueViram {
-
-//   &__Primeira {
-//     display: block;
-//     // transform: scalex(1);
-//     // transition: transform 1s;
-//     &:hover{
-//       animation-duration: 1s;
-//       animation-name: vira;
-//       // display: none;
-//       // transform: scalex(0);
-//     }
-//   }
-
-//   &__Segunda{
-//     display: none;
-//     transform: scalex(0);
-
-//   }
-
-//   &__Terceiro{
-//     animation-duration: 2s;
-//     animation-name: desvira;
-//     display: block;
-
-//     // transform: scalex(1);
-//     // transition: transform 1s;
-
-//   }
-//   // &__Primeira {
-//   //   transform: scalex(1);
-//   //   transition: transform 1s;
-
-//   //   &:hover{
-//   //     --ver-img: block;
-//   //     --define-tamanho: 1;
-//   //     transform: scalex(0);
-//   //   }
-//   // }
-// }
-
 .virar{
   animation-duration: 1s;
   animation-name: vira;
@@ -223,18 +182,30 @@ body { background-color: #fdfdfd;
 }
 
 .pequeno{
-  animation-duration: 1s;
-  animation-name: diminuir;
+  // animation-duration: 1s;
+  // animation-name: diminuir;
+  // -webkit-animation-duration:1s;
+  // -webkit-animation-iteration-count:1;
+  // -webkit-animation-delay:0.5s;
+  // -webkit-animation-fill-mode: forwards;
+  transform: scale(0.7);
+
 }
 
 .grande{
-  animation-duration: 1s;
-  animation-name: aumentar;
+  // animation-duration: 1s;
+  // animation-name: aumentar;
+  // -webkit-animation-duration:1s;
+  // -webkit-animation-iteration-count:initial;
+  // -webkit-animation-delay:0.5s;
+  // -webkit-animation-fill-mode: forwards;
+  transform: scale(1);
+
 }
 
 @keyframes diminuir {
   from{
-    transform: scale(1);
+    //transform: scale(1);
   }
   to{
     transform: scale(0.5);
@@ -244,7 +215,7 @@ body { background-color: #fdfdfd;
 
 @keyframes aumentar {
   from{
-    transform: scale(0.5);
+    // transform: scale(0.5);
   }
   to{
     transform: scale(1);

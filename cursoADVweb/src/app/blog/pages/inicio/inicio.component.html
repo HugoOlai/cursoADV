@@ -243,14 +243,26 @@
         </strong>
       </h1>
     </div>
-    <div class="row">
+    <div class="row" style="margin-top: 6rem !important">
       <div class="containerSlide justify-content-center d-flex">
-        <img (click)="direita()" src="../../../../assets/imgs/seta 2.png" class="setaDireita">
-        <img (click)="esquerda()" src="../../../../assets/imgs/seta 1.png" class="setaEsquerda">
+        <div (click)="direita()" class="setaDireita">
+          <span class="material-icons">
+          arrow_forward_ios
+          </span>
+        </div>
+        <div (click)="esquerda()" class="setaEsquerda">
+          <span class="material-icons">
+            arrow_back_ios
+            </span>
+        </div>
 
         @for(avaliacoes of ListaAvaliacoes; track avaliacoes; let i = $index){
           <div id="{{i}}" class="card {{avaliacoes.css}} m-1 mx-3" style="width: 18rem;">
-            <img class="card-img-top" src=".../100px180/" alt="Imagem de capa do card">
+            <div class="w-100 justify-content-center d-flex" style="position: relative; top: -74px;">
+              <div class="circle">
+                <img src="{{avaliacoes.src}}">
+              </div>
+            </div>
             <div class="card-body">
               <h5 class="card-title">{{avaliacoes.nome}}</h5>
               <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>

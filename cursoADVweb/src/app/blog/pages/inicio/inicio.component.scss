@@ -34,7 +34,6 @@
 
 .containerSlide {
   position: relative;
-  background: lightgray;
 }
 
 .setaDireita {
@@ -43,6 +42,7 @@
   height: 50px;
   right: 5px;    // 5px com relação à margem direita do elemento html (ou seja, se deslocando da direita - do elemento html - para a esquerda)
   top: 73px;
+  cursor: pointer;
 
 }
 
@@ -52,9 +52,31 @@
 
 .setaEsquerda{
   position: absolute;
+  cursor: pointer;
   width: 50px;
   height: 50px;
-  left: 20px;
+  left: 60px;
   top: 73px;
+}
 
+.setaEsquerda:hover{
+  color: rgb(204, 206, 207);
+}
+
+
+.circle {
+  background-color: #aaa;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: relative;
+  border: 10px solid white;
+}
+
+.circle img {
+  position: absolute;
+  top: -11%;
+  bottom: 0;
+  width: 100%;
 }

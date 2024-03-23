@@ -18,9 +18,9 @@ export class InicioComponent implements OnInit {
   sumiritem = false;
 
   ListaAvaliacoes: Array<any> = [
-    {nome: 'Hugo', css:'pequeno', src:'https://img.freepik.com/fotos-gratis/designer-trabalhando-no-modelo-3d_23-2149371896.jpg?size=626&ext=jpg&ga=GA1.1.735520172.1710633600&semt=sph'},
-    {nome: 'Vanessa', css:'grande', src:'https://valentinahair.com.br/web/wp-content/uploads/2022/05/DUDA-1B.jpg'},
-    {nome: 'Bruno', css:'pequeno', src:'../../../../assets/imgs/a.png'},
+    {nome: 'Luff D Monkey', css:'pequeno', src:'https://img.freepik.com/fotos-gratis/designer-trabalhando-no-modelo-3d_23-2149371896.jpg?size=626&ext=jpg&ga=GA1.1.735520172.1710633600&semt=sph'},
+    {nome: 'Ivankov Inperatris', css:'grande', src:'https://valentinahair.com.br/web/wp-content/uploads/2022/05/DUDA-1B.jpg'},
+    {nome: 'Bruno O Mestre', css:'pequeno', src:'../../../../assets/imgs/a.png'},
   ]
 
   ListaBannersCursos: any = [
@@ -118,16 +118,25 @@ export class InicioComponent implements OnInit {
 
   esquerda(){
     console.log(this.ListaAvaliacoes)
-    var lista:any = [];
-    var cont = 0
-    this.ListaAvaliacoes.reverse().forEach((element:any) => {
-      if(cont > 0){
-        lista.push(element);
+    var lista:Array<any> = [];
+    var cont = 0;
+
+    this.ListaAvaliacoes.forEach(avaliacao => {
+        console.log(cont)
+
+      if(cont == 0){
+        avaliacao.css = 'grande'
+        lista.push(avaliacao)
+      }else if(cont == 1){
+        avaliacao.css = 'pequeno'
+        lista.push(avaliacao)
+      }else{
+        avaliacao.css = 'pequeno'
+        lista.unshift(avaliacao)
       }
       cont++
-    });
+    })
 
-    lista.push(this.ListaAvaliacoes[0])
     this.ListaAvaliacoes = lista;
     console.log(this.ListaAvaliacoes)
 

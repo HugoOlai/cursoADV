@@ -1,5 +1,5 @@
 <div *ngIf="!isMobile">
-  <ul class="nav {{isMobile? 'flex-column ms-3':'justify-content-center'}} mt-5">
+  <ul class="nav {{isMobile? 'flex-column ms-3':''}} mt-5" [style]="isMobile?'':'padding-left: 7rem;'">
     <li *ngFor="let item of menu; let i = index" class="nav-item fs-4">
       <a (click)="marcarComoSelecionado(item.Nome)"
       style="padding-right: 0px; padding-left: 0px;"
@@ -48,4 +48,52 @@
 
 <div>
   <router-outlet></router-outlet>
+</div>
+
+<div class="w-100 mt-5 p-5 d-flex flex-wrap" style="background-color: #ee5b54; color: white;">
+  <div class="col-sm-12 col-md-3 col-lg-3 ps-4">
+    <div class="col-sm-6 col-md-12">
+      <img src="../../assets/imgs/logoH.png" alt="" height="70">
+    </div>
+    <div class="col-sm-6 col-md-12 mt-4 defineFontGordita fs-5 ">
+      Um centro de estudos e
+      capacitação de pessoas
+      que atuam ou pretendem
+      atuar na área da proteção
+      infantojuvenil.
+
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-6 d-flex flex-wrap pt-5">
+    <div class="col-sm-12 col-md-6 col-lg-6" [style]="isMobile?'':'padding-left: 6rem !important;'">
+      <div class="flex-wrap">
+        <h3>
+          <strong class="defineFontGordita">MENU</strong>
+        </h3>
+        <h4> Início </h4>
+        <h4> Quem somos </h4>
+        <h4> Nótícias </h4>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-6" [style]="isMobile?'':'padding-left: 2rem !important;'">
+      <div class="flex-wrap">
+        <h3>
+          <strong class="defineFontGordita">CURSOS</strong>
+        </h3>
+        <h4> Direito da Criança e Adolescente </h4>
+        <h4> Grupo de Estudos </h4>
+        <h4> Fóruns </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-3 col-lg-3 pt-5" style="padding-left: 2rem !important;">
+    <div class="flex-wrap">
+      <h3>
+        <strong class="defineFontGordita">CONTATOS</strong>
+      </h3>
+      <h4> <img class="pe-1" src="../../assets/imgs/instagramBranco.png" alt="" height="25">{{'@centroproinf'}} </h4>
+      <h4> <img class="pe-1" src="../../assets/imgs/email.png" alt="" height="25">{{'centroproinf@gmail.com'}} </h4>
+    </div>
+  </div>
 </div>

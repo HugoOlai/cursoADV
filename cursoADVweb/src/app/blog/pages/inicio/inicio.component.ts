@@ -18,9 +18,38 @@ export class InicioComponent implements OnInit {
   sumiritem = false;
 
   ListaAvaliacoes: Array<any> = [
-    {nome: 'Luff D Monkey', css:'pequeno', src:'https://img.freepik.com/fotos-gratis/designer-trabalhando-no-modelo-3d_23-2149371896.jpg?size=626&ext=jpg&ga=GA1.1.735520172.1710633600&semt=sph'},
-    {nome: 'Ivankov Inperatris', css:'grande', src:'https://valentinahair.com.br/web/wp-content/uploads/2022/05/DUDA-1B.jpg'},
-    {nome: 'Bruno O Mestre', css:'pequeno', src:'../../../../assets/imgs/a.png'},
+    {
+      nome: 'Luff D Monkey',
+      estrelas:["","","","",""],
+      conteudo:`Com a orientação focada e o suporte do
+        grupo, consegui superar minhas
+        dificuldades. Fui aprovada na segunda fase
+        do concurso graças à metodologia e ao
+        ambiente de apoio que encontrei aqui`,
+     css:'pequeno',
+     src:'https://img.freepik.com/fotos-gratis/designer-trabalhando-no-modelo-3d_23-2149371896.jpg?size=626&ext=jpg&ga=GA1.1.735520172.1710633600&semt=sph'
+    },
+    {
+      nome: 'Ivankov Inperatris',
+      estrelas:["","","","",""],
+      conteudo:`Com a orientação focada e o suporte do
+        grupo, consegui superar minhas
+        dificuldades. Fui aprovada na segunda fase
+        do concurso graças à metodologia e ao
+        ambiente de apoio que encontrei aqui`,
+     css:'grande',
+     src:'https://valentinahair.com.br/web/wp-content/uploads/2022/05/DUDA-1B.jpg'
+    },
+    {
+      nome: 'Bruno O Mestre',
+      estrelas:["","","","",""],
+      conteudo:`Com a orientação focada e o suporte do
+        grupo, consegui superar minhas
+        dificuldades. Fui aprovada na segunda fase
+        do concurso graças à metodologia e ao
+        ambiente de apoio que encontrei aqui`,
+      css:'pequeno', src:'../../../../assets/imgs/a.png'
+    },
   ]
 
   ListaBannersCursos: any = [

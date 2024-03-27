@@ -36,6 +36,7 @@
 .setaDireita {
   position: absolute;
   width: 50px;
+  z-index: 2;
   height: 50px;
   right: 5px;    // 5px com relação à margem direita do elemento html (ou seja, se deslocando da direita - do elemento html - para a esquerda)
   top: 73px;
@@ -52,6 +53,7 @@
   cursor: pointer;
   width: 50px;
   height: 50px;
+  z-index: 2;
   left: 60px;
   top: 73px;
 }
@@ -64,6 +66,7 @@
 .circle {
   background-color: #aaa;
   border-radius: 50%;
+  z-index: 2;
   width: 150px;
   height: 150px;
   overflow: hidden;
@@ -76,4 +79,25 @@
   top: -11%;
   bottom: 0;
   width: 100%;
+}
+
+.cardMobile{
+  width: 100% !important;
+  display: block;
+}
+.cardMobilePequeno{
+  display: none;
+}
+
+.cardTelacheia{
+  width: 24rem;
+  border-radius: 12px;
+}
+
+.aspas {
+  font-size: 9rem;
+  position: absolute;
+  z-index: 2;
+  left: 269px;
+  color: #EE5b54;
 }

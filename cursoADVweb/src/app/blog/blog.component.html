@@ -1,5 +1,5 @@
-<div *ngIf="!isMobile">
-  <ul class="nav {{isMobile? 'flex-column ms-3':''}} mt-5" [style]="isMobile?'':'padding-left: 7rem;'">
+<div *ngIf="!isMobile" class="mb-5" >
+  <ul class="nav {{isMobile? 'flex-column ms-3':''}} mt-5" [style]="isMobile?'':'padding-left: 7rem;'" style=" padding-top: 10px;">
     <li *ngFor="let item of menu; let i = index" class="nav-item fs-4">
       <a (click)="marcarComoSelecionado(item.Nome)"
       style="padding-right: 0px; padding-left: 0px;"
@@ -51,7 +51,7 @@
 </div>
 
 <div class="w-100 mt-5 p-5 d-flex flex-wrap" style="background-color: #ee5b54; color: white;">
-  <div class="col-sm-12 col-md-3 col-lg-3 ps-4">
+  <div class="col-sm-12 col-md-3 col-lg-3 {{isMobile? '' : 'ps-4'}}">
     <div class="col-sm-6 col-md-12">
       <img src="../../assets/imgs/logoH.png" alt="" height="70">
     </div>
@@ -87,7 +87,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-12 col-md-3 col-lg-3 pt-5" style="padding-left: 2rem !important;">
+  <div class="col-sm-12 col-md-3 col-lg-3 pt-5" [style]="isMobile?'' : 'padding-left: 2rem !important;'">
     <div class="flex-wrap">
       <h3>
         <strong class="defineFontGordita">CONTATOS</strong>

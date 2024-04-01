@@ -20,13 +20,14 @@
 
 .imagemDeFundo{
   position: relative;
-  top: -38px;
-  transform: rotate(10deg);
+  top: 9px;
+  transform: rotate(14deg);
   opacity: 0.3;
-  left: 15%;
-  background: url('../../../../assets/imgs/divideNoMeio.png') no-repeat;
-  width: 80%;
+  left: 11%;
+  background:  url('../../../../assets/imgs/divideNoMeio.png') no-repeat;
+  width: 76%;
   height: 600px;
+  scale: 1.19;
 }
 
 .containerSlide {
@@ -39,7 +40,7 @@
   z-index: 2;
   height: 50px;
   right: 5px;    // 5px com relação à margem direita do elemento html (ou seja, se deslocando da direita - do elemento html - para a esquerda)
-  top: 73px;
+  top: 150px;
   cursor: pointer;
 
 }
@@ -54,8 +55,8 @@
   width: 50px;
   height: 50px;
   z-index: 2;
-  left: 60px;
-  top: 73px;
+  left: 34px;
+  top: 150px;
 }
 
 .setaEsquerda:hover{

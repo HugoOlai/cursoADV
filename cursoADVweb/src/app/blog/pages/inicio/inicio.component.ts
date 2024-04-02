@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Util } from '../../../class/util.class';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -66,7 +67,9 @@ export class InicioComponent implements OnInit {
   carouselConteudo: string = '';
   isMobile = Util.isMobile();
   contador = 0;
-  constructor() { }
+  constructor(
+    public router: Router
+  ) { }
 
   ngOnInit() {
     this.ListaBanners.forEach((banners: any) => {

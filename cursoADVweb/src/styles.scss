@@ -38,6 +38,11 @@
   --bs-btn-disabled-border-color: #ffc107;
 }
 
+.contemPaginas{
+  padding-left: 7rem;
+  padding-right: 7rem;
+}
+
 .nav {
   --bs-nav-link-padding-x: 1rem;
   --bs-nav-link-padding-y: 0.5rem;
@@ -239,12 +244,21 @@ body { background-color: #fdfdfd;
 
 }
 
+.fontTitulo{
+  color: #EE5b54;
+  font-size: 40px;
+}
 
+.fontTitulo2{
+  color: #EE5b54;
+  font-size: 33px;
+}
 
 .main{
   margin-top: 44px;
   padding-left: 69px;
   padding-right: 69px;
+  width: 100%;
 }
 
 .escala {

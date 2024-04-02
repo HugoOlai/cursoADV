@@ -36,7 +36,7 @@
       de incompreensão para tecer uma rede de
       conhecimento, apoio e ação conjunta.</p>
       <div class="col-12 align-self-center d-flex justify-content-start mt-3">
-        <button type="button"
+    <button type="button" (click)="router.navigate(['blog/quemSomos'])"
         class="{{isMobile? 'w-100':'ps-3'}} justify-content-center overlay-layer btn btn-sm btn-outline-dark icon-button d-flex text-start shadow-sm rounded">
           <strong class="defineFontBtns ps-2 pt-1" style="font-size: 25px;">
             Conheça nossa equipe...
@@ -131,7 +131,7 @@
 
 <div class="w-100 fundoRosa ">
   <div class="col-12 {{isMobile? 'px-3':''}}" style="position: relative; top: 27px;" [style]="isMobile?'':'padding-right: 6rem !important; padding-left: 6rem !important;'">
-    <h1 class="" style="color: #EE5b54; font-size: 40px;"><strong>COMECE A ESTUDAR</strong></h1>
+    <h1><strong class="fontTitulo">COMECE A ESTUDAR</strong></h1>
 
     <h3 class="defineFont pt-3 pb-3" style="font-size: 23px;">Veja agora os nossos cursos disponíveis</h3>
 

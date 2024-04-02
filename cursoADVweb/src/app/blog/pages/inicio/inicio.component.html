@@ -38,23 +38,23 @@
       <div class="col-12 align-self-center d-flex justify-content-start mt-3">
     <button type="button" (click)="router.navigate(['blog/quemSomos'])"
         class="{{isMobile? 'w-100':'ps-3'}} justify-content-center overlay-layer btn btn-sm btn-outline-dark icon-button d-flex text-start shadow-sm rounded">
-          <strong class="defineFontBtns ps-2 pt-1" style="font-size: 25px;">
+          <strong class="defineFontBtns ps-2 pt-1" style="font-size: 24px;">
             Conheça nossa equipe...
           </strong>
           <img src="../../../../assets/imgs/setaVermelha.png" height="40">
         </button>
       </div>
   </div>
-  <div class="col-sm-12 col-md-6 col-lg-6 {{isMobile? 'mt-3':''}}">
-    <img src="../../../../assets/imgs/quem somos inicio.png" class="" height="{{isMobile?'450':'600'}}">
+  <div class=" {{isMobile? 'mt-3 col-12':'col-6'}}">
+    <img src="../../../../assets/imgs/quem somos inicio.png" class="" height="{{isMobile?'390':'600'}}">
 
   </div>
 </div>
 
 <div class="imagensQueViram col-12 d-flex flex-wrap {{isMobile?'':'px-5'}}"  [style]="isMobile? 'margin-top: 5rem !important;':'padding-left: 5rem !important; '">
-  <div class="col-sm-12 col-md-12 col-lg-12 defineFont {{isMobile? 'mx-3':'pe-5'}}">
+  <div class=" defineFont {{isMobile? 'mx-3':'pe-5'}}">
     <h1 class="" style="color:#EE5b54"> <strong style="font-size: 33px;">NOSSOS FUNDAMENTOS</strong></h1>
-    <p class="fs-5 mt-4" style="text-align: justify; line-height:1.5">
+    <p class="fs-5 mt-4 formataParagrafos">
       Na busca por oferecer a mais completa e eficaz preparação para concursos na área de Defensoria
       Pública, com foco especial no Direito da Criança e do Adolescente, estabelecemos três pilares
       fundamentais que norteiam todo o nosso processo educacional. Estes pilares são projetados para
@@ -166,9 +166,9 @@
       notifications_none
     </span>
 
-    <div style="font-size: 3.5rem !important;" class=" mt-1 fs-1 pt-2 mx-4"> | </div>
+    <div style="font-size: 3.5rem !important;" class=" mt-1 fs-1 pt-2 {{isMobile? 'ms-2':'mx-4'}}"> | </div>
   </div>
-  <div class="col fs-1 defineFont {{isMobile? 'ps-5':''}}" style="margin-top: 2.3rem !important;">
+  <div class="col fs-1 defineFont {{isMobile? 'ps-4':''}}" style="margin-top: 2.3rem !important;">
     <strong>
       ÚLTIMAS NOTÍCIAS
     </strong>
@@ -198,7 +198,7 @@
             <div class="w-100 d-flex">
               <div class="fs-3 pe-3 mt-2" style="color: #EE5b54;">
                 @if (isMobile) {
-                  .....................................
+                  .............................
                 } @else {
                   .....................................................
 
@@ -271,7 +271,7 @@
               <div class="circle">
                 <img src="{{avaliacoes.src}}">
               </div>
-              <span class="material-icons aspas">
+              <span class="material-icons {{isMobile?'aspasMobile':'aspas'}} ">
                 format_quote
               </span>
               <div class="w-100 text-center">

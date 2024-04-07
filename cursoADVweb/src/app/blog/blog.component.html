@@ -1,5 +1,5 @@
-<div *ngIf="!isMobile" class="mb-5" >
-  <ul class="nav {{isMobile? 'flex-column ms-3':''}} mt-5" [style]="isMobile?'':'padding-left: 7rem;'" style=" padding-top: 10px;">
+<div *ngIf="!isMobile" class="mb-5 d-flex justify-content-center" >
+  <ul class="nav {{isMobile? 'flex-column ms-3':''}} mt-5" style=" padding-top: 10px;">
     <li *ngFor="let item of menu; let i = index" class="nav-item fs-4">
       <a (click)="marcarComoSelecionado(item.Nome)"
       style="padding-right: 0px; padding-left: 0px;"

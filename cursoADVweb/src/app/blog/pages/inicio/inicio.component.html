@@ -45,14 +45,14 @@
         </button>
       </div>
   </div>
-  <div class=" {{isMobile? 'mt-3 col-12':'col-6'}}">
+  <div class=" d-flex justify-content-center {{isMobile? 'mt-3 col-12':'col-6'}}">
     <img src="../../../../assets/imgs/quem somos inicio.png" class="" height="{{isMobile?'390':'600'}}">
 
   </div>
 </div>
 
-<div class="imagensQueViram col-12 d-flex flex-wrap {{isMobile?'':'px-5'}}"  [style]="isMobile? 'margin-top: 5rem !important;':'padding-left: 5rem !important; '">
-  <div class=" defineFont {{isMobile? 'mx-3':'pe-5'}}">
+<div class="imagensQueViram col-12 d-flex flex-wrap {{isMobile?'':'px-5'}}"  [style]="isMobile? 'margin-top: 5rem !important;':'padding-bottom: 11rem;'">
+  <div class=" defineFont {{isMobile? 'mx-3':''}}">
     <h1 class="" style="color:#EE5b54"> <strong style="font-size: 33px;">NOSSOS FUNDAMENTOS</strong></h1>
     <p class="fs-5 mt-4 formataParagrafos">
       Na busca por oferecer a mais completa e eficaz preparação para concursos na área de Defensoria
@@ -61,77 +61,91 @@
       garantir não apenas a absorção do conteúdo necessário, mas também para desenvolver uma
       compreensão profunda e aplicada do material.</p>
   </div>
-  <div class="w-100 d-flex flex-wrap justify-content-center">
-    <div (mouseover)="isMobile?'':virar(1)" (mouseout)="isMobile?'':desVirar(1)" (click)="vira? desVirar(1):virar(1)" class="col-sm-12 col-md-4 col-lg-4">
-      <div [style]="vira?'display: none;':'display: block;'" style="position: relative;" class="w-100 {{vira? 'virar': 'desVirar'}} {{isMobile? 'mt-3':'pe-2'}} ">
-        <img src="../../../../assets/imgs/fundamento 1.png" class="image" height="350" width="100%">
-        <h1 class="text-center">
-          <p class="text defineFont" style="width: 60%;">
-            <strong>ESPECIALIZAÇÃO PROFUNDA EM ECA</strong>
-          </p>
-          </h1>
-      </div>
-      <div [style]="!vira?'display: none;':'display: block;'" style="position: relative;" (click)="!vira? desVirar(1):virar(1)" class="w-100 {{vira? 'desVirar': 'virar'}} {{isMobile? 'mt-3':'pe-2'}}">
-        <img src="../../../../assets/imgs/fundamento 1.png" class="image" height="350" width="100%">
-        <h4 class="text-center">
-          <p class="text defineFont" style="width: 60%;">
-            <strong>{{texto.toLocaleUpperCase()}}</strong>
-          </p>
-          </h4>
-      </div>
-    </div>
-    <div (mouseover)="isMobile?'':virar(2)" (mouseout)="isMobile?'':desVirar(2)" (click)="vira? desVirar(2):virar(2)" class="col-sm-12 col-md-4 col-lg-4">
-      <div [style]="vira2?'display: none;':'display: block;'" style="position: relative;" class=" w-100 {{vira2? 'virar': 'desVirar'}} {{isMobile? 'mt-3':'pe-2'}}">
-        <img src="../../../../assets/imgs/fundamento 2.png" class="image" height="350" width="100%">
-        <h1 class="text-center">
-          <p class="text defineFont" style="width: 60%;">
-            <strong>METODOLOGIA INOVADORA</strong>
-          </p>
-        </h1>
-      </div>
-      <div  [style]="!vira2?'display: none;':'display: block;'" style="position: relative;" class=" w-100 {{vira2? 'desVirar': 'virar'}} {{isMobile? 'mt-3':'pe-2'}}">
-        <img src="../../../../assets/imgs/fundamento 2.png" class="image" height="350" width="100%">
-        <h4 class="text-center">
-          <p class="text defineFont" style="width: 60%;">
-            <strong>{{texto2.toLocaleUpperCase()}}</strong>
-          </p>
-        </h4>
+  <div class="w-100 d-flex flex-wrap justify-content-center" style="padding-right: 4rem;">
+    <div class="d-flex justify-content-center {{isMobile? 'col-12':'col-4'}}" [style]="isMobile?'padding-bottom: 10rem;':''">
+      <div class="flip-container">
+        <div class="flipper">
+          <div class="front">
+            <img src="assets/imgs/fundamento 1.png" style="width: 23rem; object-fit: contain;" height="350" />
+            <h1 class="text-center" style="top: -10rem; left: 3rem; position: relative;">
+              <p class="text defineFont" style="width: 60%;">
+                <strong>ESPECIALIZAÇÃO PROFUNDA EM ECA</strong>
+              </p>
+            </h1>
+          </div>
+          <div class="back">
+            <img src="assets/imgs/fundamento 1.png" style="width: 23rem; object-fit: contain;" height="350" />
+            <h4 class="text-center" style="top: -10rem; left: 3rem; position: relative;">
+              <p class="text defineFont" style="width: 90%;">
+                <strong>{{texto.toLocaleUpperCase()}}</strong>
+              </p>
+            </h4>
+          </div>
+        </div>
       </div>
     </div>
-    <div (mouseover)="isMobile?'':virar(3)" (mouseout)="isMobile?'':desVirar(3)" (click)="vira? desVirar(3):virar(3)" class="col-sm-12 col-md-4 col-lg-4">
-      <div [style]="vira3?'display: none;':'display: block;'" style="position: relative;" class=" w-100 {{vira3? 'virar': 'desVirar'}} {{isMobile? 'mt-3':'pe-2'}}">
-        <img src="../../../../assets/imgs/fundamento 3.png" class="image" height="350" width="100%">
-        <h1 class="text-center">
-          <p class="text defineFont" style="width: 60%;">
-            <strong>SUPORTE PERSONALIZADO E COMUNIDADE</strong>
-          </p>
-        </h1>
+
+    <div class="d-flex justify-content-center {{isMobile? 'col-12':'col-4'}}" [style]="isMobile?'padding-bottom: 10rem;':''">
+      <div class="flip-container">
+        <div class="flipper">
+          <div class="front">
+            <img src="assets/imgs/fundamento 2.png" style="width: 23rem; object-fit: contain;" height="350" />
+            <h1 class="text-center" style="top: -10rem; left: 3rem; position: relative;">
+              <p class="text defineFont" style="width: 60%;">
+                <strong>METODOLOGIA INOVADORA</strong>
+              </p>
+            </h1>
+          </div>
+          <div class="back">
+            <img src="assets/imgs/fundamento 2.png" style="width: 23rem; object-fit: contain;" height="350" />
+            <h4 class="text-center" style="top: -10rem; left: 3rem; position: relative;">
+              <p class="text defineFont" style="width: 90%;">
+                <strong>{{texto2.toLocaleUpperCase()}}</strong>
+              </p>
+            </h4>
+          </div>
+        </div>
       </div>
-      <div [style]="!vira3?'display: none;':'display: block;'" style="position: relative;" class=" w-100 {{vira3? 'desVirar': 'virar'}} {{isMobile? 'mt-3':'pe-2'}}">
-        <img src="../../../../assets/imgs/fundamento 3.png" class="image" height="350" width="100%">
-        <h4 class="text-center">
-          <p class="text defineFont" style="width: 60%;">
-            <strong>{{texto3.toLocaleUpperCase()}}</strong>
-          </p>
-        </h4>
+    </div>
+
+    <div class="d-flex justify-content-center {{isMobile? 'col-12':'col-4'}}" [style]="isMobile?'padding-bottom: 10rem;':''">
+      <div class="flip-container">
+        <div class="flipper">
+          <div class="front">
+            <img src="assets/imgs/fundamento 3.png" style="width: 23rem; object-fit: contain;" height="350" />
+            <h1 class="text-center" style="top: -11rem; left: 3rem; position: relative;">
+              <p class="text defineFont" style="width: 60%;">
+                <strong>SUPORTE PERSONALIZADO E COMUNIDADE</strong>
+              </p>
+            </h1>
+          </div>
+          <div class="back">
+            <img src="assets/imgs/fundamento 3.png" style="width: 23rem; object-fit: contain;" height="350" />
+            <h4 class="text-center" style="top: -11rem; left: 3rem; position: relative;">
+              <p class="text defineFont" style="width: 90%;">
+                <strong>{{texto3.toLocaleUpperCase()}}</strong>
+              </p>
+            </h4>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="w-100 d-flex justify-content-center mt-5 fundoRosa">
-  <div class="col-8 col-sm-8 col-md-3 col-lg-3 d-flex" [style]="isMobile? 'left: -31px;':'left: -24px;'" style="top: -24px; position: relative;" >
+<div class="w-100 d-flex justify-content-center mt-5 ">
+  <div class="col-8 col-sm-8 col-md-3 col-lg-3 d-flex justify-content-center" style="top: 24px; position: relative;" >
     <div style="border-style: solid none none none; border-color: #ed8f00;" class="me-4 mt-4 col-5"></div>
-    <div class=" col-3">
-      <img src="../../../../assets/imgs/divideNoMeio.png" class="image" height="50">
+    <div class="{{isMobile?'col-4':'col-3'}}">
+      <img src="../../../../assets/imgs/divideNoMeio.png" class="" height="50">
     </div>
     <div style="border-style: solid none none none; border-color: #ed8f00" class="ms-4 mt-4 col-5"></div>
   </div>
 </div>
 
-<div class="w-100 fundoRosa ">
+<div class="w-100 fundoRosa pt-5 ">
   <div class="col-12 {{isMobile? 'px-3':''}}" style="position: relative; top: 27px;" [style]="isMobile?'':'padding-right: 6rem !important; padding-left: 6rem !important;'">
-    <h1><strong class="fontTitulo">COMECE A ESTUDAR</strong></h1>
+    <h1><strong class="fontTitulo2">COMECE A ESTUDAR</strong></h1>
 
     <h3 class="defineFont pt-3 pb-3" style="font-size: 23px;">Veja agora os nossos cursos disponíveis</h3>
 
@@ -183,12 +197,12 @@
               <div class="fs-6 pt-1">JUN</div>
             </div>
             <div class="col-md-12">
-              <img src="../../../../assets/imgs/fundamento 3.png" style="border-radius: 6px;" class="img-fluid rounded-start" >
+              <img src="../../../../assets/imgs/crinaçasNaMesa.png" height="50" width="100%" style="border-radius: 6px;" class="img-fluid rounded-start" >
             </div>
           </div>
           <div class="col-md-6 p-3">
             <div class="" style="border-radius: 6px;">
-              <p class="mt-4" style="text-align: justify; line-height:1.5; font-size: 2.10rem !important;">Lei 10.639/03: pesquisa inédita
+              <p class="{{ isMobile?'mt-2':'' }}" style="text-align: justify; line-height:1.5; font-size: 1.8rem !important;">Lei 10.639/03: pesquisa inédita
                 traz práticas inspiradoras de seis
                 municípios que promovem o
                 ensino de história e cultura
@@ -230,17 +244,17 @@
 
 </div>
 
-<div class="w-100 d-flex justify-content-center mt-5 fundoRosa">
-  <div class="col-8 col-sm-8 col-md-3 col-lg-3 d-flex" [style]="isMobile? 'left: -31px;':'left: -24px;'" style="top: -24px; position: relative;" >
+<div class="w-100 d-flex justify-content-center mt-5 ">
+  <div class="col-8 col-sm-8 col-md-3 col-lg-3 d-flex justify-content-center" style="top: 24px; position: relative;" >
     <div style="border-style: solid none none none; border-color: #ed8f00;" class="me-4 mt-4 col-5"></div>
-    <div class=" col-3">
-      <img src="../../../../assets/imgs/divideNoMeio.png" class="image" height="50">
+    <div class="{{isMobile?'col-4':'col-3'}}">
+      <img src="../../../../assets/imgs/divideNoMeio.png" class="" height="50">
     </div>
     <div style="border-style: solid none none none; border-color: #ed8f00" class="ms-4 mt-4 col-5"></div>
   </div>
 </div>
 
-<div class="w-100 d-flex flex-wrap fundoRosa ">
+<div class="w-100 d-flex flex-wrap fundoRosa pt-5">
   <div class="imagemDeFundo" [style]="isMobile? 'width: 1px;':''"  >
 
   </div>
@@ -294,10 +308,10 @@
     </div>
   </div>
   <div class="w-100 d-flex justify-content-center mt-5 ">
-    <div class="col-8 col-sm-8 col-md-3 col-lg-3 d-flex" [style]="isMobile? 'left: -31px;':'left: -24px;'" style="top: 24px; position: relative;" >
+    <div class="col-8 col-sm-8 col-md-3 col-lg-3 d-flex justify-content-center" style="top: 24px; position: relative;" >
       <div style="border-style: solid none none none; border-color: #ed8f00;" class="me-4 mt-4 col-5"></div>
-      <div class=" col-3">
-        <img src="../../../../assets/imgs/divideNoMeio.png" class="image" height="50">
+      <div class="{{isMobile?'col-4':'col-3'}}">
+        <img src="../../../../assets/imgs/divideNoMeio.png" class="" height="50">
       </div>
       <div style="border-style: solid none none none; border-color: #ed8f00" class="ms-4 mt-4 col-5"></div>
     </div>

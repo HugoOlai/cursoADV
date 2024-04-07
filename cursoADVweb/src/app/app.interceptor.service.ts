@@ -15,7 +15,6 @@ export class AppInterceptor implements HttpInterceptor {
   constructor( public auth: AuthService, private router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('passei aqui ')
     req = req.clone({
       headers: req.headers
         .set("Content-Type", "application/json")
@@ -27,16 +26,15 @@ export class AppInterceptor implements HttpInterceptor {
         .set("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
     });
 
-    console.log(req)
     req = this.addAuthenticationToken(req);
 
     return next.handle(req).pipe(
       tap((event: HttpEvent<any>) => {
-        console.log('Sucesso:',event)
+        // console.log('Sucesso:',event)
 
       },
         (err: any) => {
-          console.log('Erro: :',err)
+          // console.log('Erro: :',err)
         }
       )
     );
@@ -45,7 +43,6 @@ export class AppInterceptor implements HttpInterceptor {
   private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
     this.token = this.auth.getToken();
 
-    console.log(this.token)
     // let objUsuario: any = {
     //   Email: '@teste',
     //   Sistema: 3,

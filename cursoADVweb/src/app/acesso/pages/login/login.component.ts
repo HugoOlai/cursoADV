@@ -47,14 +47,14 @@ export class LoginComponent implements OnInit {
     var item  = this.formularioCadastro.value;
     this.usuarioService.cadastrar(item).subscribe({
       next: (res)=>{
-        console.log({res: res})
+        // console.log({res: res})
       },
       error: (err)=>{
-        console.log({err: err})
+        // console.log({err: err})
 
       }
     })
-    console.log(item)
+    // console.log(item)
   }
 
   login(){
@@ -66,13 +66,12 @@ export class LoginComponent implements OnInit {
 
       }
 
-      console.log('logar')
     this.service.autenticar(teste).subscribe({
       next: (res)=>{
-        console.log(res)
+        // console.log(res)
 
       }, error: (err)=>{
-        console.log(err)
+        // console.log(err)
       }
     })
   }

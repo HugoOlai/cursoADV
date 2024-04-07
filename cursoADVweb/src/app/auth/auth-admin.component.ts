@@ -47,14 +47,14 @@ export class AuthAdminComponent implements OnInit {
       //Verificar email ou cpf
       if (param.indexOf("@") > -1) {
         let email: string = JSON.parse(param);
-        console.log(email)
+        // console.log(email)
         // if (!Util.isNullOrEmpty(email)) this.logar(email);
         // else
         //Toast.init("warning", "", msg.ERROR_500, true).then(() => this.goLogin());
       }
       else {
         let CPF: string = JSON.parse(param);
-        console.log(CPF)
+        // console.log(CPF)
         // if (!Util.isNullOrEmpty(CPF)) this.logar(CPF);
         // else
         // Toast.init("warning", "", msg.ERROR_500, true).then(() => this.goLogin());

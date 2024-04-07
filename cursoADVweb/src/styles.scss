@@ -13,12 +13,28 @@
   --laranja: #ed8f00
 }
 
+html {
+  --mat-paginator-container-text-color: rgba(255, 255, 255, 0.87);
+  --mat-paginator-container-background-color: #424242;
+  --mat-paginator-enabled-icon-color: rgba(255, 255, 255, 0.54);
+  --mat-paginator-disabled-icon-color: rgba(255, 255, 255, 0.12);
+  --mat-paginator-container-text-size: 17px;
+  --mat-select-panel-background-color: #dd4444;
+  --mat-paginator-enabled-icon-color: rgb(24 2 2 / 54%);
+}
+
+
 .defineCorBar{
   background-color: #ffedeb !important;
 }
 
 .fundoRosa{
   background-color: #FFEDEB;
+}
+
+.fundoLaranja{
+  background-color: #f1b04d;
+  color: #fdfdfd;
 }
 
 .btn-warning {
@@ -59,7 +75,7 @@
 
 .btn-danger {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #e64944;
+  --bs-btn-bg: #ee5b54;
   --bs-btn-border-color: #842723;
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: #842723;
@@ -195,6 +211,11 @@ body { background-color: #fdfdfd;
     transform: scalex(1);
 
   }
+}
+
+mat-paginator {
+  background-color: #ee5b54 !important;
+  font-size: 40px;
 }
 
 .pequeno{

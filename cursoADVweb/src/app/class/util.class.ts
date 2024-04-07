@@ -1,3 +1,4 @@
+
 // import moment from 'moment';
 // import { defineLocale } from "ngx-bootstrap/chronos";
 // import { ptBrLocale } from "ngx-bootstrap/locale";
@@ -10,5 +11,35 @@ static isMobile = () => {
   if (/Chrome/i.test(navigator.userAgent)) return false;
   return false;
 }
+
+static dataHoraFormatada(novaData: string){
+  // var mesDia = novaData.split('/');
+  // var anoHora = mesDia.length < 3? null : mesDia[2].split(' ');
+  // var novaString = anoHora == null? null : anoHora[0]+'/'+mesDia[1]+'/'+mesDia[0]+' '+anoHora[1];
+
+  var data = new Date(novaData),
+      dia  = data.getDate().toString(),
+      diaF = (dia.length == 1) ? '0'+dia : dia,
+      mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+      mesF = (mes.length == 1) ? '0'+mes : mes,
+      anoF = data.getFullYear(),
+      hora  = data.getHours().toString(),
+      horaF = (hora.length == 1) ? '0'+hora : hora,
+      min  = data.getMinutes().toString(),
+      minF = (min.length == 1) ? '0'+min : min;
+  return diaF+"/"+mesF+"/"+anoF+" | "+horaF+":"+minF+"h";
+}
+
+static dataFormatada(novaData: string){
+  var data = typeof(novaData) == 'object' ? novaData : new Date(novaData),
+      dia  = data.getDate().toString(),
+      diaF = (dia.length == 1) ? '0'+dia : dia,
+      mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+      mesF = (mes.length == 1) ? '0'+mes : mes,
+      anoF = data.getFullYear();
+  return diaF+"/"+mesF+"/"+anoF;
+}
+
+
 
 }

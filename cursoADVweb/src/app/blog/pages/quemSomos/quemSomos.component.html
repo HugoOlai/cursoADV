@@ -1,10 +1,11 @@
 <div >
-  <div class="w-100 d-flex flex-wrap fundoRosa defineFont" [style]="isMobile? '':'padding-left: 7rem;'">
+  <div class="w-100 d-flex flex-wrap fundoRosa defineFont"
+    [style]="isMobile? '':'padding-left: 7rem; height: 27.3rem;'">
     <div class="{{isMobile? 'col-12 px-3':'col-7'}}">
       <div class="col-12 pt-4 pb-4">
         <h1><strong class="fontTitulo2">O CENTRO PROINF</strong></h1>
       </div>
-      <div class="col-12">
+      <div class="col-12" *ngIf="true">
         <P class="fs-5 formataParagrafos" >
           A Proinf emerge com um farol de excelência e inovação no comapo da proteção à infância e juventude, dedicando-se a capacitar aqueles
           que desejam fazer a difeerença. <strong>Inspirada na cooperação em rede, a Proinf não é apenas um centro de estudos;</strong>
@@ -26,12 +27,12 @@
     </div>
 
     <div class="{{isMobile? 'col-12':'col-5'}} d-flex justify-content-end">
-      <img src="../../../../assets/imgs/site proinf quem somos e cursos/11.png" alt="" height="{{isMobile?'368':'500'}}">
+      <img [style]="isMobile? '' :'position: relative; top: -4rem;'" src="../../../../assets/imgs/site proinf quem somos e cursos/11.png" alt="" height="{{isMobile?'368':'500'}}">
     </div>
   </div>
   <div class=" flex-wrap {{isMobile? '':'contemPaginas'}}">
     <div id="no" class="w-100">
-      <div class="col-12 pt-4 pb-4 d-flex flex-wrap {{isMobile? 'ps-3':''}}">
+      <div class="col-12 pt-5 pb-4 d-flex flex-wrap {{isMobile? 'ps-3':''}}">
         <div class="w-100">
           <h1><strong class="fontTitulo2">Por que o nó?</strong></h1>
         </div>
@@ -150,7 +151,7 @@
             Defensor píblico renomado e professor apaixonado, cuja trajetória profissional é
             marcada pela dedicação aos direitos da criança e do adolescente. Formado em
             Direito, Bruno encontrou sua vocação na defesa pública, especializando-se na proteção
-            jurídica de menores em situação de vulnerabilidade.
+            jurídica de crianças e adolescentes em situação de vulnerabilidade.
             Complementando sua prática jurídica, ele seguiu o caminho acadêmico, tornando-se
             doutorando em Psicologia pela universidade de São Paulo (USP) em Riveirão Preto, com um foco em estudos
             que unem Direito e Psicologia na defesa dos direitos infantojuvenis. Com professor, Bruno compartilha seu vasto

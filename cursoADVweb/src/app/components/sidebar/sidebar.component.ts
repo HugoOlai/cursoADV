@@ -20,7 +20,7 @@ export class SidebarComponent implements OnInit {
   }
 
   buscar(){
-    console.log(this.pesquisa.value)
+    // console.log(this.pesquisa.value)
   }
 
 }

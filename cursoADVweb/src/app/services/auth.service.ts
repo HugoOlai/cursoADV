@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   autenticar(user: Auth) : Observable<any> {
-    console.log('autenticar')
+    // console.log('autenticar')
     return this.http.post(`${environment.baseUrl}/Autenticador`, user)
       .pipe(
         take(1),
@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   async getUserAsync() {
-    console.log('getUserAsync')
+    // console.log('getUserAsync')
     return await this.getUser();
   }
 

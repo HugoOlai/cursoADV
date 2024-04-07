@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { BlogComponent } from './blog.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { QuemSomosComponent } from './pages/quemSomos/quemSomos.component';
+import { CursosComponent } from './pages/cursos/cursos.component';
+import { NoticiasComponent } from './pages/noticias/noticias.component';
 
 const routes: Routes = [
   {
@@ -12,8 +14,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'inicio', pathMatch: 'full' },
       { path: 'inicio', component: InicioComponent},
       { path: 'quemSomos', component: QuemSomosComponent},
-      // { path: 'cursos', component: cursosComponent},
-      // { path: 'noticias', component: noticiasComponent},
+      { path: 'cursos', component: CursosComponent},
+      { path: 'noticias', component: NoticiasComponent},
       // { path: 'foruns', component: forunsComponent},
       // { path: 'faleConosco', component: faleConoscoComponent},
 

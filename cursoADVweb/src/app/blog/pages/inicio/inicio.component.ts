@@ -82,11 +82,11 @@ export class InicioComponent implements OnInit {
   }
 
   ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
-    console.log(changes)
+    // console.log(changes)
   }
 
   virar(tipo: number){
-    console.log('passeo aqui')
+    // console.log('passeo aqui')
     switch(tipo){
       case 1:
         this.vira = true;
@@ -101,8 +101,8 @@ export class InicioComponent implements OnInit {
   }
 
   desVirar(tipo: number){
-    console.log('desVirar')
-    console.log(this.sumiritem)
+    // console.log('desVirar')
+    // console.log(this.sumiritem)
     // this.vira = false;
     switch(tipo){
       case 1:
@@ -119,7 +119,7 @@ export class InicioComponent implements OnInit {
   }
 
   direita(){
-    console.log(this.ListaAvaliacoes)
+    // console.log(this.ListaAvaliacoes)
     var lista:any = [];
     var cont = 0;
     var principal = false;
@@ -144,17 +144,17 @@ export class InicioComponent implements OnInit {
 
     lista.push(this.ListaAvaliacoes[0])
     this.ListaAvaliacoes = lista;
-    console.log(this.ListaAvaliacoes)
+    // console.log(this.ListaAvaliacoes)
 
   }
 
   esquerda(){
-    console.log(this.ListaAvaliacoes)
+    // console.log(this.ListaAvaliacoes)
     var lista:Array<any> = [];
     var cont = 0;
 
     this.ListaAvaliacoes.forEach(avaliacao => {
-        console.log(cont)
+        // console.log(cont)
 
       if(cont == 0){
         avaliacao.css = 'grande'
@@ -170,7 +170,7 @@ export class InicioComponent implements OnInit {
     })
 
     this.ListaAvaliacoes = lista;
-    console.log(this.ListaAvaliacoes)
+    // console.log(this.ListaAvaliacoes)
 
   }
 

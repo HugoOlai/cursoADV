@@ -66,7 +66,7 @@ export class AuthComponent implements OnInit {
   }
 
   autenticar(decrypt: any) {
-    console.log(decrypt)
+    // console.log(decrypt)
     let user: any = {
       Cpf: decrypt.Cpf,
       Senha: environment.access,
@@ -78,7 +78,7 @@ export class AuthComponent implements OnInit {
 
     this.service.autenticar(user).subscribe({
       next: (res: any)=>{
-      console.log(res)
+      // console.log(res)
       this.service.setToken(res.accessToken);
 
     },

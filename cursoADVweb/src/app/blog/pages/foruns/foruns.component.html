@@ -1,0 +1,90 @@
+<div class="w-100 d-flex flex-wrap defineFont pt-5 {{isMobile? '':'contemPaginas'}}">
+  <div class="{{isMobile? 'col-12':'col-4'}}">
+    <h1 class="fontTitulo fs-2 ms-5 formataParagrafos" style="line-height:1.5;">
+      <p>
+        <strong class="">
+          TÓPICOS
+        </strong>
+      </p>
+    </h1>
+    <button type="button" style="border: 1px solid #c3c1c1;"
+      class="btn w-75 p-3 btn-sm btn-light ms-5 icon-button d-flex justify-content-start shadow-sm rounded ">
+      <span class="material-icons mt-2">
+        gavel
+        </span>
+      <strong class="defineFontBtns ms-3 fontTitulo" style="font-size: 25px;">
+        Processo Civil
+      </strong>
+    </button>
+
+    <button type="button" style="border: 1px solid #c3c1c1;"
+      class="btn w-75 p-3 mt-4 btn-sm btn-light ms-5 icon-button d-flex justify-content-start shadow-sm rounded ">
+      <span class="material-icons mt-2">
+        face
+      </span>
+      <strong class="defineFontBtns ms-3 fontTitulo" style="font-size: 25px;">
+          ECA
+      </strong>
+    </button>
+
+    <button type="button" style="border: 1px solid #c3c1c1;"
+      class="btn w-75 p-3 mt-4 btn-sm btn-light ms-5 icon-button d-flex justify-content-start shadow-sm rounded ">
+      <span class="material-icons mt-3">
+        auto_stories
+      </span>
+      <strong class="defineFontBtns ms-3 fontTitulo text-start" style="font-size: 25px;  line-height:1.0;">
+          Métodos de estudos
+      </strong>
+    </button>
+
+    <button type="button" style="border: 1px solid #c3c1c1;"
+      class="btn w-75 p-3 mt-4 btn-sm btn-light ms-5 icon-button d-flex justify-content-start shadow-sm rounded ">
+      <span class="material-icons mt-2">
+        calendar_month
+      </span>
+      <strong class="defineFontBtns ms-3 fontTitulo" style="font-size: 25px;">
+        Cronogramas
+      </strong>
+    </button>
+
+    <button type="button" style="border: 1px solid #c3c1c1;"
+      class="btn w-75 p-3 mt-4 btn-sm btn-light ms-5 icon-button d-flex justify-content-start shadow-sm rounded ">
+      <span class="material-icons mt-2">
+        edit
+      </span>
+      <strong class="defineFontBtns ms-3 fontTitulo" style="font-size: 25px;">
+        Bancas
+      </strong>
+    </button>
+
+    <button type="button" style="border: 1px solid #c3c1c1;"
+      class="btn w-75 p-3 mt-4 btn-sm btn-light ms-5 icon-button d-flex justify-content-start shadow-sm rounded ">
+      <span class="material-icons mt-2">
+        live_help
+      </span>
+      <strong class="defineFontBtns ms-3 fontTitulo" style="font-size: 25px;">
+        Questões
+      </strong>
+    </button>
+  </div>
+
+  <div class="{{isMobile? 'col-12 pt-4':'col-8'}}">
+    <div class="col-12 d-flex flex-wrap justify-content-center form-angular-material align-items-center">
+      <div class="{{isMobile? 'col-12':'col-2'}} d-flex justify-content-center">
+        <div class="circle">
+          <img src="https://img.freepik.com/fotos-gratis/designer-trabalhando-no-modelo-3d_23-2149371896.jpg?size=626&ext=jpg&ga=GA1.1.735520172.1710633600&semt=sph">
+        </div>
+
+      </div>
+      <div class="col-10">
+        <mat-form-field class="ms-3" style="width: 93%;" appearance="outline">
+          <mat-label>O que você quer perguntar ou compartilhar?</mat-label>
+          <input (click)="Adicionar()" matInput formControlName="pesquisa" type="text" autocomplete="off">
+          <mat-icon style="color: #842723"  class="text-secondary ms-2 pointer" matSuffix>
+            search
+          </mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>

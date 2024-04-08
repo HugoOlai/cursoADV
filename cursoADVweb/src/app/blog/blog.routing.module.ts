@@ -5,6 +5,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { QuemSomosComponent } from './pages/quemSomos/quemSomos.component';
 import { CursosComponent } from './pages/cursos/cursos.component';
 import { NoticiasComponent } from './pages/noticias/noticias.component';
+import { ForunsComponent } from './pages/foruns/foruns.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
       { path: 'quemSomos', component: QuemSomosComponent},
       { path: 'cursos', component: CursosComponent},
       { path: 'noticias', component: NoticiasComponent},
-      // { path: 'foruns', component: forunsComponent},
+      { path: 'foruns', component: ForunsComponent},
       // { path: 'faleConosco', component: faleConoscoComponent},
 
     ]

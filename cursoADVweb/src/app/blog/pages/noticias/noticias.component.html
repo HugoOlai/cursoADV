@@ -1,13 +1,13 @@
 
 <div class="w-100 d-flex flex-wrap defineFont pt-5 {{isMobile? '':'contemPaginas'}}">
   <div class="col-12 d-flex flex-wrap mb-5" *ngFor="let noticia of listaSearch">
-    <div class="col-3">
+    <div class="{{isMobile? 'col-12':'col-3'}} d-flex justify-content-center ">
       <img src="{{noticia.src}}" alt="" height="{{isMobile?'368':'300'}}">
 
     </div>
-    <div class="col-9 ">
+    <div class="{{isMobile? 'col-12':'col-9'}}">
       <div class="col-12">
-        <h1 class="fontTitulo fs-2 ms-5 formataParagrafos" style="line-height:1.5;">
+        <h1 class="fontTitulo fs-2 {{isMobile? 'mx-3 pt-4':'ms-5'}} formataParagrafos" style="line-height:1.5;">
           <p>
             <strong class="">
               {{noticia.titulo}}
@@ -17,7 +17,7 @@
       </div>
 
       <div class="col-12">
-        <h1 class="fontTitulo fs-5 pe-5 ms-5 formataParagrafos" style="color:rgb(199, 199, 199)">
+        <h1 class="fontTitulo fs-5 pe-5 {{isMobile? 'mx-3 pt-1':'ms-5'}} formataParagrafos" style="color:rgb(199, 199, 199)">
           <p>
             <strong>
               {{noticia.dataFormatada}}
@@ -27,7 +27,7 @@
       </div>
 
       <div class="col-12">
-        <h1 class="fontTitulo fs-5 pe-5 ms-5 formataParagrafos" style="color:rgb(0, 0, 0)">
+        <h1 class="fontTitulo fs-5 {{isMobile? 'mx-3 pt-4':'ps-5'}} formataParagrafos" style="color:rgb(0, 0, 0)">
           <p>
             {{noticia.conteudo}}
           </p>
@@ -36,7 +36,7 @@
       </div>
       <div clss="col-12">
         <button type="button"
-        class="btn btn-sm btn-danger ms-5 icon-button d-flex text-start shadow-sm rounded ">
+        class="btn btn-sm btn-danger {{isMobile? 'mx-3 ':'ms-5'}} icon-button d-flex text-start shadow-sm rounded ">
           <strong class="defineFontBtns me-3" style="font-size: 25px;">
             Ler mais
           </strong>
@@ -45,14 +45,14 @@
         </button>
       </div>
     </div>
-    <div class="col-12 d-flex justify-content-center mt-5 mb-5">
+    <!-- <div class="col-12 d-flex justify-content-center mt-5 mb-5">
       <div class="col-12 d-flex" style="top: 24px; position: relative;" >
         <div style="border-style: solid none none none; border-color: #ed8f00;" class="me-4 mt-4 col-5 w-100"></div>
       </div>
-    </div>
+    </div> -->
   </div>
 
-  <div class="col-12 d-flex justify-content-center">
+  <div class="col-12 d-flex justify-content-center ">
     <mat-paginator #paginator class="w-100" (page)="handlePageEvent($event)"
       [length]="listaNoticias.length"
       [pageSizeOptions]="[5, 10, 15]"

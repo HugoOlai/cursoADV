@@ -1,6 +1,8 @@
+import { Router } from '@angular/router';
+import { Util } from '../../class/util.class';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Util } from '../../class/util.class';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,11 +14,21 @@ export class SidebarComponent implements OnInit {
   isMobile = Util.isMobile();
   constructor(
     private formBuilder: FormBuilder,
+    public router: Router
 
   ) { }
 
   ngOnInit() {
 
+  }
+
+  redirecionar() {
+    // AppComponent.prototype.defineBarraSideBar(false);
+
+    this.router.navigate(['acesso/login'])
+    setTimeout(() => {
+      window.location.reload();
+    }, 10);
   }
 
   buscar(){

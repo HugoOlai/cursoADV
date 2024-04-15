@@ -15,3 +15,22 @@
   bottom: 0;
   width: 100%;
 }
+
+.abrirEmojs {
+  display: block;
+  position: absolute;
+  z-index: 5;
+}
+
+.fecharEmojis {
+  display: none;
+}
+
+
+.upload_btn{
+  position:absolute;
+  width:4%;
+  height:110px !important;
+  z-index:10;
+  opacity:0;
+}

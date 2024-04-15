@@ -1,0 +1,36 @@
+<div class="col-12 d-flex flex-wrap justify-content-center  {{isMobile? 'p-4':'contemPaginas'}} ">
+  <form [formGroup]="formulario">
+    <mat-form-field class="example-full-width">
+      <mat-label class="">Nome</mat-label>
+      <input required matInput formControlName="Nome">
+      @if (Nome) {
+        <mat-error>{{errorMessage}}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label class="">E-mail</mat-label>
+      <input required matInput formControlName="Email">
+      @if (Email) {
+        <mat-error>{{errorMessage}}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label class="">Telefone</mat-label>
+      <input required type="text" mask="(00) 00000-0000" matInput formControlName="Telefone">
+      @if (Telefone) {
+        <mat-error>{{errorMessage}}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Mensagem</mat-label>
+      <textarea required style="height: 73px !important;" formControlName="Mensagem" matInput></textarea>
+      @if (Mensagem) {
+        <mat-error>{{errorMessage}}</mat-error>
+      }
+    </mat-form-field>
+    <div class="col-6 d-flex">
+      <button type="button" (click)="Enviar()" class="btn btn-warning rounded-pill text-light"><strong>ENVIAR</strong></button>
+    </div>
+  </form>
+
+</div>

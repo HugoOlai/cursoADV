@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@ctrl/ngx-emoji-mart/picker';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 :root{
   --ver-img: none;
   --define-tamanho: 0;
@@ -21,6 +29,12 @@ html {
   --mat-paginator-container-text-size: 17px;
   --mat-select-panel-background-color: #dd4444;
   --mat-paginator-enabled-icon-color: rgb(24 2 2 / 54%);
+  --mdc-filled-text-field-container-color: #ffedeb;
+  --mdc-filled-text-field-label-text-color: #842723;
+  --mdc-filled-text-field-focus-label-text-color: #842723;
+  --mdc-filled-text-field-input-text-color: #842723;
+  --mat-form-field-container-text-line-height: 11px;
+  // --mat-form-field-container-height: 43px;
 }
 
 
@@ -275,6 +289,11 @@ mat-paginator {
   font-size: 33px;
 }
 
+.fontTitulo3{
+  color: #842723;
+  font-size: 40px;
+}
+
 .main{
   margin-top: 44px;
   padding-left: 69px;
@@ -356,6 +375,10 @@ mat-paginator {
     top: 18px;
   }
 
+  .mdc-line-ripple::after {
+    border-bottom-width: 0px;
+}
+
   .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
     padding-right: 0;
     //padding: -4.6em -1px !important;
@@ -387,3 +410,5 @@ mat-paginator {
   --mdc-outlined-text-field-outline-color: var(--vermelhoProInf);
   }
 }
+
+

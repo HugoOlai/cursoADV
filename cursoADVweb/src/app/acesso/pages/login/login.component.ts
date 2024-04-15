@@ -1,7 +1,10 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Util } from '../../../class/util.class';
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from '../../../app.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { UsuarioService } from '../../../services/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +16,7 @@ export class LoginComponent implements OnInit {
   visivel: boolean = false;
   possuiCadastro: boolean = true;
   ip: string = '';
+  isMobile = Util.isMobile();
 
   formularioLogin: FormGroup;
   formularioCadastro: FormGroup;
@@ -20,7 +24,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: AuthService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    public router: Router
+
 
   ){
     this.formularioLogin = this.fb.group({
@@ -39,7 +45,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(){
-
 
   }
 

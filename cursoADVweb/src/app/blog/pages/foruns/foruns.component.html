@@ -1,5 +1,5 @@
 <div class="w-100 d-flex flex-wrap defineFont pt-5 {{isMobile? '':'contemPaginas'}}">
-  <div class="{{isMobile? 'col-12':'col-4'}}">
+  <div class="col-12">
     <h1 class="fontTitulo fs-2 ms-5 formataParagrafos" style="line-height:1.5;">
       <p>
         <strong class="">
@@ -7,6 +7,9 @@
         </strong>
       </p>
     </h1>
+  </div>
+  <div class="{{isMobile? 'col-12':'col-4'}}">
+
     <button type="button" style="border: 1px solid #c3c1c1;"
       class="btn w-75 p-3 btn-sm btn-light ms-5 icon-button d-flex justify-content-start shadow-sm rounded ">
       <span class="material-icons mt-2">
@@ -68,22 +71,124 @@
     </button>
   </div>
 
-  <div class="{{isMobile? 'col-12 pt-4':'col-8'}}">
-    <div class="col-12 d-flex flex-wrap justify-content-center form-angular-material align-items-center">
+  <div class="{{isMobile? 'col-12 p-4':'col-8'}}">
+    <div style="border: #c3c1c1 solid 1px; border-radius: 10px;" class="col-12 d-flex flex-wrap justify-content-center pe-3 pt-3 pb-3">
       <div class="{{isMobile? 'col-12':'col-2'}} d-flex justify-content-center">
-        <div class="circle">
-          <img src="https://img.freepik.com/fotos-gratis/designer-trabalhando-no-modelo-3d_23-2149371896.jpg?size=626&ext=jpg&ga=GA1.1.735520172.1710633600&semt=sph">
+        <div class="circle" style="height: 80px !important; width: 80px !important;">
+          <img src="{{usuarioLogado.src}}">
         </div>
 
       </div>
-      <div class="col-10">
-        <mat-form-field class="ms-3" style="width: 93%;" appearance="outline">
-          <mat-label>O que você quer perguntar ou compartilhar?</mat-label>
-          <input (click)="Adicionar()" matInput formControlName="pesquisa" type="text" autocomplete="off">
-          <mat-icon style="color: #842723"  class="text-secondary ms-2 pointer" matSuffix>
-            search
-          </mat-icon>
-        </mat-form-field>
+      <form class="col-10" [formGroup]="formulario">
+        <div class="col-12  form-angular-material">
+          <mat-form-field class="ps-3" style="width: 100%;" appearance="outline">
+            <mat-label class="">O que você quer perguntar ou compartilhar? </mat-label>
+            <input matInput (focus)="campoSelecionado = 'Titulo'" formControlName="Titulo" type="text" autocomplete="off">
+            <!-- <mat-icon style="color: #842723"  class="text-secondary ms-2 pointer" matSuffix>
+              search
+            </mat-icon> -->
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <!-- <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label> -->
+          <!-- <textarea class="form-control ps-3" (focus)="campoSelecionado = 'Conteudo'" formControlName="Conteudo" placeholder="No que voçê esta pensando?" id="exampleFormControlTextarea1" rows="3"></textarea> -->
+
+          <mat-form-field>
+            <mat-label>No que voçê esta pensando?</mat-label>
+            <textarea class="ps-3 pt-1" style="height: 73px !important;" (focus)="campoSelecionado = 'Conteudo'" formControlName="Conteudo" matInput></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-12 mt-4">
+          <img src="{{imagemSelecionada}}" alt="" height="300">
+        </div>
+      </form>
+
+      <!-- <div class="NgxEditor__Wrapper">
+        <ngx-editor-menu [editor]="editor"
+        [toolbar]="toolbar">
+       </ngx-editor-menu>
+        <ngx-editor [editor]="editor" [ngModel]="html" [disabled]="false" [placeholder]="'Type here...'"></ngx-editor>
+      </div> -->
+      <div class="col-12  d-flex mt-3">
+        <div class="col-6 d-flex justify-content-start">
+          <div class="col-2" *ngIf="!isMobile">
+            <input (change)="upload($event)" type="file" class="upload_btn" multiple/>
+
+            <button type="button"  class="btn rounded-pill">
+              <span class="material-icons fs-2">
+                photo_library
+                </span>
+            </button>
+
+            <div>
+
+            </div>
+          </div>
+          <div class="col-2" (mouseleave)="selecionarEmoji = false">
+            <button type="button" (click)="selecionarEmoji = !selecionarEmoji" class="btn rounded-pill">
+              <span class="material-icons {{isMobile?'fs-1':'fs-2'}}">
+                sentiment_satisfied_alt
+              </span>
+            </button>
+
+            <div class="{{selecionarEmoji? 'abrirEmojs': 'fecharEmojis'}}">
+              <emoji-mart class="" style="position: absolute;"
+              (emojiClick)="addEmoji($event)" title="Pick your emoji…" emoji="point_up"></emoji-mart>
+
+            </div>
+          </div>
+
+
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+          <button type="button" (click)="Adicionar()" class="btn btn-warning rounded-pill text-light"><strong>POSTAR</strong></button>
+          <button type="button" (click)="Limpar()" class="btn btn-danger rounded-pill text-light ms-2">
+            <span class="material-icons mt-1">
+              delete
+            </span>
+          </button>
+        </div>
+      </div>
+
+
+
+    </div>
+    <div class="col-12 mt-4">
+      <div class="w-100 mt-4 p-4 d-flex flex-wrap" *ngFor="let item of listaSearch" style="border: #c3c1c1 solid 1px; border-radius: 10px;">
+        <div class="{{isMobile?'col-4':'col-1'}}" [style]="isMobile? '':'width: 13.333333% !important;'">
+          <div class="circle" style="height: 80px !important; width: 80px !important;">
+            <img src="{{item.usuario.src}}">
+          </div>
+        </div>
+        <div class="{{isMobile?'col-8':'col-10'}} pt-3">
+          <div class="col-12 {{isMobile?'fs-5':'fs-4'}} fontTitulo3 defineFontBold">
+            <strong>{{item.usuario.nome}}</strong>
+          </div>
+          <div style="color:#c3c1c1" class="col-12 fontTitulo2 {{isMobile?'fs-5':'fs-4'}} pt-2">
+            {{item.usuario.cargo}}
+          </div>
+        </div>
+        <div class="col-12 {{isMobile?'mt-3':''}}">
+          <div style="line-height:1.0;" class="col-12 fontTitulo3 fs-3 defineFontBold">
+            <strong>{{item.titulo}}</strong>
+          </div>
+          <div style="color:#9c9a9a" class="col-12 pt-2 fs-6">
+            {{item.conteudo}}
+          </div>
+        </div>
+        <div class="col-12 pt-2">
+          <span style="cursor:pointer ;" (click)="irParapublicacao()" class="fontTitulo2 fs-6" > Entrar na discussão... </span>
+        </div>
+      </div>
+
+      <div class="col-12 d-flex justify-content-center mt-4 ">
+        <mat-paginator #paginator class="w-100" (page)="handlePageEvent($event)"
+          [length]="listaForuns.length"
+          [pageSizeOptions]="[5, 10, 15]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
       </div>
     </div>
   </div>

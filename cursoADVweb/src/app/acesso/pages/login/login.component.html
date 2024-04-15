@@ -1,10 +1,61 @@
-<div class="row d-flex p-3 ps-4 text-light ">
-  <div style="width: auto; padding-right:0px;" class="align-self-end">
-    pagina em construção!
+<div class="imagem">
+  <div class="box">
+
   </div>
-  <span class="material-icons" style="width: auto;">
-    construction
-  </span>
 </div>
 
+<div class="col-12 d-flex flex-wrap justify-content-center" style="padding-top: 5rem !important;">
+  <div class="w-100 d-flex flex-wrap justify-content-center">
+    <img src="../../../../assets/imgs/Logo.png"  alt="" height="100">
+  </div>
+  <div class="pt-3">
+    <span style="color: white;" class="fs-4">ÁREA DO ALUNO</span>
+  </div>
+</div>
 
+<div class="col-12 d-flex flex-wrap justify-content-center" [style]="isMobile?'padding-top: 2rem !important;':'padding-top: 5rem !important;'">
+  <div class="{{isMobile?'col-12':'col-6'}} d-flex flex-wrap justify-content-center" style="color: WHITE;">
+    <h1><strong class="fs-1">BEM-VINDO(A)!</strong></h1>
+    <P class="fs-2" [style]="isMobile?'padding-left:2rem; padding-right: 2rem':'padding-left: 11rem;'" style="line-height:1.2; text-align: justify;">
+      Está pronto para <strong> aprender conteúdos jurídicos </strong> de forma
+      descomplicada e humanizada?
+    </P>
+  </div>
+  <div class="{{isMobile?'col-12':'col-6'}} d-flex flex-wrap justify-content-center">
+    <div class="{{isMobile?'col-12':'col-8'}} d-flex flex-wrap" style="background-color: white; border-radius: 10px;">
+      <form [formGroup]="formularioLogin" class="m-4">
+        <mat-form-field class="example-full-width">
+          <mat-label>E-mail</mat-label>
+          <input matInput  formControlName="Email">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Senha</mat-label>
+          <input matInput type="{{visivel? 'text':'password'}}" formControlName="Senha">
+          <button *ngIf="visivel == true" matSuffix mat-icon-button (click)="visivel=false">
+            <span class="material-icons">
+              lock_open
+            </span>
+          </button>
+          <button *ngIf="visivel == false" matSuffix mat-icon-button (click)="visivel=true">
+            <span class="material-icons">
+              lock
+            </span>
+          </button>
+        </mat-form-field>
+      </form>
+      <div class="col-12 d-flex flex-wrap px-4 mb-4">
+        <div class="col-8 mt-2">
+          Esqueceu sua senha? <span style="color: red;">Clique aqui</span>
+        </div>
+        <div class="col-4 d-flex justify-content-end">
+          <button type="button" (click)="login()" class="btn btn-warning text-light"><strong>ENVIAR</strong></button>
+
+        </div>
+        <div class="w-100 pt-3">
+          <button type="button" (click)="router.navigate(['acesso/cadastrar'])" class="btn btn-danger text-light w-100"><strong>INSCREVER-SE</strong></button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

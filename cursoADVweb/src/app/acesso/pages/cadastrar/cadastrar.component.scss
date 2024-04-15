@@ -16,22 +16,3 @@
 
   background-color: #ffb656;
 }
-
-@keyframes moveToLeft {
-  0% {
-    transform: translateX(0%);
-  }
-  100%{
-    transform: translateX(102%);
-  }
-}
-
-@keyframes moveToRight{
-  0% {
-    transform: translateX(100%);
-  }
-  100%{
-    transform: translateX(0%);
-
-  }
-}

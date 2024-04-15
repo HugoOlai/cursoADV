@@ -21,7 +21,7 @@
     </div>
   </div>
   <div class="col-sm-2 col-md-2 col-lg-2 align-self-center d-flex justify-content-end">
-    <button class="{{isMobile?'ms-3':''}}" type="button" [style]="isMobile?'': 'width: 150px;'"
+    <button (click)="redirecionar()" class="{{isMobile?'ms-3':''}}" type="button" [style]="isMobile?'': 'width: 150px;'"
     class="overlay-layer btn btn-sm btn-warning icon-button d-flex text-start shadow-sm rounded">
       <!-- <i style="font-size: 46px;" class="material-icons me-2">perm_identity</i> -->
       <img src="../../../assets/imgs/bonecoLivro.png" height="{{isMobile? '30':'50'}}">

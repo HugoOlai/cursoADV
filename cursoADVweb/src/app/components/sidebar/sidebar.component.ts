@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
 import { Util } from '../../class/util.class';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AppComponent } from '../../app.component';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-sidebar',
@@ -25,10 +25,12 @@ export class SidebarComponent implements OnInit {
   redirecionar() {
     // AppComponent.prototype.defineBarraSideBar(false);
 
-    this.router.navigate(['acesso/login'])
-    setTimeout(() => {
-      window.location.reload();
-    }, 10);
+    // this.router.navigate(['acesso/login'])
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 10);
+    location.assign('#/acesso/login')
+    window.location.reload();
   }
 
   buscar(){

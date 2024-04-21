@@ -3,7 +3,9 @@ export interface Usuario {
   id?: string;
   nome: string,
   cargo: string,
-  src: string
-
+  email: string,
+  telefone: string,
+  cpfCnpj: string,
+  src: any,
 }
 

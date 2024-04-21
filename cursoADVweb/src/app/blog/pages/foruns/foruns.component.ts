@@ -41,7 +41,11 @@ export class ForunsComponent {
   usuarioLogado = {
     nome: 'Ana Júlia da Silva',
     cargo: 'Estagiária na DPE-SP',
-    src: 'https://opresenterural.com.br/wp-content/uploads/2019/03/Biogenesis-mulher.jpg'
+    src: 'https://opresenterural.com.br/wp-content/uploads/2019/03/Biogenesis-mulher.jpg',
+    email: '',
+    telefone:'',
+    cpfCnpj:'',
+
   }
 
   listaSearch: Array<Forum> = [];

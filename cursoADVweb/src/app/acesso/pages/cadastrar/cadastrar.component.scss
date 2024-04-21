@@ -16,3 +16,12 @@
 
   background-color: #ffb656;
 }
+
+.upload_btn {
+  position: absolute;
+  width: 15%;
+  left: 49%;
+  height: 50px !important;
+  z-index: 10;
+  opacity: 0;
+}

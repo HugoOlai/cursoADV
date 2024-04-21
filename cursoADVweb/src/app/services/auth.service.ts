@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments';
 import { Observable, catchError, map, take, throwError, timeout } from 'rxjs';
 import { HttpBackend, HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { Usuario } from '../shared/class/Usuario.class';
 
 
 interface Auth {
@@ -53,11 +54,15 @@ export class AuthService {
   }
 
   getUser(): any {
-    return this.tyParse("user");
+    return this.tyParse("usuario");
   }
 
   setToken(accessToken: any) {
     return localStorage.setItem("token", btoa(JSON.stringify(accessToken)));
+  }
+
+  setCliente(usuario: Usuario) {
+    localStorage.setItem("usuario", window.btoa(unescape(encodeURIComponent(JSON.stringify(usuario)))));
   }
 
   exluirToken(){
@@ -76,7 +81,7 @@ export class AuthService {
   tyParse(param: any) {
     var obj: any;
     try {
-      // obj = JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(param) || '{}'))));
+      obj = JSON.parse(decodeURIComponent(escape(window.atob(localStorage.getItem(param) || '{}'))));
       return obj;
 
     } catch (error) {

@@ -36,7 +36,7 @@ export class AppComponent {
 
     console.log(location)
 
-    if(location.hash.includes('acesso')){
+    if(location.hash.includes('acesso') || location.hash.includes('areaAluno')){
       this.barBlog = false;
     }
     if (environment.production) {

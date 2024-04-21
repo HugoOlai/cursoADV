@@ -227,6 +227,14 @@ body { background-color: #fdfdfd;
   }
 }
 
+.upload_btn{
+  position:absolute;
+  width:4%;
+  height:110px !important;
+  z-index:10;
+  opacity:0;
+}
+
 mat-paginator {
   background-color: #ee5b54 !important;
   font-size: 40px;

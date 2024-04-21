@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Usuario } from '../../shared/class/Usuario.class';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-area-aluno',
@@ -12,6 +13,7 @@ export class AreaAlunoComponent {
 
   constructor(
     private service: AuthService,
+    public router: Router,
 
   ) { }
 

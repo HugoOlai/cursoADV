@@ -41,6 +41,12 @@ export class AuthService {
     return await this.getUser();
   }
 
+  clearUser() {
+    localStorage.removeItem("usuario");
+    localStorage.removeItem("token");
+    localStorage.removeItem("P15n");
+  }
+
   getIpAddress() {
     return this.httpBackend
       .get("https://api.ipify.org/?format=json")

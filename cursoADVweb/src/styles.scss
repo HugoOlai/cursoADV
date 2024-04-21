@@ -37,6 +37,18 @@ html {
   // --mat-form-field-container-height: 43px;
 }
 
+.mat-mdc-menu-panel {
+  min-width: 112px;
+  max-width: 280px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  outline: 0;
+  border-radius: var(--mat-menu-container-shape);
+  background-color: #ed8f00 !important;
+  will-change: transform, opacity;
+}
+
 
 .defineCorBar{
   background-color: #ffedeb !important;

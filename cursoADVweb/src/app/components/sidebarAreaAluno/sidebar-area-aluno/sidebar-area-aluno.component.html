@@ -1,1 +1,61 @@
-<p>sidebar-area-aluno works!</p>
+<div class="col-12 d-flex p-2">
+  <div class="col-6">
+    <button mat-button [matMenuTriggerFor]="belowMenu">
+      <span style="color: #ed8f00;" class="material-icons fs-1">
+        menu
+      </span>
+    </button>
+    <mat-menu #belowMenu="matMenu" class="p-2" yPosition="below">
+      <button (click)="direciona()" class="btn btn-outline-light d-flex mt-2" style="border: solid white 1px" mat-menu-item>
+        <span class="material-icons pe-2">
+          home
+          </span>
+        <div class="col-1">
+          Inicio
+        </div>
+      </button>
+    </mat-menu>
+    <img src="assets/imgs/logo.png" height="50" alt="" style="border-radius: 54px;">
+
+  </div>
+  <div class="col-6 d-flex justify-content-end ">
+    <button style="color: black;" mat-button [matMenuTriggerFor]="beforeMenu">
+      <div class="d-flex">
+        Olá, {{usuario?.nome}}
+        <span class="material-icons" style="color: #dd4444">
+          expand_more
+        </span>
+
+      </div>
+    </button>
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+      <button class="d-flex flex-wrap" mat-menu-item >
+        <div class="w-100 d-flex">
+          <div class="" style="width: 30%;">
+            <img src="{{usuario?.src}}" height="50" width="50" alt="" style="border-radius: 54px;">
+          </div>
+          <div class="ps-2 flex-wrap">
+            <span class="">
+              {{usuario?.nome}}
+            </span>
+            <div class="">
+              <small>{{usuario?.email}}</small>
+
+            </div>
+          </div>
+        </div>
+      </button>
+      <button class="d-flex mt-2" mat-menu-item (click)="sair()">
+        <span class="material-icons pe-2">
+         logout
+        </span>
+        <div class="col-1">
+          Sair
+
+        </div>
+      </button>
+    </mat-menu>
+
+  </div>
+
+</div>

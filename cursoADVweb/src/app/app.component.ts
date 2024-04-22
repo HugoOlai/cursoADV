@@ -36,12 +36,13 @@ export class AppComponent {
 
     console.log(location)
 
-    if(location.hash.includes('acesso') || location.hash.includes('areaAluno')){
+    if(location.hash.includes('acesso') || location.hash.includes('areaAluno') || location.hash.includes('admin')){
       this.barBlog = false;
     }
     if (environment.production) {
       if (location.protocol === "http:") {
         window.location.href = location.href.replace("http", "https");
+        environment.baseUrl = 'http://ec2-44-203-101-129.compute-1.amazonaws.com/api/'
       }
     }
   }

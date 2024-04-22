@@ -14,10 +14,11 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { CursosComponent } from './pages/cursos/cursos.component';
 import { ForunsComponent } from './pages/foruns/foruns.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { SidebarModule } from '../components/sidebar/sidebar.module';
 import { NoticiasComponent } from './pages/noticias/noticias.component';
 import { QuemSomosComponent } from './pages/quemSomos/quemSomos.component';
 import { FaleConoscoComponent } from './pages/fale-conosco/fale-conosco.component';
-import { SidebarModule } from '../components/sidebar/sidebar.module';
+import { DescricaoCursoComponent } from './pages/cursos/descricaoCurso/descricao-curso.component';
 @NgModule({
   declarations: [
     BlogComponent,
@@ -26,7 +27,8 @@ import { SidebarModule } from '../components/sidebar/sidebar.module';
     CursosComponent,
     NoticiasComponent,
     ForunsComponent,
-    FaleConoscoComponent
+    FaleConoscoComponent,
+    DescricaoCursoComponent
   ],
   imports: [
     CommonModule,

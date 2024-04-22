@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
 import { BlogComponent } from './blog.component';
+import { Routes, RouterModule } from '@angular/router';
 import { InicioComponent } from './pages/inicio/inicio.component';
-import { QuemSomosComponent } from './pages/quemSomos/quemSomos.component';
 import { CursosComponent } from './pages/cursos/cursos.component';
-import { NoticiasComponent } from './pages/noticias/noticias.component';
 import { ForunsComponent } from './pages/foruns/foruns.component';
+import { NoticiasComponent } from './pages/noticias/noticias.component';
+import { QuemSomosComponent } from './pages/quemSomos/quemSomos.component';
 import { FaleConoscoComponent } from './pages/fale-conosco/fale-conosco.component';
+import { DescricaoCursoComponent } from './pages/cursos/descricaoCurso/descricao-curso.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'inicio', component: InicioComponent},
       { path: 'quemSomos', component: QuemSomosComponent},
       { path: 'cursos', component: CursosComponent},
+      { path: 'cursos/descricao', component: DescricaoCursoComponent},
       { path: 'noticias', component: NoticiasComponent},
       { path: 'foruns', component: ForunsComponent},
       { path: 'faleConosco', component: FaleConoscoComponent},

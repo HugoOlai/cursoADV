@@ -1,0 +1,37 @@
+<div class="row flex-wrap">
+  <div class="col-12 d-flex flex-wrap fundoLaranja defineFont"
+    [style]="isMobile? '':'padding-left: 7rem; height: 14.75rem;'">
+    <div class="{{isMobile? 'col-12 px-3':'col-8'}}">
+      <div class="col-12 pt-4 pb-2">
+        <h1><strong class="fontTitulo2 fs-1" style="color: white;">{{curso?.titulo}}</strong></h1>
+      </div>
+      <div class="col-12" *ngIf="true">
+        <P class="fs-5 formataParagrafos" >
+          {{curso?.subtitulo}}
+        </P>
+      </div>
+    </div>
+
+    <div class="{{isMobile? 'col-12':'col-4'}} d-flex justify-content-center">
+      <div>
+        <button [style]="isMobile? 'm-4':'position: relative; top: 8rem;'" type="button" (click)="router.navigate(['contratacao/inicio'])"
+        class="btn btn-danger text-light fs-3"><strong>INSCREVER-SE</strong></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 d-flex flex-wrap {{isMobile? 'p-2':'p-5'}} ">
+    <div class="{{isMobile? 'col-12':'col-6'}} d-flex justify-content-center">
+      <img src="assets/imgs/recursos.png" style="border-radius: 30px;"  height="350" />
+
+    </div>
+    <div class="{{isMobile? 'col-12 pt-5':'col-6'}} d-flex justify-content-center">
+      <div class=" defineFont {{isMobile? 'px-3':''}}">
+        <h1 class=""> <strong class="fontTitulo2">Objetivo</strong></h1>
+        <p class="fs-5 mt-4 formataParagrafos">
+          {{curso?.objetivo}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

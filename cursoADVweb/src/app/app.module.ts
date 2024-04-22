@@ -9,6 +9,7 @@ import { SidebarModule } from './components/sidebar/sidebar.module';
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { adminModule } from './Admin/admin.module';
 
 
 
@@ -20,6 +21,7 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
     AppRoutingModule,
     BrowserModule,
     CommonModule,
+    adminModule,
     HttpClientModule,
     FormsModule,
     SidebarModule,

@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-between">
+  <div class="d-flex" matSnackBarLabel>
+    <span *ngIf="tipo == 'success'" [style]="defineCor(tipo)" class="material-icons fs-3">task_alt</span>
+    <span *ngIf="tipo == 'error'" class="material-icons fs-3">report_gmailerrorred</span>
+    <span *ngIf="tipo == 'warning'" class="material-icons fs-3">warning_amber</span>
+    <span *ngIf="tipo == 'info'" class="material-icons fs-3">info_outline</span>
+    <div class="ms-2 text-center" style="margin-top: 0.29rem !important;">
+      <span style="font-weight: 500;" [style]="defineCor(tipo)" [innerHTML]="texto.toUpperCase()"></span>
+      <!-- <span *ngIf="tipo != 'warning'" [style]="defineCor(tipo)" [innerHTML]="texto.toUpperCase()"></span> -->
+    </div>
+  </div>
+
+  <span matSnackBarActions>
+    <span class="material-icons ps-3 snackFechar fs-5" matSnackBarAction (click)="snackBarRef.dismissWithAction()"> close </span>
+  </span>
+
+</div>

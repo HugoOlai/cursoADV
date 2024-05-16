@@ -4,6 +4,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Compiler, Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-root',
@@ -32,6 +33,9 @@ export class AppComponent {
    }
 
    ngOnInit(): void {
+    SnackBarComponent.prototype.horizontalPosition = 'right';
+    SnackBarComponent.prototype.verticalPosition = 'top';
+
     this._compiler.clearCache();
 
     console.log(location)

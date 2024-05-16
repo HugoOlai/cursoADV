@@ -4,11 +4,11 @@ import { Usuario } from '../../shared/class/Usuario.class';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-area-aluno',
-  templateUrl: './area-aluno.component.html',
-  styleUrl: './area-aluno.component.scss'
+  selector: 'app-aluno',
+  templateUrl: './aluno.component.html',
+  styleUrl: './aluno.component.scss'
 })
-export class AreaAlunoComponent {
+export class AlunoComponent {
   usuario?: Usuario;
 
   constructor(

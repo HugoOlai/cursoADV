@@ -6,7 +6,7 @@
 
 <div class="col-12 d-flex flex-wrap justify-content-center" style="padding-top: 5rem !important;">
   <div class="w-100 d-flex flex-wrap justify-content-center">
-    <img src="../../../../assets/imgs/Logo.png"  alt="" height="100">
+    <img src="../../../../assets/imgs/logo.png"  alt="" height="100">
   </div>
   <div class="pt-3">
     <span style="color: white;" class="fs-4">ÁREA DO ALUNO</span>
@@ -44,13 +44,21 @@
             </span>
           </button>
         </mat-form-field>
+        <div class="col-12" *ngIf="carregando">
+          <div class="clearfix d-flex justify-content-center">
+            <p class="fs-6"> Carregando </p>
+            <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+              <span class="sr-only"></span>
+            </div>
+          </div>
+        </div>
       </form>
       <div class="col-12 d-flex flex-wrap px-4 mb-4">
         <div class="col-8 mt-2">
           Esqueceu sua senha? <span style="color: red;">Clique aqui</span>
         </div>
         <div class="col-4 d-flex justify-content-end">
-          <button type="button" (click)="login()" class="btn btn-warning text-light"><strong>ENVIAR</strong></button>
+          <button [disabled]="carregando" type="button" (click)="login()" class="btn {{carregando?'btn-secondary':'btn-warning'}} text-light"><strong>ENVIAR</strong></button>
 
         </div>
         <div class="w-100 pt-3">

@@ -10,6 +10,7 @@ export interface Curso {
   arquivo: null,
   listaVideos: null,
   listaArquivosApoio: null,
+  topcos: Array<string>,
   src: null
 
 }

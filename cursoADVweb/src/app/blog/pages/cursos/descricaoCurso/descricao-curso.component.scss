@@ -1,0 +1,125 @@
+.imagemDeFundo{
+  position: relative;
+  top: 9px;
+  transform: rotate(14deg);
+  opacity: 0.3;
+  left: -1%;
+  background:  url('../../../../../assets/imgs/divideNoMeio.png') no-repeat;
+  width: 76%;
+  height: 600px;
+  scale: 1.19;
+}
+
+.containerSlide {
+  position: relative;
+}
+
+.setaDireita {
+  position: absolute;
+  width: 50px;
+  z-index: 2;
+  height: 50px;
+  right: 5px;    // 5px com relação à margem direita do elemento html (ou seja, se deslocando da direita - do elemento html - para a esquerda)
+  top: 150px;
+  cursor: pointer;
+
+}
+
+.setaDireita:hover{
+  color: rgb(204, 206, 207);
+}
+
+.setaEsquerda{
+  position: absolute;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  z-index: 2;
+  left: 34px;
+  top: 150px;
+}
+
+.setaEsquerda:hover{
+  color: rgb(204, 206, 207);
+}
+
+
+.circle {
+  background-color: #aaa;
+  border-radius: 50%;
+  z-index: 2;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: relative;
+  border: 10px solid white;
+}
+
+.circle img {
+  position: absolute;
+  top: -11%;
+  bottom: 0;
+  width: 100%;
+}
+
+.cardMobile{
+  width: 100% !important;
+  display: block;
+}
+.cardMobilePequeno{
+  display: none;
+}
+
+.cardTelacheia{
+  width: 24rem;
+  border-radius: 12px;
+}
+
+.aspas {
+  font-size: 9rem;
+  position: absolute;
+  z-index: 2;
+  left: 269px;
+  color: #EE5b54;
+}
+
+.aspasMobile {
+  font-size: 5rem;
+  position: absolute;
+  z-index: 2;
+  left: 269px;
+  top: 2.0rem;
+  color: #EE5b54;
+}
+
+.flip-container {
+  width: 300px;
+  height: 200px;
+  perspective: 1000px;
+}
+
+.flipper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-container:hover .flipper {
+  transform: rotateY(180deg);
+}
+
+#customBtn {
+  display: inline-block;
+  background: #4285f4;
+  color: white;
+  width: 250px;
+  border-radius: 5px;
+  white-space: nowrap;
+  // RESET BUTTON
+  -webkit-appearance: media-slider !important;
+  padding: 0 !important;
+  border-width: 0 !important;
+}
+

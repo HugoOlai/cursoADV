@@ -43,21 +43,6 @@ export class AppInterceptor implements HttpInterceptor {
   private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
     this.token = this.auth.getToken();
 
-    // let objUsuario: any = {
-    //   Email: '@teste',
-    //   Sistema: 3,
-    //   AccessKey: environment.key
-    // }
-
-    // this.auth.autenticar(objUsuario).subscribe({
-    //   next: (res)=>{
-    //     console.log('Sucesso final',res)
-    //   },
-    //   error: (err)=>{
-    //     console.log('Erro final',err)
-    //   }
-    // })
-
     if (!this.token) return request;
     if (!request.url.match(environment.baseUrl)) return request;
 

@@ -9,11 +9,29 @@
 .caixa {
   border: 1px solid rgb(114, 114, 114);
   border-radius: 20px;
-  height: 32rem;
+  height: 36rem;
 }
 
 
 .caixaBody {
   position: relative;
   top: -63px;
+}
+
+.circle {
+  background-color: #aaa;
+  border-radius: 50%;
+  z-index: 2;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+  border: 10px solid white;
+}
+
+.circle img {
+  position: absolute;
+  top: -11%;
+  bottom: 0;
+  width: 100%;
 }

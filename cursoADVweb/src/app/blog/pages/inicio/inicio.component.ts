@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Util } from '../../../class/util.class';
 import { Router } from '@angular/router';
+import { AppComponent } from '../../../app.component';
 
 @Component({
   selector: 'app-inicio',

@@ -3,6 +3,7 @@
 // import { defineLocale } from "ngx-bootstrap/chronos";
 // import { ptBrLocale } from "ngx-bootstrap/locale";
 
+
 export class Util {
 
   static isMobile = () => {
@@ -10,6 +11,70 @@ export class Util {
     if (/IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(navigator.userAgent) || window.innerWidth <= 767) return true;
     if (/Chrome/i.test(navigator.userAgent)) return false;
     return false;
+  }
+
+  static formataValor = (str: any) => {
+    return Number(str).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+  }
+
+  static isNullOrEmpty = (str: string) => {
+    if(typeof(str) == typeof('')){
+      return str == undefined || str == null || str == "" || str.trim() == "";
+    } else {
+      return str == undefined || str == null;
+    }
+  }
+
+  static isObjectNullOrEmpty = (obj: object) => {
+    if (obj !== null && obj !== undefined) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static limparNumero = (str: string) => {
+    if (!str || str.trim() == "") return "";
+    return str.replace(/\D/g, "");
+  }
+
+  static formatarCartao = (numeroCartao: string) => {
+    let regex = new RegExp(/^5[1-5][0-9]{14}/);
+
+    if (!numeroCartao || numeroCartao.trim() == "") return {numeroCartao: numeroCartao, validaNumeroCartao: false};
+
+
+    numeroCartao = this.limparNumero(numeroCartao)
+    var validaNumeroCartao = regex.test(numeroCartao);
+    numeroCartao = numeroCartao
+    .substring(0, 16)
+    .replace(/(\d{4})(\d{4})(\d{4})(\d{4})/gi, "$1 $2 $3 $4");
+
+
+    return {numeroCartao: numeroCartao, validaNumeroCartao: validaNumeroCartao};
+  }
+
+  static formataCpfCpjs(cpfCnpj: string){
+    let regex = new RegExp(/(\d{3}).(\d{3}).(\d{3})-(\d{2})/);
+    var validaCPF;
+    cpfCnpj = cpfCnpj.includes('.')? cpfCnpj.replace(/./g,'') : cpfCnpj;
+    cpfCnpj = cpfCnpj.includes('/')? cpfCnpj.replace(/\//g,'') : cpfCnpj;
+    cpfCnpj = cpfCnpj.includes('-')? cpfCnpj.replace(/-/g,'') : cpfCnpj;
+    // console.log(cpfCnpj)
+    // console.log(cpfCnpj.length)
+
+    if(cpfCnpj.length < 14){
+      cpfCnpj = cpfCnpj.substring(0, 11).replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+      validaCPF = regex.test(cpfCnpj);
+
+    } else{
+      cpfCnpj = cpfCnpj.substring(0, 14).replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+      regex = new RegExp(/(\d{2}).(\d{3}).(\d{3})\/(\d{4})-(\d{2})/);
+      validaCPF = regex.test(cpfCnpj);
+
+    }
+
+    return {cpfCnpj: cpfCnpj, validaCPF:validaCPF}
   }
 
   static emailMask(email: string) {
@@ -22,13 +87,40 @@ export class Util {
       previous = email[i];
     }
 
-    console.log(maskedEmail)
     return maskedEmail.join('');
   }
 
   static validateEmail(email: string) {
     var re = /\S+@\S+\.\S+/;
     return re.test(email);
+  }
+
+  static formataTelefone(tel: string){
+    let regex = new RegExp(/\(\d{2}\)\s\d{5}-\d{4}/);
+    var validaTelefone;
+    var telefone: string = tel.trim();
+
+    telefone = telefone.includes('(')? telefone.replace('(','') : telefone;
+    telefone = telefone.includes(')')? telefone.replace(')','') : telefone;
+    telefone = telefone.includes('-')? telefone.replace('-','') : telefone;
+    telefone = telefone.includes('+')? telefone.replace('+','') : telefone;
+    var teste = telefone.split(' ');
+    telefone = teste.join('')
+
+    if(telefone.length < 13){
+      telefone = telefone.substring(0, 11).replace(/(\d{2})(\d)/,"($1) $2");
+      telefone = telefone.replace(/(\d)(\d{4})$/,"$1-$2");
+      validaTelefone = regex.test(telefone);
+
+    } else {
+      telefone = telefone.substring(0, 15).replace(/(\d{2})(\d{2})(\d)/, '+$1 ($2) ');
+      telefone = telefone.replace(/(\d)(\d{4})$/,"$1-$2");
+      regex = new RegExp(/\+\d{2}\s\(\d{2}\)\s\d{5,5}-?\d{4}/)
+      validaTelefone = regex.test(telefone);
+    }
+
+    return {telefone:telefone, validaTelefone:validaTelefone}
+
   }
 
   static dataHoraFormatada(novaData: string){

@@ -1,0 +1,87 @@
+.modulos{
+  border: 1px solid #ee5c55;
+  border-radius: 10px;
+  background-color: #ffb5b1;
+}
+
+
+.step-title {
+  @media screen and (max-width: 900px) {
+    width: 50px;
+  }
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #ee5c55;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aulaSelecionada{
+  background-color: #d77a75;
+  border-left: 7px solid #34b344;
+
+}
+
+.aula{
+  border-left: 7px solid #ffb5b1;
+
+}
+.aula:hover{
+  background-color: #d77a75;
+  border-left: 7px solid #d77a75;
+
+}
+
+
+.circle {
+  background-color: #aaa;
+  border-radius: 50%;
+  z-index: 2;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+  border: 10px solid white;
+}
+
+.circle img {
+  position: absolute;
+  top: -11%;
+  bottom: 0;
+  width: 100%;
+}
+
+.abrirEmojs {
+  display: block;
+  position: absolute;
+  z-index: 5;
+}
+
+.fecharEmojis {
+  display: none;
+}
+
+
+.upload_btn{
+  position:absolute;
+  width:4%;
+  height:110px !important;
+  z-index:10;
+  opacity:0;
+}
+
+.descricaoSelecionado{
+  font-weight: 600;
+  border-bottom: 1px solid #ee5c55;
+  border-bottom-width: 3px;
+}
+
+.materiasisSelecionados{
+  font-weight: 600;
+  border-bottom: 1px solid #ee5c55;
+  border-bottom-width: 3px;
+}
+

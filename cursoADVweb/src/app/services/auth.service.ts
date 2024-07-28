@@ -36,6 +36,14 @@ export class AuthService {
       );
   }
 
+  recuperarSenha(dadosUsuario: any) : Observable<any> {
+    return this.http.post(`${environment.baseUrl}/Autenticador/recuperarSenha`, dadosUsuario)
+      .pipe(
+        take(1),
+        map(result => result)
+      );
+  }
+
   async getUserAsync() {
     // console.log('getUserAsync')
     return await this.getUser();
@@ -67,7 +75,7 @@ export class AuthService {
     return localStorage.setItem("token", btoa(JSON.stringify(accessToken)));
   }
 
-  setCliente(usuario: Usuario) {
+  setCliente(usuario: Partial<Usuario>) {
     localStorage.setItem("usuario", window.btoa(unescape(encodeURIComponent(JSON.stringify(usuario)))));
   }
 
@@ -80,8 +88,16 @@ export class AuthService {
   }
 
   getToken(): string {
-    // return JSON.parse(atob(localStorage.getItem("token") || '{}'));
-    return ''
+    var token = localStorage.getItem("token") == null? "" : localStorage.getItem("token")
+
+    if(token != null && token != "")
+    {
+      return JSON.parse(atob(token));
+
+    } else {
+      return "";
+
+    }
   }
 
   tyParse(param: any) {

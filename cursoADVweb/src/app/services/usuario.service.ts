@@ -18,4 +18,12 @@ export class UsuarioService {
         map(result => result)
       );
   }
+
+  pegarUsuario() : Observable<any> {
+    return this.http.get(`${environment.baseUrl}/usuario/pegarUsuario`)
+      .pipe(
+        take(1),
+        map(result => result)
+      );
+  }
 }

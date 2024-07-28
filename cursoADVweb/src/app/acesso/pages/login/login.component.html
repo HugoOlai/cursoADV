@@ -1,10 +1,16 @@
-<div class="imagem">
+<div *ngIf="!isMobile" class="imagem">
   <div class="box">
 
   </div>
 </div>
+<div *ngIf="isMobile" style="position: absolute; z-index: -2;" class="box">
 
-<div class="col-12 d-flex flex-wrap justify-content-center" style="padding-top: 5rem !important;">
+</div>
+
+<!-- <h1 (click)="voltarBlog()" style="cursor: pointer;" class="ms-2" > <strong> VOLTAR </strong> </h1> -->
+
+<div class="col-12 d-flex flex-wrap justify-content-center " [style]="isMobile? 'padding-top: 2rem !important;':'padding-top: 5rem !important;'">
+
   <div class="w-100 d-flex flex-wrap justify-content-center">
     <img src="../../../../assets/imgs/logo.png"  alt="" height="100">
   </div>
@@ -13,9 +19,9 @@
   </div>
 </div>
 
-<div class="col-12 d-flex flex-wrap justify-content-center" [style]="isMobile?'padding-top: 2rem !important;':'padding-top: 5rem !important;'">
+<div class="col-12 d-flex flex-wrap justify-content-center {{isMobile? '': 'defineTamanhoTela'}}" [style]="isMobile?'padding-top: 2rem !important;':'padding-top: 5rem !important;'">
   <div class="{{isMobile?'col-12':'col-6'}} d-flex flex-wrap justify-content-center" style="color: WHITE;">
-    <img src="assets/imgs/ÁREA DE LOGIN PRO INF.png" style="" height="350" width="100%" />
+    <img src="assets/imgs/ÁREA DE LOGIN PRO INF.png" [style]="isMobile?'width: 100vw':''" height="350" width="" />
 
     <!-- <h1><strong class="fs-1">BEM-VINDO(A)!</strong></h1>
     <P class="fs-2" [style]="isMobile?'padding-left:2rem; padding-right: 2rem':'padding-left: 11rem;'" style="line-height:1.2; text-align: justify;">
@@ -25,25 +31,29 @@
   </div>
   <div class="{{isMobile?'col-12':'col-6'}} d-flex flex-wrap justify-content-center">
     <div class="{{isMobile?'col-12':'col-8'}} d-flex flex-wrap" style="background-color: white; border-radius: 10px;">
-      <form [formGroup]="formularioLogin" class="m-4">
-        <mat-form-field class="example-full-width">
-          <mat-label>E-mail</mat-label>
-          <input matInput  formControlName="Email">
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <mat-label>Senha</mat-label>
-          <input matInput type="{{visivel? 'text':'password'}}" formControlName="Senha">
-          <button *ngIf="visivel == true" matSuffix mat-icon-button (click)="visivel=false">
-            <span class="material-icons">
-              lock_open
-            </span>
-          </button>
-          <button *ngIf="visivel == false" matSuffix mat-icon-button (click)="visivel=true">
-            <span class="material-icons">
-              lock
-            </span>
-          </button>
-        </mat-form-field>
+      <form [formGroup]="formularioLogin" class="m-4 w-100" (keyup.enter)="login()">
+        <div class="col-12">
+          <mat-form-field class="w-100">
+            <mat-label>E-mail</mat-label>
+            <input matInput type="email" formControlName="Email">
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <mat-form-field class="w-100">
+            <mat-label>Senha</mat-label>
+            <input matInput type="{{visivel? 'text':'password'}}" formControlName="Senha">
+            <button *ngIf="visivel == true" matSuffix mat-icon-button (click)="visivel=false">
+              <span class="material-icons">
+                lock_open
+              </span>
+            </button>
+            <button *ngIf="visivel == false" matSuffix mat-icon-button (click)="visivel=true">
+              <span class="material-icons">
+                lock
+              </span>
+            </button>
+          </mat-form-field>
+        </div>
         <div class="col-12" *ngIf="carregando">
           <div class="clearfix d-flex justify-content-center">
             <p class="fs-6"> Carregando </p>
@@ -55,17 +65,34 @@
       </form>
       <div class="col-12 d-flex flex-wrap px-4 mb-4">
         <div class="col-8 mt-2">
-          Esqueceu sua senha? <span style="color: red;">Clique aqui</span>
+            <button type="button" (click)="voltar()" class="btn btn-info text-light"><strong>VOLTAR</strong></button>
         </div>
         <div class="col-4 d-flex justify-content-end">
-          <button [disabled]="carregando" type="button" (click)="login()" class="btn {{carregando?'btn-secondary':'btn-warning'}} text-light"><strong>ENVIAR</strong></button>
+          <div>
+            <button [disabled]="carregando" type="button" (click)="login()" class="btn {{carregando?'btn-secondary':'btn-warning'}} text-light"><strong>ENTRAR</strong></button>
+
+          </div>
 
         </div>
         <div class="w-100 pt-3">
-          <button type="button" (click)="router.navigate(['acesso/cadastrar'])" class="btn btn-danger text-light w-100"><strong>INSCREVER-SE</strong></button>
+          <button type="button" (click)="router.navigate(['acesso/cadastrar'])" class="btn btn-danger text-light w-100 mb-2"><strong>INSCREVER-SE</strong></button>
+          <!-- <li>
+            <mat-form-field>
+              <mat-label>What's your name?</mat-label>
+              <input matInput [(ngModel)]="name">
+            </mat-form-field>
+          </li> -->
+            Esqueceu sua senha? <span class="pointer" style="color: red;" (click)="openDialog()">Clique aqui</span>
+
+            <!-- <button mat-raised-button (click)="openDialog()">Pick one</button> -->
+          <!-- <li *ngIf="animal">
+            You chose: <em>{{animal}}</em>
+          </li> -->
 
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<app-roda-pe></app-roda-pe>

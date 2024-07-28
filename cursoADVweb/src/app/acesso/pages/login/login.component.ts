@@ -1,14 +1,23 @@
 import { Router } from '@angular/router';
 import { Util } from '../../../class/util.class';
-import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments';
-import { AppComponent } from '../../../app.component';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../services/auth.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { UsuarioService } from '../../../services/usuario.service';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { SnackBarComponent } from '../../../components/snack-bar/snack-bar.component';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { RecuperarComponent } from '../recuperar/recuperar.component';
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-login',
@@ -16,8 +25,8 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
-  horizontalPosition: MatSnackBarHorizontalPosition = SnackBarComponent.prototype.horizontalPosition;
   verticalPosition: MatSnackBarVerticalPosition = SnackBarComponent.prototype.verticalPosition;
+  horizontalPosition: MatSnackBarHorizontalPosition = SnackBarComponent.prototype.horizontalPosition;
 
   carregando = false;
   visivel: boolean = false;
@@ -34,7 +43,8 @@ export class LoginComponent implements OnInit {
     private usuarioService: UsuarioService,
     public router: Router,
     private cookie : CookieService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog
   ){
     this.formularioLogin = this.fb.group({
       Email: [""],
@@ -52,6 +62,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(){
+    var usuario = this.service.getUser();
+    //console.log(usuario)
+    if(usuario.email != undefined)
+      this.router.navigate(['areaAluno']);
 
   }
 
@@ -61,6 +75,17 @@ export class LoginComponent implements OnInit {
       verticalPosition: this.verticalPosition,
       duration: 4 * 1000,
       panelClass: defineClass
+    });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(RecuperarComponent, {
+      data: {name: 'teste', animal: 'teste'},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = 'outroTteste';
     });
   }
 
@@ -78,6 +103,12 @@ export class LoginComponent implements OnInit {
     // console.log(item)
   }
 
+
+  voltar(){
+    this.router.navigate(['blog/inicio'])
+  }
+
+
   login(){
     this.carregando = true;
     var item  = this.formularioLogin.value;
@@ -90,7 +121,6 @@ export class LoginComponent implements OnInit {
 
     this.service.autenticar(obj).subscribe({
       next: (res)=>{
-        console.log('res: ',res)
         this.carregando = false;
         if(res.message == "Falha ao autenticar"){
           SnackBarComponent.prototype.texto = "Login ou senha incorreto";
@@ -128,3 +158,5 @@ export class LoginComponent implements OnInit {
     })
   }
 }
+
+

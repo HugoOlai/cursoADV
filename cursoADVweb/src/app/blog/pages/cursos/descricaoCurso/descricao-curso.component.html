@@ -1,13 +1,20 @@
 <div class="col-12 flex-wrap">
   <div class="col-12 d-flex flex-wrap fundoLaranja defineFont"
-    [style]="isMobile? 'height: 18.75rem;':'padding-left: 7rem; height: 14.75rem;'">
-    <div class="{{isMobile? 'col-12 px-3':'col-8'}}">
-      <div class="col-12 pt-4 pb-2">
-        <h1><strong class="fontTitulo2 fs-1" style="color: white;">{{curso?.titulo}}</strong></h1>
+    [style]="isMobile? 'height: 25.75rem;':'padding-left: 7rem; height: 14.75rem;'">
+    <div class="{{isMobile? 'col-12 px-3':'col-8 d-flex flex-wrap'}}">
+      <div class="col-12 pt-4 ">
+        <h1><strong class="fontTitulo2 fs-1" style="color: rgb(3, 3, 3);">{{curso.titulo}}</strong></h1>
+      </div>
+      <div class="col-12">
+        <!-- <h2><p><b>{{grupoEstudos.titulo}}</b></p></h2> -->
+        <h1>
+          <b style="color: #e64944;">{{curso.parcelas}}</b><br>
+          <small style="font-size:medium;">{{curso.valorFormatado}} à vista ou {{curso.valorComDesconto}} para os inscritos pelas cotistas</small>
+        </h1>
       </div>
       <div class="col-12" *ngIf="true">
         <P class="fs-5 formataParagrafos" >
-          {{curso?.subtitulo}}
+          {{curso.subtitulo}}
         </P>
       </div>
     </div>
@@ -22,14 +29,14 @@
 
   <div class="col-12 d-flex flex-wrap {{isMobile? 'p-2':'p-5'}} ">
     <div class="{{isMobile? 'col-12':'col-6'}} d-flex justify-content-center">
-      <img src="assets/imgs/recursos.png" style="border-radius: 30px;"  height="350" />
+      <img src="{{curso.src}}" style="border-radius: 30px;"  height="350" />
 
     </div>
     <div class="{{isMobile? 'col-12 pt-5':'col-6'}} d-flex justify-content-center">
       <div class=" defineFont {{isMobile? 'px-3':''}}">
         <h1 class=""> <strong class="fontTitulo2">Objetivo</strong></h1>
         <p class="fs-5 mt-4 formataParagrafos">
-          {{curso?.objetivo}}
+          {{curso.objetivo}}
         </p>
       </div>
     </div>
@@ -41,15 +48,14 @@
         <h1><strong class="fontTitulo2 fs-1">Estrutura do Curso</strong></h1>
       </div>
       <div class="col-12" *ngIf="true">
-        <P class="fs-5 formataParagrafos" >
-          {{curso?.estrutura}}
+        <P class="fs-5 formataParagrafos" [innerHTML]="curso.estrutura">
         </P>
       </div>
     </div>
   </div>
 
   <div class="col-12 mt-3 d-flex flex-wrap" [style]="isMobile? '':'padding-left: 7rem; padding-right: 7rem;'">
-    <div class=" {{isMobile? 'col-12 px-3':'col-4'}}" *ngFor="let topco of curso?.topcos">
+    <div class=" {{isMobile? 'col-12 px-3':'col-4'}}" *ngFor="let topco of curso.topcos">
       <div class="card mt-3 fundoRosa " [style]="isMobile? 'width: 100%; border-radius: 30px;': 'width: 90%; border-radius: 30px;'">
         <div class="card-body">
           <h5 class="card-title fs-6 text-center mt-1" style="color: #842723;"><strong>{{topco}}</strong></h5>
@@ -58,11 +64,11 @@
 
     </div>
     <div class="col mt-2 p-3 fs-5 formataParagrafos">
-      {{curso?.materialApoio}}
+      {{curso.materialApoio}}
     </div>
   </div>
 
-  <div class="w-100 d-flex justify-content-center mt-5 mb-5">
+  <!-- <div class="w-100 d-flex justify-content-center mt-5 mb-5">
     <div class="col-12 d-flex justify-content-center" style="top: 71px; position: relative;" >
       <div class="col-5">
         <div style="border-style: solid none none none; border-color: #ed8f00;" class="me-4 mt-4 col-5 w-100"></div>
@@ -74,9 +80,9 @@
         <div style="border-style: solid none none none; border-color: #ed8f00;" class="me-4 mt-4 col-5 w-100"></div>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <div class="w-100 d-flex flex-wrap fundoRosa pt-5 justify-content-center">
+  <!-- <div class="w-100 d-flex flex-wrap fundoRosa pt-5 justify-content-center">
     <div class="imagemDeFundo" [style]="isMobile? 'width: 1px;':''"  >
 
     </div>
@@ -142,7 +148,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- <iframe class="editaVideo" width="560" height="315" src="https://www.youtube.com/embed/0wIC1_wG7_o?si=MiOG0bLPop5ijHr-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; " referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
   <!-- <div>

@@ -17,7 +17,7 @@ export class DescricaoCursoComponent {
   isMobile = Util.isMobile();
   private accessToken: any;
   usuario?: Usuario;
-  curso?: Curso;
+  curso: Curso;
 
   listaCursos: Array<Curso> = [];
 
@@ -62,50 +62,53 @@ export class DescricaoCursoComponent {
     public cursosService: CursosService,
     private authService: SocialAuthService,
     private httpClient: HttpClient
-  ) { }
-
-  ngOnInit() {
+  ) {
     this.usuario = this.service.getUser();
     this.curso = this.cursosService.get();
-    console.log(this.curso)
+  }
+
+  ngOnInit() {
     if(this.curso == undefined || this.curso == null){
       this.router.navigate(['blog/cursos']);
 
+    } else{
+      var divisao = this.curso.valor/12;
+          this.curso.parcelas = `12x de ${Util.formataValor(divisao)}`
+          this.curso.valorFormatado = Util.formataValor(this.curso.valor) ;
+          this.curso.valorComDesconto = Util.formataValor(this.curso.valor - 200)
     }
-    console.log('ngOnInit')
 
     // this.getAccessToken()
 
   }
 
   redirecionar(){
-    console.log(this.curso)
     this.router.navigate([`areaAluno/contratacao/${this.curso?.id}`]);
 
   }
 
-  getAccessToken(): void {
-    console.log('teste')
-    this.authService.getAccessToken(GoogleLoginProvider.PROVIDER_ID).then(accessToken =>
-    {
-      this.accessToken = accessToken;
-      this.getGoogleVideo()
-    });
-  }
+  // getAccessToken(): void {
+  //   console.log('teste')
+  //   this.authService.getAccessToken(GoogleLoginProvider.PROVIDER_ID).then(accessToken =>
+  //   {
+  //     this.accessToken = accessToken;
+  //     this.getGoogleVideo()
+  //   });
+  // }
 
-  getGoogleVideo(): void {
-    if (!this.accessToken) return;
+  // getGoogleVideo(): void {
+  //   if (!this.accessToken) return;
 
-    console.log(this.accessToken)
-    this.httpClient
-      .get('https://www.googleapis.com/drive/v3/files/16aLd5ZgzmkJlrf1t-_Q0AV2VMV6AtGtt', {
-        headers: { Authorization: `Bearer ${this.accessToken}` },
-      })
-      .subscribe((events) => {
-        alert('Look at your console');
-        console.log('events', events);
-      });
-  }
+  //   console.log(this.accessToken)
+  //   this.httpClient
+  //     .get('https://www.googleapis.com/drive/v3/files/16aLd5ZgzmkJlrf1t-_Q0AV2VMV6AtGtt', {
+  //       headers: { Authorization: `Bearer ${this.accessToken}` },
+  //     })
+  //     .subscribe((events) => {
+  //       alert('Look at your console');
+  //       console.log('events', events);
+  //     });
+  // }
 
   direita(){
     var lista:any = [];

@@ -85,8 +85,6 @@ export class AdminComponent {
 
     this.imagemSelecionada = event.target.files[0]
 
-    console.log(this.imagemSelecionada)
-    console.log(event.target.files[0])
     // if(event.target.files[0].type == 'video/mp4'){
     //   this.listaVideos.push(btoa(this.imagemSelecionada))
     // } else {
@@ -109,10 +107,8 @@ export class AdminComponent {
     //form.listaArquivosApoio = this.listaArquivosApoio;
 
     // form.Arquivo = this.imagemSelecionada
-    console.log(form)
     this.cursoService.cadastrar(form).subscribe({
       next: res=>{
-        console.log(res);
       },
       error:err=>{
         console.log(err);

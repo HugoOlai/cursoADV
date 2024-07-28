@@ -7,6 +7,9 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { SnackBarComponent } from '../../../components/snack-bar/snack-bar.component';
+import { AuthService } from '../../../services/auth.service';
+import { environment } from '../../../environments';
+import { CookieService } from 'ngx-cookie-service';
 
 var emailValido = false
 function set(valor: boolean){
@@ -31,8 +34,10 @@ export class CadastrarComponent {
   formularioCadastro: FormGroup;
   imagemSelecionada: any;
   visivel: boolean = false;
+  carregando: boolean = false;
+
   imagensACarregar?: Array<Arquivo>;
-  errorMessage: any = ['Nome', 'Email', 'ConfirmaEmail', 'Telefone', 'Senha', 'CpfCnpj', 'Cargo' ];
+  errorMessage: any = ['Nome', 'Email', 'ConfirmaEmail', 'Telefone', 'Senha', 'CpfCnpj', 'Cep', 'Rua', 'Numero' ];
 
   Nome = false;
   Email = true;
@@ -40,10 +45,16 @@ export class CadastrarComponent {
   Senha = true;
   CpfCnpj = true;
   Cargo = true;
+  Cep = true;
+  Complemento = true;
+  Rua = true;
+  Numero = true;
 
   constructor(
     private fb: FormBuilder,
     public router: Router,
+    private service: AuthService,
+    private cookie : CookieService,
     private usuarioService: UsuarioService,
     private _snackBar: MatSnackBar
 
@@ -57,7 +68,11 @@ export class CadastrarComponent {
       Senha: [""],
       CpfCnpj:[""],
       ConfirmaSenha: [""],
-      Cargo: [""]
+      Cargo: [""],
+      Cep: [""],
+      Rua: [""],
+      Complemento: [""],
+      Numero: [""],
     });
   }
 
@@ -68,15 +83,15 @@ export class CadastrarComponent {
     this.errorMessage['CpfCnpj'] = 'Cpf/Cnpj deve ser preenchido'
     this.errorMessage['Telefone'] = 'Digite o telefone'
     this.errorMessage['Senha'] = 'Digite a senha'
-    this.errorMessage['Cargo'] = 'Digite seu cargo'
+    this.errorMessage['Cep'] = 'Digite seu cep'
+    this.errorMessage['Complemento'] = 'Digite seu complemento'
+    this.errorMessage['Rua'] = 'Digite o nome da rua do endereço'
+    this.errorMessage['Numero'] = 'Digite o número do endereço'
   }
 
   validateEmail(control: any){
-    // console.log(this.formularioCadastro.controls['Email'].value)
     var emailValido = Util.validateEmail(control.value)
     if(!emailValido){
-     // this.Email = false;
-      // this.errorMessage['Email'] = 'Email invalido';
       return false;
     }
 
@@ -89,7 +104,7 @@ export class CadastrarComponent {
     this._snackBar.openFromComponent(SnackBarComponent, {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
-      //duration: 2 * 1000,
+      duration: 4 * 1000,
       panelClass: defineClass
     });
   }
@@ -104,20 +119,20 @@ export class CadastrarComponent {
       this.errorMessage['Email'] = 'Digite o e-mail';
       SnackBarComponent.prototype.texto = "Digite o e-mail";
       SnackBarComponent.prototype.tipo = 'warning';
-      this.openSnackBar('snakBar-warning');
+      this.openSnackBar('warning');
     } else{
       if(!pegaValidacaoEscrita){
         this.errorMessage['Email'] = 'Email invalido';
         SnackBarComponent.prototype.texto = "Email invalido";
         SnackBarComponent.prototype.tipo = 'warning';
-        this.openSnackBar('snakBar-warning');
+        this.openSnackBar('warning');
       } else {
         if(this.formularioCadastro.controls['Email'].value != this.formularioCadastro.controls['ConfirmaEmail'].value){
           emailSaoIguais = false;
           this.errorMessage['Email'] = 'Emails devem ser iguais';
           SnackBarComponent.prototype.texto = "Emails devem ser iguais";
           SnackBarComponent.prototype.tipo = 'warning';
-          this.openSnackBar('snakBar-warning');
+          this.openSnackBar('warning');
         } else {
           emailSaoIguais = true;
         }
@@ -155,7 +170,7 @@ export class CadastrarComponent {
       this.errorMessage['CpfCnpj'] = 'CPF ou CNPJ incorreto';
       SnackBarComponent.prototype.texto = "CPF ou CNPJ incorreto";
       SnackBarComponent.prototype.tipo = 'warning';
-      this.openSnackBar('snakBar-warning');
+      this.openSnackBar('warning');
     }
 
     this.formularioCadastro.controls['CpfCnpj'].setValue(cpfCnpj)
@@ -195,7 +210,7 @@ export class CadastrarComponent {
       this.errorMessage['Telefone'] = 'Telefone invalido';
       SnackBarComponent.prototype.texto = "Telefone invalido";
       SnackBarComponent.prototype.tipo = 'warning';
-      this.openSnackBar('snakBar-warning');
+      this.openSnackBar('warning');
     }
 
     this.formularioCadastro.controls['Telefone'].setValue(telefone)
@@ -252,22 +267,22 @@ export class CadastrarComponent {
           if(tipo == 'Senha')
             this.Senha = false;
 
-          if(tipo == 'Cargo')
-            this.Cargo = false;
+          // if(tipo == 'Cargo')
+          //   this.Cargo = false;
 
         } else{
           if(tipo == 'Nome')
             this.Nome = true;
 
-          if(tipo == 'Cargo')
-            this.Cargo = true;
+          // if(tipo == 'Cargo')
+          //   this.Cargo = true;
 
           if(tipo == 'Senha'){
             if(this.formularioCadastro.controls['Senha'].value != this.formularioCadastro.controls['ConfirmaSenha'].value){
               this.errorMessage['Senha'] = 'Senhas devem ser iguais';
               SnackBarComponent.prototype.texto = "Senhas devem ser iguais";
               SnackBarComponent.prototype.tipo = 'warning';
-              this.openSnackBar('snakBar-warning');
+              this.openSnackBar('warning');
 
               this.Senha = false;
             } else{
@@ -279,30 +294,90 @@ export class CadastrarComponent {
 
   }
   cadastrar(){
+    this.carregando = true;
     var form = this.formularioCadastro.value
     form.CpfCnpj = this.formularioCadastro.value.CpfCnpj.replace(/[^0-9]/g, '')
     form.Telefone = this.formularioCadastro.value.Telefone.replace(/[^0-9]/g, '')
     // console.log(form)
 
     if(this.formularioCadastro.controls['CpfCnpj'].value == ''){
+      this.carregando = false;
+
       this.errorMessage['CpfCnpj'] = 'Cpf/Cnpj deve ser preenchido';
       SnackBarComponent.prototype.texto = "Cpf/Cnpj deve ser preenchido";
       SnackBarComponent.prototype.tipo = 'warning';
-      this.openSnackBar('snakBar-warning');
+      this.openSnackBar('warning');
       this.CpfCnpj = false;
     } else {
       this.CpfCnpj = true;
     }
 
     if(this.formularioCadastro.controls['Telefone'].value == ''){
+      this.carregando = false;
+
       this.errorMessage['Telefone'] = 'Digite o telefone';
       SnackBarComponent.prototype.texto = "Digite o telefone";
       SnackBarComponent.prototype.tipo = 'warning';
-      this.openSnackBar('snakBar-warning');
+      this.openSnackBar('warning');
       this.Telefone = false;
     } else {
       this.Telefone = true;
     }
+
+    if(this.formularioCadastro.controls['Complemento'].value == ''){
+      this.carregando = false;
+
+      this.errorMessage['Complemento'] = 'Digite seu complemento';
+      SnackBarComponent.prototype.texto = "Digite seu complemento";
+      SnackBarComponent.prototype.tipo = 'warning';
+      this.openSnackBar('warning');
+      this.Complemento = false;
+    } else {
+      this.Complemento = true;
+    }
+
+    if(this.formularioCadastro.controls['Cep'].value == ''){
+      this.carregando = false;
+
+      this.errorMessage['Cep'] = 'Digite seu cep';
+      SnackBarComponent.prototype.texto = "Digite seu cep";
+      SnackBarComponent.prototype.tipo = 'warning';
+      this.openSnackBar('warning');
+      this.Cep = false;
+    } else {
+      this.Cep = true;
+    }
+
+    if(this.formularioCadastro.controls['Rua'].value == ''){
+      this.carregando = false;
+
+      this.errorMessage['Rua'] = 'Digite o nome da rua do endereço';
+      SnackBarComponent.prototype.texto = "Digite o nome da rua do endereço";
+      SnackBarComponent.prototype.tipo = 'warning';
+      this.openSnackBar('warning');
+      this.Rua = false;
+    } else {
+      this.Rua = true;
+    }
+
+    if(this.formularioCadastro.controls['Numero'].value == ''){
+      this.carregando = false;
+
+      this.errorMessage['Numero'] = 'Digite o número do endereço';
+      SnackBarComponent.prototype.texto = "Digite o número do endereço";
+      SnackBarComponent.prototype.tipo = 'warning';
+      this.openSnackBar('warning');
+      this.Numero = false;
+    } else {
+      this.Numero = true;
+    }
+
+    // if(this.imagemSelecionada == null){
+    //   this.carregando = false;
+    //   SnackBarComponent.prototype.texto = "Digite o Adicione uma foto sua";
+    //   SnackBarComponent.prototype.tipo = 'warning';
+    //   this.openSnackBar('warning');
+    // }
 
     // if(this.formularioCadastro.controls['Senha'].value == ''){
     //     this.Senha = false;
@@ -320,37 +395,99 @@ export class CadastrarComponent {
 
     form.src = this.imagemSelecionada;
 
-    if(this.Nome && this.Email &&
-       this.Telefone && this.Senha &&
-       this.CpfCnpj && this.imagemSelecionada != null && this.Cargo){
+    if(this.Nome && this.Email && this.Cep && this.Complemento && this.Rua && this.Numero &&
+       this.Telefone && this.Senha && this.CpfCnpj){
 
-        this.usuarioService.cadastrar(form).subscribe({
+        var obj = {
+          Nome: form.Nome,
+          Email: form.Email,
+          Telefone: form.Telefone,
+          Senha: form.Senha,
+          CpfCnpj: form.CpfCnpj,
+          Endereco: {
+            Cep: form.Cep,
+            Rua: form.Rua,
+            Numero: form.Numero,
+            Complemento: form.Complemento
+          }
+        }
+
+       this.usuarioService.cadastrar(obj).subscribe({
           next: (res)=>{
-            this.limpar;
+            this.carregando = false;
+
+            this.login();
           },
           error: (err)=>{
-            console.log({err: err.error.text})
-            // alert(err.error.text);
+            console.log({err: err})
+            this.carregando = false;
 
             if(err.error.text == "Usuario já foi cadastrado"){
               SnackBarComponent.prototype.texto = err.error.text;
               SnackBarComponent.prototype.tipo = 'warning';
-              this.openSnackBar('snakBar-warning');
+              this.openSnackBar('warning');
 
               this.router.navigate(['acesso/login']);
 
             } else {
               SnackBarComponent.prototype.texto = err.error.text;
               SnackBarComponent.prototype.tipo = 'success';
-              this.openSnackBar('snakBar-success');
-
-              this.router.navigate(['acesso/login']);
+              this.openSnackBar('success');
+              this.login();
 
             }
           }
         })
         // console.log(item)
     }
+  }
+
+  login(){
+    this.carregando = true;
+    var obj = {
+      "email": this.formularioCadastro.controls['Email'].value,
+      "senha": this.formularioCadastro.controls['Senha'].value,
+      "accessKey": "202dacd275cec7cd77cbd1923e16b5d0",
+      "ip": "333"
+    }
+
+    this.service.autenticar(obj).subscribe({
+      next: (res)=>{
+        this.carregando = false;
+        if(res.message == "Falha ao autenticar"){
+          SnackBarComponent.prototype.texto = "Login ou senha incorreto";
+          SnackBarComponent.prototype.tipo = 'warning';
+          this.openSnackBar('warning');
+        }
+
+        if (res && res.authenticated) {
+          res.obj.dataAcesso = res.created;
+          res.obj.dataLimite = res.expiration;
+          res.obj.admin = false;
+
+          this.service.setCliente(res.obj);
+          this.service.setToken(res.accessToken);
+
+          this.cookie.delete('email');
+          this.cookie.delete('nome');
+          this.cookie.set('email', res.obj.email);
+          this.cookie.set('nome', res.obj.nome);
+
+          SnackBarComponent.prototype.texto = `Bem vindo, ${res.obj.nome}`;
+          SnackBarComponent.prototype.tipo = 'success';
+          this.openSnackBar('success');
+
+          this.router.navigate(['areaAluno']);
+
+        }
+      }, error: (err)=>{
+        this.carregando = false;
+        console.log('err: ',err);
+        SnackBarComponent.prototype.texto = "Login ou senha incorreto";
+        SnackBarComponent.prototype.tipo = 'warning';
+        this.openSnackBar('warning');
+      }
+    })
   }
 
   limpar(){

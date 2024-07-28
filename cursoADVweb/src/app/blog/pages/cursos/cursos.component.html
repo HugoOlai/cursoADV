@@ -24,7 +24,14 @@
           <strong style="font-size: 33px;">CURSOS</strong>
         </h1>
       </div>
-
+      <div class="col-12" *ngIf="carregando">
+        <div class="clearfix d-flex justify-content-center">
+          <p class="fs-6"> Carregando </p>
+          <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+            <span class="sr-only"></span>
+          </div>
+        </div>
+      </div>
       <!-- <div class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
         <div class="card" style="width: 18rem;">
           <h4 class="text-center textImagem">
@@ -63,15 +70,15 @@
         </div>
       </div> -->
 
-      <div *ngFor="let curso of listaCursos" class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
+      <!-- <div *ngFor="let curso of listaCursos" class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
         <div class="card" style="width: 18rem;">
           <h4 class="text-center textImagem">
             <p class="text defineFont mt-2" style="width: 100%;">
               <strong class="">{{curso.titulo.toLocaleUpperCase()}}</strong>
             </p>
           </h4>
-          <img src="assets/imgs/recursos.png" class="card-img-top" alt="...">
-          <div class="card-body">
+          <img src="{{curso.src}}" class="card-img-top" alt="...">
+          <div class="card-body" *ngIf="!grupoEstudos.cursoContratado">
             <button type="button" (click)="redirecionar(curso)"
             class="btn btn-sm w-100 btn-danger icon-button shadow-sm rounded ">
               <strong class="defineFontBtns text-center " style="font-size: 25px;">
@@ -79,6 +86,26 @@
               </strong>
             </button>
           </div>
+        </div>
+      </div>
+    </div> -->
+    <div *ngIf="!carregando" class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
+      <div class="card" style="width: 18rem;">
+        <h4 class="text-center textImagem">
+          <p class="text defineFont mt-2" style="width: 100%;">
+            <strong class="">EM BREVE</strong>
+          </p>
+        </h4>
+        <img src="assets/imgs/site proinf quem somos e cursos/6.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          Esse <strong>aulão </strong> está em contrução, e em breve
+          traremos informações...
+          <!-- <button type="button"
+          class="btn btn-sm w-100 btn-danger icon-button shadow-sm rounded ">
+            <strong class="defineFontBtns text-center " style="font-size: 25px;">
+              Mais informações
+            </strong>
+          </button> -->
         </div>
       </div>
     </div>
@@ -104,16 +131,26 @@
         </h1>
       </div>
 
-      <!-- <div class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
+      <div class="col-12" *ngIf="carregando">
+        <div class="clearfix d-flex justify-content-center">
+          <p class="fs-6"> Carregando </p>
+          <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+            <span class="sr-only"></span>
+          </div>
+        </div>
+      </div>
+
+      <div *ngFor="let grupoEstudos of listaGrupoEstudos" class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
         <div class="card" style="width: 18rem;">
-          <h4 class="text-center textImagem">
+          <!-- <h4 class="text-center textImagem">
             <p class="text defineFont mt-2" style="width: 100%;">
-              <strong class="">BPE-SP</strong>
+              <strong class="">{{grupoEstudos.titulo.toLocaleUpperCase()}}</strong>
             </p>
-          </h4>
-          <img src="assets/imgs/site proinf quem somos e cursos/4.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <button type="button"
+          </h4> -->
+          <!-- *ngIf="!grupoEstudos.cursoContratado" -->
+          <img src="{{grupoEstudos.src}}" class="card-img-top" alt="...">
+          <div class="card-body" *ngIf="!grupoEstudos.cursoContratado">
+            <button type="button" (click)="redirecionar(grupoEstudos)"
             class="btn btn-sm w-100 btn-danger icon-button shadow-sm rounded ">
               <strong class="defineFontBtns text-center " style="font-size: 25px;">
                 Mais informações
@@ -123,26 +160,7 @@
         </div>
       </div>
 
-      <div class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
-        <div class="card" style="width: 18rem;">
-          <h4 class="text-center textImagem">
-            <p class="text defineFont mt-2" style="width: 100%;">
-              <strong class="">DPE-PR</strong>
-            </p>
-          </h4>
-          <img src="assets/imgs/site proinf quem somos e cursos/5.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <button type="button"
-            class="btn btn-sm w-100 btn-danger icon-button shadow-sm rounded ">
-              <strong class="defineFontBtns text-center " style="font-size: 25px;">
-                Mais informações
-              </strong>
-            </button>
-          </div>
-        </div>
-      </div> -->
-
-      <div class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
+      <div *ngIf="listaGrupoEstudos.length == 0 && !carregando" class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
         <div class="card" style="width: 18rem;">
           <h4 class="text-center textImagem">
             <p class="text defineFont mt-2" style="width: 100%;">

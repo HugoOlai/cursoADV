@@ -11,6 +11,7 @@ import { GoogleInitOptions, GoogleLoginProvider, SocialAuthServiceConfig } from 
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { RodaPeModule } from './components/roda-pe/roda-pe.module';
 
 const googleLoginOptions: GoogleInitOptions = {
   oneTapEnabled : false ,
@@ -36,6 +37,7 @@ const googleLoginOptions: GoogleInitOptions = {
     HttpClientModule,
     FormsModule,
     SidebarModule,
+    RodaPeModule,
     BrowserAnimationsModule
   ],
   providers:[

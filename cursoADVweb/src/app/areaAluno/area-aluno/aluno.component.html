@@ -1,16 +1,80 @@
 <app-sidebar-area-aluno></app-sidebar-area-aluno>
-<div class="col-12 pt-5 px-4">
- <div class="col-12 d-flex flex-wrap justify-content-center">
-  <div class="col-12 d-flex justify-content-center">
-    <h1 class="">
-      <strong class="fontTitulo fs-3">
-        VOCÊ AINDA NÃO SE MATRICULOU EM UM CURSO
-      </strong>
-    </h1>
+<div class="col-12 pt-5 {{isMobile? '': 'defineTamanhoTela'}} {{isMobile? 'px-2':'px-5'}}">
+  <div class="col-12" *ngIf="carregando">
+    <div class="clearfix d-flex justify-content-center">
+      <p class="fs-6"> Carregando </p>
+      <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+        <span class="sr-only"></span>
+      </div>
+    </div>
   </div>
-  <button type="button" (click)="router.navigate(['blog/cursos'])" class="btn btn-danger text-light">
-    <strong>INSCREVER-SE EM UM CURSO</strong>
-  </button>
 
- </div>
+  <div *ngIf="(this.usuario.listaCursos == null || this.usuario.listaCursos.length == 0) && !carregando"
+  class="col-12 d-flex flex-wrap justify-content-center">
+    <div class="col-12">
+      <h1 class="w-100">
+        <strong class="fontTitulo  d-flex justify-content-center {{isMobile? 'fs-5':' fs-3'}} text-center">
+          VOCÊ AINDA NÃO SE MATRICULOU EM UM CURSO
+        </strong>
+      </h1>
+    </div>
+    <button type="button" (click)="router.navigate(['blog/cursos'])" class="btn btn-danger text-light">
+      <strong>INSCREVER-SE EM UM CURSO</strong>
+    </button>
+  </div>
+
+  <div class="col-12 d-flex flex-wrap {{isMobile?'justify-content-center':''}} " *ngIf="meusCursos">
+    <div class="col-12 pb-2">
+      <h1 class="fontTitulo d-flex {{isMobile?'justify-content-center':''}} " >
+        <strong style="font-size: 33px;">MEUS CURSOS</strong>
+      </h1>
+    </div>
+    <div *ngFor="let curso of listaMeusCursos">
+      <div *ngIf="curso.statusPago" class="card me-2" (click)="assistirAula(curso)" style="width: 18rem; cursor: pointer;">
+        <h4 class="text-center textImagem">
+          <p class="text defineFont mt-3" style="width: 100%;">
+            <strong class="">{{curso.titulo.toLocaleUpperCase()}}</strong>
+          </p>
+        </h4>
+        <img src="{{curso.src}}" class="card-img-top" alt="...">
+      </div>
+
+      <div *ngIf="!curso.statusPago" class="card me-2" style="width: 18rem;">
+        <h4 class="text-center textImagem">
+          <p class="text defineFont mt-2" style="width: 100%;">
+            <strong class="">AGUARDANDO CONFIRMAÇÃO DE PAGAMENTO</strong>
+          </p>
+        </h4>
+        <img src="assets/imgs/site proinf quem somos e cursos/6.png" class="card-img-top" alt="...">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 d-flex flex-wrap {{isMobile?'justify-content-center':''}}  mt-4" *ngIf="meusGruposEstudo">
+    <div class="col-12 pb-2">
+      <h1 class="fontTitulo d-flex {{isMobile?'justify-content-center':''}} " >
+        <strong [style]="isMobile?'font-size: 27px':'font-size: 33px'">MEUS GRUPOS DE ESTUDO</strong>
+      </h1>
+    </div>
+    <div *ngFor="let curso of listaMeusGruposEstudos">
+      <div *ngIf="curso.statusPago" class="card me-2" (click)="assistirAula(curso)" style="width: 18rem; cursor: pointer;">
+        <h4 class="text-center textImagem">
+          <p class="text defineFont mt-3" style="width: 100%;">
+            <strong class="">{{curso.titulo.toLocaleUpperCase()}}</strong>
+          </p>
+        </h4>
+        <img src="{{curso.src}}" class="card-img-top" alt="...">
+      </div>
+
+      <div *ngIf="!curso.statusPago" class="card me-2" style="width: 18rem;">
+        <h4 class="text-center textImagem">
+          <p class="text defineFont mt-2" style="width: 100%;">
+            <strong class="">AGUARDANDO CONFIRMAÇÃO DE PAGAMENTO</strong>
+          </p>
+        </h4>
+        <img src="assets/imgs/site proinf quem somos e cursos/6.png" class="card-img-top" alt="...">
+      </div>
+    </div>
+  </div>
+
 </div>

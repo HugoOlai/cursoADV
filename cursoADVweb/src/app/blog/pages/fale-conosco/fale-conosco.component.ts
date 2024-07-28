@@ -41,7 +41,6 @@ export class FaleConoscoComponent {
   }
 
   Enviar(){
-    console.log(this.formulario.value)
     //if()
     if(this.formulario.controls['Nome'].value == ''){
       this.errorMessage = 'Digite o nome';

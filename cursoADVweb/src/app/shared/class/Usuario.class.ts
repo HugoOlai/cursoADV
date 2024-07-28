@@ -6,6 +6,9 @@ export interface Usuario {
   email: string,
   telefone: string,
   cpfCnpj: string,
+  listaCursos?: Array<any>,
   src: any,
+  endereco: any;
+  cartao: any;
 }
 

@@ -1,1 +1,68 @@
-<p>recuperar works!</p>
+<div class="m-4">
+  <h1 mat-dialog-title>Recuperando senha</h1>
+  <div mat-dialog-content >
+    <p class="fs-6">Informe seu email e telefone registrados</p>
+    <form [formGroup]="formularioRecuperaSenha" class="d-flex flex-wrap">
+      <div class="{{isMobile? 'col-12':'col-6'}}">
+        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+          <mat-label>Email</mat-label>
+          <input (change)="confereCampos('Email')" matInput formControlName="Email">
+        </mat-form-field>
+      </div>
+      <div class="{{isMobile? 'col-12':'col-6'}}">
+        <mat-form-field class="w-100">
+          <mat-label>Telefone</mat-label>
+          <input (change)="confereCampos('Telefone')" matInput formControlName="Telefone">
+        </mat-form-field>
+      </div>
+      <div class="{{isMobile? 'col-12':'col-6'}}">
+        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+          <mat-label>Nova Senha</mat-label>
+          <input type="{{visivel? 'text':'password'}}" matInput formControlName="NovaSenha">
+          <button *ngIf="visivel == true" matSuffix mat-icon-button (click)="visivel=false">
+            <span class="material-icons">
+              lock_open
+            </span>
+          </button>
+          <button *ngIf="visivel == false" matSuffix mat-icon-button (click)="visivel=true">
+            <span class="material-icons">
+              lock
+            </span>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="{{isMobile? 'col-12':'col-6'}}">
+        <mat-form-field class="w-100">
+          <mat-label>Confirmar Senha</mat-label>
+          <input type="{{visivel2? 'text':'password'}}" matInput formControlName="ConfirmarSenha">
+          <button *ngIf="visivel2 == true" matSuffix mat-icon-button (click)="visivel2=false">
+            <span class="material-icons">
+              lock_open
+            </span>
+          </button>
+          <button *ngIf="visivel2 == false" matSuffix mat-icon-button (click)="visivel2=true">
+            <span class="material-icons">
+              lock
+            </span>
+          </button>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <div class="col-12" *ngIf="carregando">
+      <div class="clearfix d-flex justify-content-center">
+        <p class="fs-6"> Carregando </p>
+        <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+          <span class="sr-only"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 d-flex justify-content-between">
+      <button *ngIf="!carregando" class="btn btn-danger rounded-pill" (click)="fechar()">FECHAR</button>
+      <button *ngIf="!carregando" class="btn btn-success rounded-pill" (click)="trocarSenha()">VERIFICAR</button>
+    </div>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>ok</button> -->
+  </div>
+</div>

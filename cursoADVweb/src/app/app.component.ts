@@ -5,11 +5,12 @@ import { CookieService } from 'ngx-cookie-service';
 import { Compiler, Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
+import { Util } from './class/util.class';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'cursoADVweb';
@@ -36,13 +37,13 @@ export class AppComponent {
     SnackBarComponent.prototype.horizontalPosition = 'right';
     SnackBarComponent.prototype.verticalPosition = 'top';
 
-    this._compiler.clearCache();
 
-    console.log(location)
+    this._compiler.clearCache();
 
     if(location.hash.includes('acesso') || location.hash.includes('areaAluno') || location.hash.includes('admin')){
       this.barBlog = false;
     }
+
     if (environment.production) {
       if (location.protocol === "http:") {
         window.location.href = location.href.replace("http", "https");
@@ -51,9 +52,13 @@ export class AppComponent {
     }
   }
 
-  defineBarraSideBar(ativa: boolean){
-    console.log(ativa)
-    this.barBlog = ativa;
+  defineBarraSideBar(){
+    if(location.hash.includes('acesso') || location.hash.includes('areaAluno') || location.hash.includes('admin')){
+      this.barBlog = false;
+    } else {
+      this.barBlog = true;
+    }
+    this.changeDetectorRef.detectChanges();
     // this.changeDetectorRef.detectChanges();
   }
 }

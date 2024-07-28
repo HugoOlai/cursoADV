@@ -1,5 +1,5 @@
-<div class="col-12 d-flex p-2" style="border-bottom: #e9e9e9 solid;">
-  <div class="col-6">
+<div class="col-12 d-flex p-2 {{isMobile? '': 'defineTamanhoTela'}}" style="border-bottom: #e9e9e9 solid;">
+  <div class="col-6 d-flex">
     <button mat-button [matMenuTriggerFor]="belowMenu">
       <span style="color: #ed8f00;" class="material-icons fs-1">
         menu
@@ -14,14 +14,23 @@
           Inicio
         </div>
       </button>
+      <button (click)="direcionaCursos()" class="btn btn-outline-light d-flex mt-2" style="border: solid white 1px" mat-menu-item>
+        <span class="material-icons pe-2">
+          menu_book
+          </span>
+        <div class="col-1">
+          Cursos
+        </div>
+      </button>
     </mat-menu>
-    <img src="assets/imgs/logo.png" height="50" alt="" style="border-radius: 54px;">
+    <img *ngIf="!isMobile" src="assets/imgs/logo.png" (click)="redirecionar()" [height]="isMobile? 35:40" alt="" style="border-radius: 54px;">
+    <img *ngIf="isMobile" src="../../assets/imgs/logoMobile.png" height="40">
 
   </div>
   <div class="col-6 d-flex justify-content-end ">
     <button style="color: black;" mat-button [matMenuTriggerFor]="beforeMenu">
       <div class="d-flex">
-        Olá, {{usuario?.nome}}
+        Olá, {{isMobile? usuario.nome.length > 6? usuario.nome.substring(0, 6) + "...": usuario.nome : usuario?.nome}}
         <span class="material-icons" style="color: #dd4444">
           expand_more
         </span>
@@ -32,14 +41,14 @@
       <button class="d-flex flex-wrap" mat-menu-item >
         <div class="w-100 d-flex">
           <div class="" style="width: 30%;">
-            <img src="{{usuario?.src}}" height="50" width="50" alt="" style="border-radius: 54px;">
+            <img src="{{usuario?.src == null? 'assets/imgs/usuarioGenerico.png': usuario?.src}}" height="50" width="50" alt="" style="border-radius: 54px;">
           </div>
           <div class="ps-2 flex-wrap">
             <span class="">
               {{usuario?.nome}}
             </span>
             <div class="">
-              <small>{{usuario?.email}}</small>
+              <small>{{usuario.email.length > 15? usuario.email.substring(0, 15) + "...": usuario.email}}</small>
 
             </div>
           </div>

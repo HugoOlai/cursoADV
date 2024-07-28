@@ -10,13 +10,13 @@ interface Menu {
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.css']
+  styleUrls: ['./blog.component.scss']
 })
 
 export class BlogComponent implements OnInit {
   menuAnteriroSelecionado: string = 'Início';
   isMobile = Util.isMobile();
-
+  barBlog = true;
   menu: Array<Menu> = [
     {
       Nome: 'Início',
@@ -33,21 +33,21 @@ export class BlogComponent implements OnInit {
       Link: '#blog/cursos',
       Ativo: false
     },
-    {
-      Nome: 'Notícias',
-      Link: '#blog/noticias',
-      Ativo: false
-    },
-    {
-      Nome: 'Fóruns',
-      Link: '#blog/foruns',
-      Ativo: false
-    },
-    {
-      Nome: 'Fale Conosco',
-      Link: '#blog/faleConosco',
-      Ativo: false
-    }
+    // {
+    //   Nome: 'Notícias',
+    //   Link: '#blog/noticias',
+    //   Ativo: false
+    // },
+    // {
+    //   Nome: 'Fóruns',
+    //   Link: '#blog/foruns',
+    //   Ativo: false
+    // },
+    // {
+    //   Nome: 'Fale Conosco',
+    //   Link: '#blog/faleConosco',
+    //   Ativo: false
+    // }
   ];
 
   constructor(
@@ -56,12 +56,29 @@ export class BlogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // if(location.hash.includes('acesso') || location.hash.includes('areaAluno') || location.hash.includes('admin')){
+    this.menu.map((menu: Menu) => {if(menu.Link == location.hash) menu.Ativo = true; else menu.Ativo = false; return menu} )
+
+  }
+
+  redirecionarLogin() {
+    location.assign('#/acesso/login')
+    window.location.reload();
   }
 
   ngAfterViewInit(): void {
-    (document.getElementById('Início') as HTMLButtonElement).style.borderBottom = 'thick solid #ed8f00';
-    (document.getElementById('Início') as HTMLButtonElement).style.fontWeight = '900';
+    // (document.getElementById('Início') as HTMLButtonElement).style.borderBottom = 'thick solid #ed8f00';
+    // (document.getElementById('Início') as HTMLButtonElement).style.fontWeight = '900';
 
+    this.menu.forEach(menu => {
+      if(location.hash.includes(menu.Link.substring(1))) {
+        menu.Ativo = true;
+        this.menuAnteriroSelecionado = menu.Nome;
+        (document.getElementById(menu.Nome) as HTMLButtonElement).style.borderBottom = 'thick solid #ed8f00';
+        (document.getElementById(menu.Nome) as HTMLButtonElement).style.fontWeight = '900';
+      }
+      else menu.Ativo = false;
+    })
   }
 
   marcarComoSelecionado(nome: string){

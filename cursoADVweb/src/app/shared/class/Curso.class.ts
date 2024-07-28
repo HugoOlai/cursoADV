@@ -1,17 +1,25 @@
 export interface Curso {
-  id?: string;
-  titulo: string,
+  id: string;
+  idPagamentoAsaas: string,
   dataLançamento: Date,
-  subtitulo: string,
-  materialApoio: string,
-  estrutura: string,
+  titulo: string,
   objetivo: string,
+  parcelas: string,
+  subtitulo: string,
+  estrutura: string,
+  materialApoio: string,
+  valorFormatado: string,
+  valorComDesconto: string
   video: null,
   arquivo: null,
-  listaVideos: null,
-  listaArquivosApoio: null,
+  listaVideos: Array<any>
+  listaArquivosApoio: any,
   topcos: Array<string>,
-  src: null
-
+  src: null,
+  valor: number,
+  statusPago: boolean,
+  cursoContratado: boolean,
+  tipoCurso: string,
+  descricaoGeral: string,
 }
 

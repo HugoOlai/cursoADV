@@ -23,12 +23,6 @@ export class SidebarComponent implements OnInit {
   }
 
   redirecionar() {
-    // AppComponent.prototype.defineBarraSideBar(false);
-
-    // this.router.navigate(['acesso/login'])
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 10);
     location.assign('#/acesso/login')
     window.location.reload();
   }

@@ -14,12 +14,13 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { CursosComponent } from './pages/cursos/cursos.component';
 import { ForunsComponent } from './pages/foruns/foruns.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { GoogleSigninButtonModule, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { SidebarModule } from '../components/sidebar/sidebar.module';
 import { NoticiasComponent } from './pages/noticias/noticias.component';
 import { QuemSomosComponent } from './pages/quemSomos/quemSomos.component';
 import { FaleConoscoComponent } from './pages/fale-conosco/fale-conosco.component';
+import { GoogleSigninButtonModule, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { DescricaoCursoComponent } from './pages/cursos/descricaoCurso/descricao-curso.component';
+import { RodaPeModule } from '../components/roda-pe/roda-pe.module';
 @NgModule({
   declarations: [
     BlogComponent,
@@ -41,6 +42,7 @@ import { DescricaoCursoComponent } from './pages/cursos/descricaoCurso/descricao
     MatSelectModule,
     FormsModule,
     SidebarModule,
+    RodaPeModule,
     ReactiveFormsModule,
     PickerComponent,
     SocialLoginModule,

@@ -3,6 +3,7 @@ import { AuthService } from '../../../services/auth.service';
 import { Usuario } from '../../../shared/class/Usuario.class';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { Util } from '../../../class/util.class';
 
 @Component({
   selector: 'app-sidebar-area-aluno',
@@ -10,24 +11,39 @@ import { Router } from '@angular/router';
   styleUrl: './sidebar-area-aluno.component.scss'
 })
 export class SidebarAreaAlunoComponent {
-  usuario?: Usuario;
+  usuario: Usuario;
+  isMobile = Util.isMobile();
 
   constructor(
     private service: AuthService,
     private cookie: CookieService,
     private router: Router,
 
-  ) { }
+  ) {
+    this.usuario = this.service.getUser();
+
+  }
 
   ngOnInit() {
-    this.usuario = this.service.getUser();
-    console.log(this.usuario)
+    if(Object.values(this.usuario).length == 0)
+      this.sair()
+
+    console.log(this.usuario?.src)
   }
 
   direciona(destino = ''){
     if(destino == '')
       this.router.navigate(['areaAluno']);
 
+  }
+
+  direcionaCursos(){
+    this.router.navigate([`blog/cursos`]);
+
+  }
+
+  redirecionar(){
+    this.router.navigate([`blog/quemSomos`]);
   }
 
   sair() {

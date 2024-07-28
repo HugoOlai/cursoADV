@@ -4,7 +4,7 @@
 
   </div>
   <div class="col-sm-10 col-md-6 col-lg-6 d-flex align-self-center pt-3">
-    <div class="col-sm-10 col-md-8 col-lg-8 form-angular-material">
+    <!-- <div class="col-sm-10 col-md-8 col-lg-8 form-angular-material">
       <mat-form-field class="ms-3" style="width: 93%;" appearance="outline">
         <mat-label>Procure no site...</mat-label>
         <input (click)="buscar()" matInput formControlName="pesquisa" placeholder="Procure no site..." type="text" autocomplete="off">
@@ -18,9 +18,9 @@
       <button disabled class="btn btn-sm btn-outline-secondary me-2">A+</button>
       <button disabled class="btn btn-sm btn-outline-secondary me-2">A-</button>
       <button disabled class="btn btn-sm btn-outline-secondary">C</button>
-    </div>
+    </div> -->
   </div>
-  <div class="col-sm-2 col-md-2 col-lg-2 align-self-center d-flex justify-content-end">
+  <div *ngIf="!isMobile" class="col-sm-2 col-md-2 col-lg-2 align-self-center d-flex justify-content-end">
     <button (click)="redirecionar()" class="{{isMobile?'ms-3':''}}" type="button" [style]="isMobile?'': 'width: 150px;'"
     class="overlay-layer btn btn-sm btn-warning icon-button d-flex text-start shadow-sm rounded">
       <!-- <i style="font-size: 46px;" class="material-icons me-2">perm_identity</i> -->

@@ -11,10 +11,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SnackBarModule } from '../components/snack-bar/snack-bar.module';
 import { CadastrarComponent } from './pages/cadastrar/cadastrar.component';
+import { RodaPeModule } from '../components/roda-pe/roda-pe.module';
+import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 
 
 @NgModule({
-  declarations: [AcessoComponent, LoginComponent, CadastrarComponent],
+  declarations: [AcessoComponent, LoginComponent, CadastrarComponent, RecuperarComponent],
   imports: [
     FormsModule,
     CommonModule,
@@ -23,6 +25,7 @@ import { CadastrarComponent } from './pages/cadastrar/cadastrar.component';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
+    RodaPeModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     AcessoRoutingModule,

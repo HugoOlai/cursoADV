@@ -1,10 +1,10 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { Util } from '../../../class/util.class';
-import { Usuario } from '../../../shared/class/Usuario.class';
-import { AuthService } from '../../../services/auth.service';
-import { Router } from '@angular/router';
-import { CursosService } from '../../../services/cursos.service';
 import { Curso } from '../../../shared/class/Curso.class';
+import { AuthService } from '../../../services/auth.service';
+import { Usuario } from '../../../shared/class/Usuario.class';
+import { CursosService } from '../../../services/cursos.service';
 
 @Component({
   selector: 'app-cursos',
@@ -13,11 +13,12 @@ import { Curso } from '../../../shared/class/Curso.class';
 })
 export class CursosComponent {
   isMobile = Util.isMobile();
-
-  usuario?: Usuario;
+  carregando: boolean = true;
+  usuario: Partial<Usuario> = {};
+  // usuario?: Usuario;
 
   listaCursos: Array<Curso> = [];
-
+  listaGrupoEstudos: Array<Curso> = []
   constructor(
     private service: AuthService,
     public router: Router,
@@ -26,12 +27,31 @@ export class CursosComponent {
 
   ngOnInit() {
     this.usuario = this.service.getUser();
-    console.log(this.usuario)
 
     this.cursosService.pegarTodos().subscribe({
       next: (res) =>{
-        console.log(res)
-        this.listaCursos = res;
+        var listaIdsCursos: Array<string> = [];
+        this.usuario.listaCursos?.forEach((cursoContratado: Curso) => {
+          listaIdsCursos.push(cursoContratado.id)
+        })
+        res.forEach((curso: Curso) => {
+          if(curso.tipoCurso == "CURSO"){
+            if(listaIdsCursos.includes(curso.id)){
+              curso.cursoContratado = true;
+            }
+              this.listaCursos.push(curso);
+          }
+
+          if(curso.tipoCurso == "GRUPOESTUDOS"){
+            if(listaIdsCursos.includes(curso.id)){
+              curso.cursoContratado = true;
+            }
+
+            this.listaGrupoEstudos.push(curso);
+          }
+        });
+
+        this.carregando = false;
 
       },
       error: (err)=>{

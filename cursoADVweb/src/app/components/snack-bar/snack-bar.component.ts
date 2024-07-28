@@ -17,7 +17,6 @@ export class SnackBarComponent {
   constructor() { }
 
   ngOnInit() {
-    console.log("Tipo: ",this.tipo)
   }
 
   defineCor(tipo: string){

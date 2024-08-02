@@ -85,7 +85,6 @@ export class LoginProfessorComponent {
 
           this.cookie.delete('email');
           this.cookie.delete('nome');
-res.obj.tipo = 'PROFESSOR'
 
           if(res.obj.tipo == 'PROFESSOR'){
             this.cookie.set('email', res.obj.email);

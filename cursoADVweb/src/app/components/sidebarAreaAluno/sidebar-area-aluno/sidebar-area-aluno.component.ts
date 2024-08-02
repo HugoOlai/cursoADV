@@ -28,7 +28,7 @@ export class SidebarAreaAlunoComponent {
     if(Object.values(this.usuario).length == 0)
       this.sair()
 
-    console.log(this.usuario?.src)
+    // console.log(this.usuario?.src)
   }
 
   direciona(destino = ''){

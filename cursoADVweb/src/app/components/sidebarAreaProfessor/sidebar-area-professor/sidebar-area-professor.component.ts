@@ -25,10 +25,13 @@ export class SidebarAreaProfessorComponent {
   }
 
   ngOnInit() {
+    var rota = this.usuario.tipo != null && this.usuario.tipo.toLocaleUpperCase() == 'PROFESSOR'? 'areaProfessor': 'areaAluno';
+    this.router.navigate([rota]);
+
     if(Object.values(this.usuario).length == 0)
       this.sair()
 
-    console.log(this.usuario?.src)
+    // console.log(this.usuario?.src)
   }
 
   direciona(destino: string){
@@ -44,6 +47,6 @@ export class SidebarAreaProfessorComponent {
     this.cookie.delete('nome');
     this.cookie.delete('email');
     this.service.clearUser();
-    this.router.navigate(['acesso/login']);
+    this.router.navigate(['acesso/loginProfessor']);
   }
 }

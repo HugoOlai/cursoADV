@@ -10,5 +10,6 @@ export interface Usuario {
   src: any,
   endereco: any;
   cartao: any;
+  tipo: string;
 }
 

@@ -8,4 +8,11 @@
     </div>
   </div>
   ALUNOS
+  <app-table
+    [lista]="listaAlunos"
+    [header]="header"
+    [options]="options"
+    (selection)="pegarSelecionados()"
+    [actions]="actions">
+  </app-table>
 </div>

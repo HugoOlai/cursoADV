@@ -13,6 +13,7 @@ import { SnackBarComponent } from '../../../components/snack-bar/snack-bar.compo
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { RecuperarComponent } from '../recuperar/recuperar.component';
+import { Usuario } from '../../../shared/class/Usuario.class';
 
 export interface DialogData {
   animal: string;
@@ -62,10 +63,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(){
-    var usuario = this.service.getUser();
-    //console.log(usuario)
-    if(usuario.email != undefined)
-      this.router.navigate(['areaAluno']);
+    var usuario: Usuario = this.service.getUser();
+
+    console.log(usuario)
+    if(usuario.email != null){
+      var rota = usuario.tipo != null && usuario.tipo.toLocaleUpperCase() == 'PROFESSOR'? 'areaProfessor': 'areaAluno';
+      this.router.navigate([rota]);
+
+    }
+
 
   }
 

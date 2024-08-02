@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'blog', loadChildren: () => import('./blog/blog.module').then(m => m.BlogModule)},
   { path: 'acesso', loadChildren: () => import('./acesso/acesso.module').then(m => m.AcessoModule)},
   { path: 'areaAluno', loadChildren: () => import('./areaAluno/area-aluno.module').then(m => m.AreaAlunoModule)},
+  { path: 'areaProfessor', loadChildren: () => import('./area-professor/area-professor.module').then(m => m.AreaProfessorModule)},
   { path: 'admin', loadChildren: () => import('./Admin/admin.module').then(m => m.adminModule)},
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: 'Auth/:hash', component: AuthComponent },

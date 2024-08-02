@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { CadastrarComponent } from './pages/cadastrar/cadastrar.component';
 import { RecuperarComponent } from './pages/recuperar/recuperar.component';
+import { LoginProfessorComponent } from './pages/login-professor/login-professor.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent},
       { path: 'cadastrar', component: CadastrarComponent},
       { path: 'recuperar', component: RecuperarComponent},
+      { path: 'loginProfessor', component: LoginProfessorComponent},
       // { path: 'recuperar', component: RecuperarSenhaComponent },
       // { path: 'download', component: DownloadComponent }
 

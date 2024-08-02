@@ -9,14 +9,15 @@ import { LoginComponent } from './pages/login/login.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { RodaPeModule } from '../components/roda-pe/roda-pe.module';
 import { SnackBarModule } from '../components/snack-bar/snack-bar.module';
 import { CadastrarComponent } from './pages/cadastrar/cadastrar.component';
-import { RodaPeModule } from '../components/roda-pe/roda-pe.module';
 import { RecuperarComponent } from './pages/recuperar/recuperar.component';
+import { LoginProfessorComponent } from './pages/login-professor/login-professor.component';
 
 
 @NgModule({
-  declarations: [AcessoComponent, LoginComponent, CadastrarComponent, RecuperarComponent],
+  declarations: [AcessoComponent, LoginComponent, CadastrarComponent, RecuperarComponent, LoginProfessorComponent],
   imports: [
     FormsModule,
     CommonModule,

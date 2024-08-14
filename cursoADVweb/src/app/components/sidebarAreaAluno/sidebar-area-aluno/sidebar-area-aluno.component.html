@@ -30,7 +30,7 @@
   <div class="col-6 d-flex justify-content-end ">
     <button style="color: black;" mat-button [matMenuTriggerFor]="beforeMenu">
       <div class="d-flex">
-        Olá, {{isMobile? usuario.nome.length > 6? usuario.nome.substring(0, 6) + "...": usuario.nome : usuario?.nome}}
+        Olá, {{isMobile? usuario.nome.length > 6? usuario.nome.substring(0, 6) + "...": usuario.nome : usuario.nome}}
         <span class="material-icons" style="color: #dd4444">
           expand_more
         </span>
@@ -41,11 +41,11 @@
       <button class="d-flex flex-wrap" mat-menu-item >
         <div class="w-100 d-flex">
           <div class="" style="width: 30%;">
-            <img src="{{usuario?.src == null? 'assets/imgs/usuarioGenerico.png': usuario?.src}}" height="50" width="50" alt="" style="border-radius: 54px;">
+            <img src="{{usuario.src == null? 'assets/imgs/usuarioGenerico.png': usuario.src}}" height="50" width="50" alt="" style="border-radius: 54px;">
           </div>
           <div class="ps-2 flex-wrap">
             <span class="">
-              {{usuario?.nome}}
+              {{usuario.nome}}
             </span>
             <div class="">
               <small>{{usuario.email.length > 15? usuario.email.substring(0, 15) + "...": usuario.email}}</small>

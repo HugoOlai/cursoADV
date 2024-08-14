@@ -7,12 +7,16 @@
       </div>
     </div>
   </div>
-  ALUNOS
-  <app-table
-    [lista]="listaAlunos"
-    [header]="header"
-    [options]="options"
-    (selection)="pegarSelecionados()"
-    [actions]="actions">
-  </app-table>
+  <div *ngIf="!carregando">
+    <span class="fs-6">ALUNOS</span>
+
+    <app-table
+      [lista]="listaAlunos"
+      [header]="header"
+      [options]="options"
+      (selection)="pegarSelecionados()"
+      [actions]="actions">
+    </app-table>
+
+  </div>
 </div>

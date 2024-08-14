@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { UsuarioService } from '../../../services/usuario.service';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { SnackBarComponent } from '../../../components/snack-bar/snack-bar.component';
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { RecuperarComponent } from '../recuperar/recuperar.component';
 import { Usuario } from '../../../shared/class/Usuario.class';
@@ -86,6 +86,8 @@ export class LoginComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(RecuperarComponent, {
+      panelClass: "second-modal-backdrop",
+      width: '55%',
       data: {name: 'teste', animal: 'teste'},
     });
 

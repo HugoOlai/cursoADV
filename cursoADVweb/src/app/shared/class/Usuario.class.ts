@@ -8,8 +8,26 @@ export interface Usuario {
   cpfCnpj: string,
   listaCursos?: Array<any>,
   src: any,
-  endereco: any;
-  cartao: any;
+  endereco: endereco;
+  cartao: cartao;
   tipo: string;
 }
 
+interface endereco {
+  cep: string,
+  numero: string,
+  rua: string,
+  complemento: string,
+}
+
+interface cartao {
+  id: string,
+  nomeCartao: string,
+  numeroCartao: string,
+  mesExpira: string,
+  anoExpira: string,
+  creditCardBrand: string,
+  creditCardNumber: string,
+  creditCardToken: string,
+
+}

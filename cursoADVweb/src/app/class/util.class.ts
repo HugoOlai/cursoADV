@@ -141,7 +141,7 @@ export class Util {
     return diaF+"/"+mesF+"/"+anoF+" | "+horaF+":"+minF+"h";
   }
 
-  static dataFormatada(novaData: string){
+  static dataFormatada(novaData: string | Date){
     var data = typeof(novaData) == 'object' ? novaData : new Date(novaData),
         dia  = data.getDate().toString(),
         diaF = (dia.length == 1) ? '0'+dia : dia,

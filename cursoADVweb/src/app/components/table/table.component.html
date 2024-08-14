@@ -1,1 +1,368 @@
-<p>table works!</p>
+<div class="w-100 h-100 d-inline-block" [ngClass]="space" *ngIf="loading">
+  <ng-container *ngIf="text != ''">
+    <h5 class="mb-3" [ngClass]="'text-' + position">{{ text }}</h5>
+  </ng-container>
+
+  <div class="loading-dots d-flex align-items-center" [ngClass]="'justify-content-' + justifycontent">
+    <!-- <div class="loading-dots--dot"></div>
+    <div class="loading-dots--dot"></div>
+    <div class="loading-dots--dot"></div> -->
+    <!-- <img id="gif" src="../web-proadv/src/assets/imgs/svg/loading2_hide.svg"> -->
+    <img id="gif" src="../../../assets/svg/loading2_hide.svg" height="{{altura}}">
+  </div>
+</div>
+
+<div class="p-2 mt-2 d-flex justify-content-end" *ngIf="(options?.searchShow || options?.modeCard) && !loading">
+  <ng-container *ngIf="options?.searchShow" >
+    <div class="input-group pe-0 me-2 w-25" *ngIf="options?.searchShow">
+      <input
+        type="text"
+        class="form-control"
+        aria-label="Small"
+        aria-describedby="inputGroup-sizing-sm"
+        [placeholder]="options.placeholder"
+        [formControl]="search"
+      />
+      <div class="input-group-append">
+        <button class="btn btn-primary py-0 px-2 d-flex align-itens-center" type="button" id="inputGroup-sizing-sm">
+          <i class="material-icons" style="margin-bottom: -1px">search</i>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-container *ngIf="!options?.lineMode || !options?.modeCard else modeCard" >
+  <div class="mt-2" *ngIf="!loading">
+    <table class="mat-elevation-z8" mat-table [dataSource]="dataSource" matSort (matSortChange)="ordenaLista($event)">
+      <ng-container matColumnDef="{{head.description}}" *ngFor="let head of header">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="{{head.description == 'Ações' || head.description == 'Ação'? 'centralizaHead': ''}}" [ngClass]="head.class" [style]="head.style">
+          <div class="form-check" *ngIf="head.selectAll">
+            <input
+              class="form-check-input position-static"
+              type="checkbox"
+              [disabled]="listaSearch.length == 0"
+              [checked]="selectAll"
+              (change)="checkAll()"
+              aria-label="..."
+            />
+          </div>
+
+          {{head.description}}
+
+        </th>
+        <td mat-cell *matCellDef="let element" (click)="options.trFunction && !checkboxSelecionada && !botaoAcaoSelecionado? options.handle != undefined? options.handle.call(options.handle, element) : '' :''"
+          [class.pointer]="head.hasFunc || options.trFunction"
+          [class.tooltipTr]="options.trFunction && options.trTooltip != '' && colunaAcao != head.description && head.description != 'Partes'"
+          >
+          <p *ngIf="options?.trFunction && options?.trTooltip != ''" class="tooltip-span">Clique aqui para visualizar <br>as informações {{options.trTooltip}}</p>
+
+          <div class="d-flex mt-2 mb-2" [ngClass]="head.class">
+            <div class="form-check mt-1" *ngIf="head.select" (mouseenter)="checkboxSelecionada = true"
+            (mouseleave)="checkboxSelecionada = false">
+              <input
+                class="form-check-input position-static"
+                type="checkbox"
+                [checked]="element.selected"
+                (change)="check(element)"
+              />
+            </div>
+            <ng-container>
+              <div class="w-100" *ngIf="colunaAcao != head.description else acao">
+                <ng-template #tdTemplate>
+                  <div *ngIf="head.hasFunc && !head.hasTooltipDy">
+                    <div
+                      (click)="head.handle != undefined ? head.handle.call(head.handle, element) : ''"
+                      container="body"
+                      [innerHTML]="head.key.toUpperCase() == 'STATUS'? element['StatusFormatado'] : formataTamanhoTexto(head, element)">
+                    </div>
+
+                  </div>
+
+                  <div
+                    *ngIf="head.hasFunc && head.hasTooltipDy">
+                    <span style="z-index: 2px;"
+                    (click)="head.handle != undefined ? head.handle.call(head.handle, element) : ''"
+                    container="body"
+                    [innerHTML]="head.key.toUpperCase() == 'STATUS'? element['StatusFormatado']: element[head.key]"></span>
+                  </div>
+
+                </ng-template>
+                <ng-container *ngIf="!head.hasFunc else tdTemplate" >
+                  <div class="d-flex">
+                    <span class="w-100 mt-1" [innerHTML]="element[head.key] == null ? '-' : head.key.toUpperCase() == 'STATUS'? element['StatusFormatado']: element[head.key]"></span>
+
+                    <span *ngIf="element['posssuiServicosAdicionais'] == true && head.key == 'valorDescricao'" >
+                      <ng-template #popTemplate>
+                          <span class='me-3'>Mensalidade do plano:</span> <span class='float-right'>{{element['valorPlano']}}</span><br>
+                            <div *ngFor="let servico of element['servicosAdicionais']">
+                              <span class='me-3'>{{servico.nome}}</span>
+                              <span class='float-right'>{{servico.valorDescricao}}</span><br>
+                            </div>
+                          <br><span class='me-3'><b>Valor Total:</b></span> <span class='float-right'>{{element['valor']}}</span><br>
+                      </ng-template>
+                      <i style="color: #002d40; font-size: 20px;"
+                        class="material-icons-two-tone pointer mt-1" style="font-size: 22px;"
+                         [popover]="popTemplate"
+                        [outsideClick]="true" popoverTitle="Extrato" placement="left">info</i>
+                    </span>
+
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+
+          <ng-template #acao>
+            <div class="d-flex w-100 justify-content-center" (mouseenter)="botaoAcaoSelecionado = true"
+            (mouseleave)="botaoAcaoSelecionado = false">
+              <div *ngFor="let act of actions">
+                <ng-container *ngIf="mostrarActionInfo(act, element) else oldButton" >
+                  <span
+                    placement="bottom"
+                    container="body"
+                    [innerHTML]="mostrarValue(act, element)"></span>
+                </ng-container>
+
+                <ng-template #oldButton>
+                  <ng-container *ngIf="act.isButton else actIcon" >
+                    <button *ngIf="mostrarAction(act, element)"
+                      type="button"
+                      class="btn mb-0 me-2 d-flex"
+                      [ngClass]="act.class"
+                      [style]="act.style"
+
+                      [disabled]="act.class.includes('desativar')? true : false"
+                      container="body"
+                      (click)="btnAcao(act, element)" >
+                      <i *ngIf="act.icon != ''" [ngClass]="act.classIcon" class="material-icons">{{act.icon}}</i>
+                      <p class="mb-0 d-flex flex-row align-items-center"
+                        [innerHTML]="act.description == ''? getDescription(act, element) : act.description"></p>
+                    </button>
+                  </ng-container>
+
+                  <ng-template #actIcon>
+                    <i
+                      class="material-icons pointer"
+                      [ngClass]="act.class"
+
+                      container="body"
+                      *ngIf="mostrarAction(act, element)"
+                      (click)="act.handle != undefined ? act.handle.call(act.handle, element) : ''"
+                    >
+                      {{ act.icon }}</i>
+                  </ng-template>
+                </ng-template>
+                </div>
+            </div>
+          </ng-template>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div class="w-100 mx-auto">
+      <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="lista.length" [pageSizeOptions]="options.pagesSize" [pageSize]="options.pageSize" showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #modeCard>
+  <ng-container *ngIf="options?.select">
+    <div class="justify-content-center align-content-between mb-2" *ngIf="options?.selectAll">
+      <button
+        type="button"
+        class="btn btn-sm btn-primary col-12 rounded-pill"
+        [disabled]="listaSearch.length == 0"
+        (click)="checkAll()"
+        aria-label="...">
+        {{ textoSelecionarTodos }}
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngFor="let item of dataSource.filteredData">
+    <mat-card class="example-card mb-2">
+      <div>
+        <mat-card-header>
+          <!-- <div mat-card-avatar class="example-header-image"></div> -->
+          <mat-card-title class="w-100  {{!header[0].select? 'd-flex flex-row-reverse':''}}">
+            <div [style]="header[0].select? 'width: 100% !important':'width: 40% !important'" class="{{!header[0].select?
+              (item['StatusFormatado'] != undefined && item['StatusFormatado'].length > 47) ||
+              (item['statusBadge'] != undefined && item['statusBadge'].length > 47) ||
+              (item['Tipo'] != undefined && item['Tipo'].length > 47) ? 'justify-content-start':'justify-content-end':''}} d-flex"
+              *ngIf="header[0].select || (item['StatusFormatado'] && item.tipoPagina != 'Log') ||
+              item['StatusFormatado'] == undefined || item['recurso'] || item['tipoLog'] || item['Qtd']">
+
+              <div class="col-6" *ngIf="!options?.semTopo && header[0].select"  [class.ms-1]="options.lineSize">
+                <input
+                  class="form-check-input position-static"
+                  type="checkbox"
+                  [checked]="item.selected"
+                  (change)="check(item)"
+                />
+              </div>
+
+              <div class="{{header[0].select? 'col-6':'col-12'}} text-end"
+                *ngIf="!options?.semTopo">
+
+                <span class="align-self-start ft-16" *ngIf="item.tipoPagina != 'Log' &&
+                  item.tipoPagina != 'LogBlackList' &&
+                  item.tipoPagina != 'Ticket' &&
+                  item.tipoPagina != 'Andamento' &&
+                  item.tipoPagina != 'meusPlanos' &&
+                  item.tipoPagina != 'incluirSite' &&
+                  item.tipoPagina != 'intimacoes' &&
+                  item.tipoPagina != 'novosAndamentos' &&
+                  item.tipoPagina != 'vincularClienteProcesso' &&
+                  item.tipoPagina != 'vincularProcesso'" [innerHTML]="item['StatusFormatado']">
+                </span>
+                <span class="align-self-start ft-16 ps-1" *ngIf="!validaNullOuVazio(item['Qtd'])" [innerHTML]="item['Qtd']"></span>
+                <span class="align-self-start ft-16 ps-1" *ngIf="!validaNullOuVazio(item['recurso'])" [innerHTML]="item['recurso']"></span>
+                <span class="align-self-start ft-16 ps-1" *ngIf="!validaNullOuVazio(item['badge'])" [innerHTML]="item['badge']"></span>
+                <span class="align-self-start ft-16 ps-1" *ngIf="!validaNullOuVazio(item['Tipo'])" [innerHTML]="item['Tipo']"></span>
+                <span class="align-self-start ft-16 ps-1" *ngIf="item.tipoPagina == 'Andamento' || item.tipoPagina == 'intimacoes'" [innerHTML]="item['lidoBadge']"></span>
+                <span class="align-self-start ft-16 ps-1" *ngIf="item.tipoPagina == 'meusPlanos'" [innerHTML]="item['statusBadge']"></span>
+              </div>
+
+            </div>
+
+            <div class="align-content-between mb-2 pe-2 {{!header[0].select? 'w-75':''}}" (click)="options.trFunction? options.handle != undefined ? options.handle.call(options.handle, item) : '' :''">
+              <h6 class="w-100 d-flex flex-wrap" *ngIf="header[0].description != 'Status'">
+                  <b class="w-100">{{header[0].description}}</b>
+                  <span style="word-break: break-all;" *ngIf="header[0].description == 'Login'" [innerHTML]="item['Login']"></span>
+                  <span style="word-break: break-all;" *ngIf="header[0].description == 'Id'" [innerHTML]="item['ticket_number']"></span>
+                  <span style="word-break: break-all;" *ngIf="header[0].description != 'Id'" [innerHTML]="item['numeroProcessoMask']"></span>
+
+                  <span style="word-break: break-all;" *ngIf="header[0].description != 'Id'&&
+                    item.tipoPagina != 'novosAndamentos' &&
+                    item.tipoPagina != 'intimacoes' &&
+                    item.tipoPagina != 'Andamento'" [innerHTML]="item['numeroProcessoFormatado']"></span>
+
+                  <span style="word-break: break-all;" *ngIf="header[0].description != 'Id'" [innerHTML]="item['Nome']"></span>
+                  <span style="word-break: break-all;" *ngIf="header[0].description != 'Id'" [innerHTML]="item['nomePesquisa']"></span>
+                  <span style="word-break: break-all;" *ngIf="header[0].description != 'Id' && item.tipoPagina != 'prazos'" [innerHTML]="item['nome']"></span>
+                  <span style="word-break: break-all;" *ngIf="item.tipoPagina != 'log-lista-tarefa'" [innerHTML]="item['dataDaAlteracao']"></span>
+                  <span style="word-break: break-all;" *ngIf="item.tipoPagina != 'arquivosAnexados' &&
+                    item.tipoPagina != 'prazos' &&
+                    item.tipoPagina != 'vincularCelula' &&
+                    item.tipoPagina != 'logCelula' &&
+                    item.tipoPagina != 'Celula' &&
+                    item.tipoPagina != 'arquivos' &&
+                    item.tipoPagina != 'tarefa-processo' &&
+                    item.tipoPagina != 'tarefa-cliente' &&
+                    item.tipoPagina != 'log-lista-tarefa' &&
+                    item.tipoPagina != 'arquivosAnexados'" [innerHTML]="item['dataFormatada']"></span>
+
+                  <span style="word-break: break-all;" *ngIf="item.tipoPagina != 'Financeiro' &&
+                    item.tipoPagina != 'LogBlackList' &&
+                    item.tipoPagina != 'prazos' &&
+                    item.tipoPagina != 'intimacoes' &&
+                    item.tipoPagina != 'novosAndamentos' &&
+                    item.tipoPagina != 'prazos' &&
+                    item.tipoPagina != 'logCelula' &&
+                    item.tipoPagina != 'tarefa-processo' &&
+                    item.tipoPagina != 'tarefa-cliente' &&
+                    item.tipoPagina != 'Andamento'" [innerHTML]="item['data']"></span>
+
+                  <span style="word-break: break-all;" *ngIf="item.tipoPagina == 'Financeiro'" [innerHTML]="item['dataTabela']"></span>
+                  <span style="word-break: break-all;" *ngIf="item.tipoPagina == 'consultaSites'" [innerHTML]="item['ufFormatada']"></span>
+                  <span style="word-break: break-all;" *ngIf="item.tipoPagina == 'meusPlanos'" [innerHTML]="item['Data de Vencimento']"></span>
+                  <span style="word-break: break-all;" [innerHTML]="item['dataLog']"></span>
+                  <span style="word-break: break-all;" *ngIf="item.tipoPagina != 'Financeiro' &&
+                  item.tipoPagina != 'Clientes' &&
+                  item.tipoPagina != 'Processos' &&
+                  item.tipoPagina != 'nomePesquisa' &&
+                  item.tipoPagina != 'Fornecedores' &&
+                  item.tipoPagina != 'processosVinculados' &&
+                  item.tipoPagina != 'arquivosAnexados' &&
+                  item.tipoPagina != 'vincularProcesso' &&
+                  item.tipoPagina != 'vincularCliente' &&
+                  item.tipoPagina != 'consultaSites' &&
+                  item.tipoPagina != 'BlackList' &&
+                  item.tipoPagina != 'vincularClienteProcesso' &&
+                  item.tipoPagina != 'vincularProcessoRecurso' &&
+                  item.tipoPagina != 'vincularCelula' &&
+                  item.tipoPagina != 'logCelula' &&
+                  item.tipoPagina != 'Celula' &&
+                  item.tipoPagina != 'arquivos' &&
+                  item.tipoPagina != 'tarefa-processo' &&
+                  item.tipoPagina != 'tarefa-cliente' &&
+                  item.tipoPagina != 'Recurso'" [innerHTML]="item['dataCadastro']"></span>
+              </h6>
+            </div>
+          </mat-card-title>
+        </mat-card-header>
+        <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+        <mat-card-content [style.padding-top]="!options.selectAll && !options.select && options.subirColuna? '10px':''"
+        class="d-flex flex-wrap" (click)="options.trFunction? options.handle != undefined? options.handle.call(options.handle, item) : '' :''">
+          <ng-container *ngFor="let head of header; let i = index; ">
+            <div class="flex-wrap col-12 mb-2 pe-2"
+            *ngIf="head.description.toUpperCase() != 'STATUS' && head.key != 'Qtd' &&
+            head.key != 'StatusFormatado' && i != 0 && head.key != 'Tipo' && head.key != 'badge' && head.key !='statusBadge'">
+              <div (click)="head.hasFunc? head.handle != undefined? head.handle.call(options.handle, item) : '' :''" class="">
+                <h6 class="w-100">
+                  <b>{{head.description}}</b>
+                </h6>
+                <h6 class="w-100">
+                  <span style="word-break: break-all;" [innerHTML]="item[head.key]"></span>
+                </h6>
+              </div>
+            </div>
+          </ng-container>
+        </mat-card-content>
+      </div>
+      <mat-card-actions *ngIf="actions.length > 0">
+        <div class="w-100 flex-wrap">
+          <div *ngFor="let act of actions">
+            <ng-container *ngIf="mostrarActionInfo(act, item) else oldButton" >
+              <span
+                placement="bottom"
+                container="body"
+                [innerHTML]="mostrarValue(act, item)"></span>
+            </ng-container>
+
+            <ng-template #oldButton>
+              <ng-container *ngIf="act.isButton else actIcon" >
+                <div class="me-2 w-100">
+                  <button *ngIf="mostrarAction(act, item)"
+                    type="button"
+                    class="btn w-100 mb-2"
+                    [ngClass]="act.class"
+                    [style]="act.style"
+                    [disabled]="act.class.includes('desativar')? true : false"
+                    container="body"
+                    (click)="btnAcao(act, item)" >
+                    <i *ngIf="act.icon != ''" [ngClass]="act.classIcon" class="material-icons">{{act.icon}}</i>
+                    <p class="mb-0 d-flex flex-row align-items-center"
+                      [innerHTML]="act.description"></p>
+
+                    <p class="mb-0 d-flex flex-row align-items-center" [innerHTML]="mostrarTextoNomeMobile(act, item)"></p>
+                  </button>
+                </div>
+              </ng-container>
+
+              <ng-template #actIcon>
+                <i
+                  class="material-icons pointer"
+                  [ngClass]="act.class"
+                  container="body"
+                  *ngIf="mostrarAction(act, item)"
+                  (click)="act.handle != undefined? act.handle.call(act.handle, item) : ''"
+                >
+                  {{ act.icon }}</i>
+              </ng-template>
+            </ng-template>
+          </div>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+
+  <div class="w-100 mx-auto">
+    <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="lista.length" [pageSizeOptions]="options.pagesSize" [pageSize]="options.pageSize" showFirstLastButtons>
+    </mat-paginator>
+  </div>
+</ng-template>

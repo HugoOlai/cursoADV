@@ -4,6 +4,7 @@ import { TableComponent } from './table.component';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from "@angular/material/table";
+import { PopoverModule } from "ngx-bootstrap/popover";
 // import { BoostrapModule } from './../boostrap/boostrap.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,7 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     MatCardModule,
     ReactiveFormsModule,
-    // PopoverModule,
+    PopoverModule,
     // BoostrapModule
   ],
   exports: [TableComponent]

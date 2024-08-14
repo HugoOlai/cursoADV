@@ -57,15 +57,46 @@ html {
 
 }
 
-.mat-mdc-dialog-container .mdc-dialog__surface {
-  width: 55% !important;
-  @media screen and (max-width: 900px) {
-    width: 100% !important;
+.second-modal-backdrop {
+  // position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  // background-color: rgba(0, 0, 0, 0.5) !important;
+  margin: 0 !important;
+  // height: 100% !important;
+  min-height: 100% !important;
+  max-width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  overflow-y: auto hidden !important;
+  padding-top: 50px !important;
+  padding-bottom: 50px !important;
 
+  .modal-content {
+    position: relative !important;
+    height: fit-content !important;
+    // display: flex !important;
+    // align-self: center !important;
   }
-
-  height: 100%;
 }
+
+.modal-width-600 {
+  .modal-content {
+    max-width: 600px !important;
+  }
+}
+
+// .mat-mdc-dialog-container .mdc-dialog__surface {
+//   width: 55% !important;
+//   @media screen and (max-width: 900px) {
+//     width: 100% !important;
+
+//   }
+
+//   height: 100%;
+// }
 
 
 .defineTamanhoTela{

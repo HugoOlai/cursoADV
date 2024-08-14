@@ -38,12 +38,6 @@ export class RecuperarComponent {
     private _snackBar: MatSnackBar,
     private service: AuthService,
     public dialogRef: MatDialogRef<RecuperarComponent>,
-    // @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    // private usuarioService: UsuarioService,
-    // public router: Router,
-    // private cookie : CookieService,
-    // private _snackBar: MatSnackBar,
-    // public dialog: MatDialog
   ){
     this.formularioRecuperaSenha = this.fb.group({
       Email: ['', [Validators.required, this.validateEmail]],
@@ -74,7 +68,6 @@ export class RecuperarComponent {
   }
 
   trocarSenha(){
-    // console.log(this.formularioRecuperaSenha.value)
     var validaInformações = true;
     if(this.formularioRecuperaSenha.controls['Email'].value == ''){
       SnackBarComponent.prototype.texto = "Digite o email";

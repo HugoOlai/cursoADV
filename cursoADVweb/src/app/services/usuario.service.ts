@@ -19,6 +19,24 @@ export class UsuarioService {
       );
   }
 
+  atualizar(usuario: any) : Observable<any> {
+    return this.http.post(`${environment.baseUrl}/usuario/atualizar`, usuario)
+      .pipe(
+        take(1),
+        map(result => result)
+      );
+  }
+
+  listaUsuarios(): Observable<any>{
+
+    return this.http.get(`${environment.baseUrl}/usuario/ListaUsuarios`)
+    .pipe(
+      take(1),
+      map(result => result)
+    );
+
+  }
+
   pegarUsuario() : Observable<any> {
     return this.http.get(`${environment.baseUrl}/usuario/pegarUsuario`)
       .pipe(

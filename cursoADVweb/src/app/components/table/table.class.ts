@@ -28,7 +28,7 @@ export class ActionsTable {
   isButton: boolean = true;
   show?: Function;
   icon?: string;
-  class?: string;
+  class: string = "";
   style?: string;
   classIcon?: string;
   tooltip?: string;
@@ -55,7 +55,7 @@ export class OptionsTable {
   lineSize?: boolean;
   placeholder?: string;
   pagination?: boolean;
-  pagesSize?: any[];
+  pagesSize: any[] = [];
   descriptionPageSize?: string;
   empty?: string;
   modeCard?: boolean;

@@ -32,53 +32,17 @@
           </div>
         </div>
       </div>
-      <!-- <div class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
-        <div class="card" style="width: 18rem;">
-          <h4 class="text-center textImagem">
-            <p class="text defineFont mt-2" style="width: 100%;">
-              <strong class="">DIREITO DA CIRNAÇA E ADOLESCENTE</strong>
-            </p>
-          </h4>
-          <img src="assets/imgs/site proinf quem somos e cursos/1.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <button type="button"
-            class="btn btn-sm w-100 btn-danger icon-button shadow-sm rounded ">
-              <strong class="defineFontBtns text-center " style="font-size: 25px;">
-                Mais informações
-              </strong>
-            </button>
-          </div>
-        </div>
-      </div>
 
-      <div class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
+      <div *ngFor="let curso of listaCursos" class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
         <div class="card" style="width: 18rem;">
-          <h4 class="text-center textImagem">
+          <!-- <h4 class="text-center textImagem">
             <p class="text defineFont mt-2" style="width: 100%;">
-              <strong class="">PROCESSO CIVIL</strong>
+              <strong class="">{{grupoEstudos.titulo.toLocaleUpperCase()}}</strong>
             </p>
-          </h4>
-          <img src="assets/imgs/site proinf quem somos e cursos/2.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <button type="button"
-            class="btn btn-sm w-100 btn-danger icon-button shadow-sm rounded ">
-              <strong class="defineFontBtns text-center " style="font-size: 25px;">
-                Mais informações
-              </strong>
-            </button>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <div *ngFor="let curso of listaCursos" class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
-        <div class="card" style="width: 18rem;">
-          <h4 class="text-center textImagem">
-            <p class="text defineFont mt-2" style="width: 100%;">
-              <strong class="">{{curso.titulo.toLocaleUpperCase()}}</strong>
-            </p>
-          </h4>
+          </h4> -->
+          <!-- *ngIf="!grupoEstudos.cursoContratado" -->
           <img src="{{curso.src}}" class="card-img-top" alt="...">
-          <div class="card-body" *ngIf="!grupoEstudos.cursoContratado">
+          <div class="card-body" *ngIf="!curso.cursoContratado">
             <button type="button" (click)="redirecionar(curso)"
             class="btn btn-sm w-100 btn-danger icon-button shadow-sm rounded ">
               <strong class="defineFontBtns text-center " style="font-size: 25px;">
@@ -88,9 +52,8 @@
           </div>
         </div>
       </div>
-    </div> -->
-    <div *ngIf="!carregando" class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
-      <div class="card" style="width: 18rem;">
+
+      <div *ngIf="!carregando && listaCursos.length == 0" class="card" style="width: 18rem;">
         <h4 class="text-center textImagem">
           <p class="text defineFont mt-2" style="width: 100%;">
             <strong class="">EM BREVE</strong>
@@ -98,7 +61,7 @@
         </h4>
         <img src="assets/imgs/site proinf quem somos e cursos/6.png" class="card-img-top" alt="...">
         <div class="card-body">
-          Esse <strong>aulão </strong> está em contrução, e em breve
+          Esse <strong> cursos </strong> está em contrução, e em breve
           traremos informações...
           <!-- <button type="button"
           class="btn btn-sm w-100 btn-danger icon-button shadow-sm rounded ">
@@ -108,7 +71,7 @@
           </button> -->
         </div>
       </div>
-    </div>
+
 
     <div class="w-100 d-flex justify-content-center mt-5 mb-5">
       <div class="col-12 d-flex" style="top: 24px; position: relative;" >

@@ -1,16 +1,16 @@
-import { CursosService } from './../../../services/cursos.service';
 import { Util } from '../../../class/util.class';
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DialogDataUsuario } from '../alunos.component';
-import { AuthService } from '../../../services/auth.service';
-import { UsuarioService } from '../../../services/usuario.service';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import { ConfirmaItemComponent } from '../../../components/confirma-item/confirma-item.component';
 import { Curso } from '../../../shared/class/Curso.class';
+import { AuthService } from '../../../services/auth.service';
+import { CursosService } from './../../../services/cursos.service';
+import { UsuarioService } from '../../../services/usuario.service';
 import { HeaderTable, OptionsTable } from '../../../components/table/table.class';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SnackBarComponent } from '../../../components/snack-bar/snack-bar.component';
+import { ConfirmaItemComponent } from '../../../components/confirma-item/confirma-item.component';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-visualizar-aluno',
@@ -25,6 +25,19 @@ export class VisualizarAlunoComponent {
   visivel = false;
   visivel2 = false;
   carregando = false;
+  editado = false;
+  mensagem = "";
+  tipoSelecionado: any;
+  tipos: Array<any> = [
+    {
+      id: 1,
+      nome: "Professor",
+    },
+    {
+      id: 2,
+      nome: "Aluno",
+    }
+  ]
 
   bandeira: any;
   mesExpira: any;
@@ -103,7 +116,7 @@ export class VisualizarAlunoComponent {
     console.log(data.usuario)
     this.formularioUsuario = this.fb.group({
       Nome: [data.usuario.nome],
-      Tipo: [data.usuario.tipo],
+      Tipo: [data.usuario.tipo == null? "Aluno" : data.usuario.tipo],
       Email: [data.usuario.email],
       Telefone: [data.usuario.telefone],
       CpfCnpj: [data.usuario.cpfCnpj],
@@ -118,9 +131,13 @@ export class VisualizarAlunoComponent {
       NovaSenha: [""],
       ConfirmarSenha:[""]
     });
+
+    this.tipoSelecionado = data.usuario.tipo == null? "Aluno" : data.usuario.tipo;
+    console.log(this.tipoSelecionado)
   }
 
   ngOnInit(): void {
+
     this.numeroCartao = this.formularioUsuario.get('NumeroCartao')
     this.nomeCartao = this.formularioUsuario.get('NomeCartao')
     this.mesExpira = this.formularioUsuario.get('MesExpira')
@@ -131,12 +148,15 @@ export class VisualizarAlunoComponent {
     this.bandeira.disable()
 
     this.carregando = true;
+    if(this.data.usuario.listaCursos != null){
     this.cursosService.pegarTodos().subscribe((cursos: Array<Curso>)=>{
+      console.log(this.data.usuario.listaCursos)
+      console.log(cursos)
+        this.data.usuario.listaCursos.forEach((cursoUsuario: Curso) => {
 
-      if(this.data.usuario.listaCursos != null){
-        this.data.usuario.listaCursos?.forEach((cursoUsuario: Curso) => {
-          // cursosIds.push(curso.id)
+          //cursosIds.push(curso.id)
           cursos.forEach((curso: Curso) => {
+            console.log(curso)
             if(curso.id == cursoUsuario.id){
               curso.dataContratacaoFormatada = Util.dataFormatada(cursoUsuario.dataContratacao);
               curso.dataLançamentoFormatada = Util.dataFormatada(curso.dataLançamento);
@@ -147,11 +167,14 @@ export class VisualizarAlunoComponent {
         });
 
         this.carregando = false;
+        console.log(this.carregando)
 
-      }
 
-      console.log(this.listaCursos)
-    });
+        // console.log(this.listaCursos)
+      }, err=> console.log(err));
+    } else {
+      this.mensagem = "USUARIO NÃO POSSUI CURSO"
+    }
 
 
   }
@@ -197,11 +220,11 @@ export class VisualizarAlunoComponent {
         this.carregando = true;
 
         this.usuarioService.atualizar(obj).subscribe(res=>{
-          console.log(res)
+          // console.log(res)
           SnackBarComponent.prototype.texto = res.toUpperCase();
           SnackBarComponent.prototype.tipo = 'success';
           this.openSnackBar('success');
-          this.dialogRef.close();
+          this.dialogRef.close(true);
         }, err=>{
           if(err.status == 200){
             SnackBarComponent.prototype.texto = err.error.text.toUpperCase();

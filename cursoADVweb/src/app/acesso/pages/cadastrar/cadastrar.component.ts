@@ -234,11 +234,6 @@ export class CadastrarComponent {
 
     if(this.imagensACarregar.length > 0) {
       event.target.value = '';
-      // this.imagensACarregar.forEach(file => this.formData.append('file', file, file.name));
-      // this.service
-      // .salvarArquivos(this.pasta.id, formData)
-      // .subscribe(
-      //   (res: any) => {})
     }
   }
 

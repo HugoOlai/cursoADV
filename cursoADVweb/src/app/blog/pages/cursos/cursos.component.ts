@@ -35,21 +35,40 @@ export class CursosComponent {
         this.usuario.listaCursos?.forEach((cursoContratado: Curso) => {
           listaIdsCursos.push(cursoContratado.id)
         })
+
         res.forEach((curso: Curso) => {
-          if(curso.tipoCurso == "CURSO"){
-            if(listaIdsCursos.includes(curso.id)){
-              curso.cursoContratado = true;
-            }
-              this.listaCursos.push(curso);
-          }
-
-          if(curso.tipoCurso == "GRUPOESTUDOS"){
-            if(listaIdsCursos.includes(curso.id)){
-              curso.cursoContratado = true;
+          if(this.usuario.tipo == 'PROFESSOR' && curso.status == false){
+            if(curso.tipoCurso == "CURSO"){
+              if(listaIdsCursos.includes(curso.id)){
+                  curso.cursoContratado = true;
+              }
+                this.listaCursos.push(curso);
             }
 
-            this.listaGrupoEstudos.push(curso);
+            if(curso.tipoCurso == "GRUPOESTUDOS"){
+              if(listaIdsCursos.includes(curso.id)){
+                curso.cursoContratado = true;
+              }
+
+              this.listaGrupoEstudos.push(curso);
+            }
+          } else if(curso.status){
+            if(curso.tipoCurso == "CURSO"){
+              if(listaIdsCursos.includes(curso.id)){
+                  curso.cursoContratado = true;
+              }
+                this.listaCursos.push(curso);
+            }
+
+            if(curso.tipoCurso == "GRUPOESTUDOS"){
+              if(listaIdsCursos.includes(curso.id)){
+                curso.cursoContratado = true;
+              }
+
+              this.listaGrupoEstudos.push(curso);
+            }
           }
+
         });
 
         this.carregando = false;

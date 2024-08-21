@@ -1,6 +1,5 @@
 export interface Curso {
   id: string;
-  idPagamentoAsaas: string,
   dataLançamento: Date,
   dataContratacao: Date,
 
@@ -13,17 +12,21 @@ export interface Curso {
   materialApoio: string,
   descricaoGeral: string,
   valorFormatado: string,
-  valorComDesconto: string
+  idPagamentoAsaas: string,
+  valorComDesconto: string,
   dataLançamentoFormatada: string,
   dataContratacaoFormatada: string,
 
   src: null,
   video: null,
   arquivo: null,
+  topcos: Array<string>,
   listaVideos: Array<any>
   listaArquivosApoio: any,
-  topcos: Array<string>,
+
   valor: number,
+
+  status: boolean,
   statusPago: boolean,
   cursoContratado: boolean,
 }

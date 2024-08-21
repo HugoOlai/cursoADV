@@ -69,8 +69,8 @@ export class alunosComponent {
     lineSize: true,
     placeholder: '',
     captionShow: true,
-    caption: 'Total de {@} processos',
-    empty: 'Não existem processos para serem exibidos',
+    caption: 'Total de {@} alunos',
+    empty: 'Não existem alunos para serem exibidos',
     pagination: true,
     modeCard: this.isMobile,
     lineMode: this.isMobile,
@@ -78,8 +78,7 @@ export class alunosComponent {
     pageSize: 5,
     handle: ()=>{},
     pagesSize: [5,10,15,20],
-    descriptionPageSize: 'Processos por página',
-    tdKeyList: ["numeroProcessoFormatado", 'statusFormatado'],
+    descriptionPageSize: 'Alunos por página',
 
   };
 
@@ -159,13 +158,13 @@ export class alunosComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.carregando = true;
-      this.pegarUsuarios();
+      var teste: any = dialogRef.componentRef;
+      console.log(result);
+      // if(result){
+        this.carregando = true;
+        this.pegarUsuarios();
+      // }
     });
-  }
-  teste(){
-
   }
 
 }

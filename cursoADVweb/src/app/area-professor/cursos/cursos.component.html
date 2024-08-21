@@ -7,5 +7,26 @@
       </div>
     </div>
   </div>
-  CURSOS
+
+  <div *ngIf="!carregando">
+    <div class="col-12 d-flex">
+      <div class="col-6">
+        <span class="fs-6">CURSOS</span>
+      </div>
+      <div class="col-6 d-flex justify-content-end">
+        <div>
+          <button type="button" (click)="AdicionarCurso()" class="btn btn-primary rounded-pill text-light"><strong>ADICIONAR</strong></button>
+
+        </div>
+      </div>
+    </div>
+
+    <app-table
+      [lista]="listaCursos"
+      [header]="header"
+      [options]="options"
+      [actions]="actions">
+    </app-table>
+
+  </div>
 </div>

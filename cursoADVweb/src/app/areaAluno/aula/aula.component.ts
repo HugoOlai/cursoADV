@@ -16,6 +16,7 @@ import { Arquivo } from '../../shared/class/Arquivo.class';
 import { PageEvent } from '@angular/material/paginator';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { ArquivosService } from '../../services/arquivos.service';
 
 interface FoodNode {
   nome: string;
@@ -83,12 +84,13 @@ export class AulaComponent {
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   constructor(
-    private activedRoute: ActivatedRoute,
-    private _snackBar: MatSnackBar,
-    private cursosService: CursosService,
+    public router: Router,
     private fb: FormBuilder,
     private service: AuthService,
-    public router: Router,
+    private _snackBar: MatSnackBar,
+    private cursosService: CursosService,
+    private activedRoute: ActivatedRoute,
+    private arquivosService: ArquivosService,
 
   ) {
     this.formulario = this.fb.group({
@@ -111,31 +113,44 @@ export class AulaComponent {
               if(this.curso.tipoCurso)
                 this.tipoCurso = this.curso.tipoCurso
 
-              if(this.tipoCurso == 'GRUPOESTUDOS'){
-                if(this.curso.descricaoGeral)
-                  this.descricao = this.curso.descricaoGeral
-
-                this.arquivoAula = this.curso.listaArquivosApoio;
-                if(this.curso.listaArquivosApoio.length != null){
-                  this.curso.listaArquivosApoio.forEach((arquivo: any) => {
-                    // if(arquivo.tipoArquivo == "Leituras para aquecimento"){
-
-                    // }
-                    this.listaAquecimento.push(arquivo)
+              if (this.curso.id != undefined){
+                this.arquivosService.pegarArquivos(this.curso.id).subscribe(res=>{
+                  console.log(res)
+                  res.forEach((arquivo: any) => {
+                    this.arquivoAula.push(arquivo);
                   });
 
-                  if(this.listaAquecimento.length > 0){
-                    this.TREE_DATA.push({
-                      nome: 'Leituras para ir aquecendo',
-                      children: this.listaAquecimento,
-                    })
-
-                    this.dataSource.data = this.TREE_DATA;
-
-                  }
-
-                }
+                  this.carregando = false;
+                })
               }
+
+              console.log(this.curso)
+              if(this.tipoCurso == 'GRUPOESTUDOS'){
+                if(this.curso.materialApoio)
+                  this.descricao = this.curso.materialApoio
+              }
+
+              //   this.arquivoAula = this.curso.listaArquivosApoio;
+              //   if(this.curso.listaArquivosApoio.length != null){
+              //     this.curso.listaArquivosApoio.forEach((arquivo: any) => {
+              //       // if(arquivo.tipoArquivo == "Leituras para aquecimento"){
+
+              //       // }
+              //       this.listaAquecimento.push(arquivo)
+              //     });
+
+              //     if(this.listaAquecimento.length > 0){
+              //       this.TREE_DATA.push({
+              //         nome: 'Leituras para ir aquecendo',
+              //         children: this.listaAquecimento,
+              //       })
+
+              //       this.dataSource.data = this.TREE_DATA;
+
+              //     }
+
+              //   }
+              // }
 
               if(this.curso.listaVideos != null)
                 this.curso.listaVideos.forEach(video => {
@@ -182,15 +197,17 @@ export class AulaComponent {
 
   download(arquivo: Arquivo){
     console.log(arquivo)
-    var linkSource = 'data:application/octet-stream;base64,' + arquivo.base64;
+    // 'data:application/octet-stream;base64,' +
+    var linkSource = arquivo.base64;
     const downloadLink = document.createElement('a');
-    const fileName = `${arquivo.nome}.pdf`;
+    const fileName = `${arquivo.nome}`;
 
     downloadLink.href = linkSource;
     downloadLink.download = fileName;
     downloadLink.click();
 
   }
+
   selecionaCurso(novoVideo: any){
     var novaLista: Array<any> = [];
     if(this.curso.listaVideos != null && this.curso.listaVideos != undefined){

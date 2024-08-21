@@ -1,10 +1,24 @@
 <div class="m-4 d-flex flex-wrap scroll">
   <div class="col-6 d-flex">
     <h1 mat-dialog-title>{{data.usuario.nome.toLocaleUpperCase()}}</h1>
-    <h1 mat-dialog-title class="ms-2"> - {{data.usuario.tipo}}</h1>
+    <h1 *ngIf="data.usuario.tipo != null" mat-dialog-title class="ms-2"> - {{data.usuario.tipo}}</h1>
 
   </div>
-  <div class="col-6 d-flex justify-content-end">
+  <div class="col-6 d-flex justify-content-end" [formGroup]="formularioUsuario">
+    <mat-form-field class="w-50 pt-2 ">
+      <mat-label>Tipo</mat-label>
+      <mat-select [(value)]="tipoSelecionado" formControlName="Tipo">
+        <mat-option [value]="item.nome" *ngFor="let item of tipos">{{ item.nome }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Tipo</mat-label>
+      <mat-select formControlName="Tipo">
+        <mat-option [value]="item.nome" *ngFor="let item of tipos">{{ item.nome }}</mat-option>
+      </mat-select>
+    </mat-form-field> -->
+
     <div class="circle" style="height: 80px !important; width: 80px !important;">
       <img src="{{data.usuario.src}}">
     </div>
@@ -142,8 +156,10 @@
 
     <div *ngIf="!carregando">
       <span class="fs-6">CURSOS</span>
+      <span *ngIf="data.usuario.listaCursos == null || data.usuario.listaCursos.length !> 0">
 
-      <app-table
+      </span>
+      <app-table *ngIf="data.usuario.listaCursos == null || data.usuario.listaCursos.length > 0"
         [lista]="listaCursos"
         [header]="header"
         [options]="options">

@@ -1,3 +1,4 @@
+import { Curso } from "./Curso.class";
 
 export interface Usuario {
   id?: string;
@@ -6,7 +7,7 @@ export interface Usuario {
   email: string,
   telefone: string,
   cpfCnpj: string,
-  listaCursos?: Array<any>,
+  listaCursos: Array<Curso>,
   src: any,
   endereco: endereco;
   cartao: cartao;

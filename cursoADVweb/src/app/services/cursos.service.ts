@@ -29,6 +29,22 @@ export class CursosService {
       );
   }
 
+  editar(curso: any) : Observable<any> {
+    return this.http.post(`${environment.baseUrl}/curso/editar`, curso)
+      .pipe(
+        take(1),
+        map(result => result)
+      );
+  }
+
+  adicionarArquivo(arquivo: any, idCurso: string) : Observable<any> {
+    return this.http.post(`${environment.baseUrl}/curso/adicionarArquivo`, {arquivo:arquivo, idCurso: idCurso})
+      .pipe(
+        take(1),
+        map(result => result)
+      );
+  }
+
   pegar(curso: any) : Observable<any> {
     return this.http.post(`${environment.baseUrl}/curso/pegar`, curso)
       .pipe(

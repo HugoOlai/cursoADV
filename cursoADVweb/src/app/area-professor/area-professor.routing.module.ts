@@ -5,6 +5,7 @@ import { alunosComponent } from './alunos/alunos.component';
 import { AreaProfessorComponent } from './area-professor.component';
 import { tarefaComponent } from './tarefa/tarefa.component';
 import { noticiasComponent } from './noticias/noticias.component';
+import { VideosComponent } from './videos/videos.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'inicio', pathMatch: 'full' },
       { path: 'inicio', component: alunosComponent},
       { path: 'cursos', component: cursosComponent},
+      { path: 'videos', component: VideosComponent},
       { path: 'tarefas', component: tarefaComponent},
       { path: 'noticias', component: noticiasComponent},
 

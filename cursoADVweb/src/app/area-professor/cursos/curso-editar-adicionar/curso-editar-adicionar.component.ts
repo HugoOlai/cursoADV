@@ -3,13 +3,14 @@ import { Util } from '../../../class/util.class';
 import { Component, Inject } from '@angular/core';
 import { DialogDataCurso } from '../cursos.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../../services/auth.service';
 import { Arquivo } from '../../../shared/class/Arquivo.class';
 import { CursosService } from '../../../services/cursos.service';
 import { UsuarioService } from '../../../services/usuario.service';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ArquivosService } from '../../../services/arquivos.service';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { SnackBarComponent } from '../../../components/snack-bar/snack-bar.component';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 export interface SelectedFiles {
   name: string;
@@ -23,7 +24,11 @@ export interface SelectedFiles {
   styleUrl: './curso-editar-adicionar.component.scss'
 })
 export class CursoEditarAdicionarComponent {
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
   carregando = false;
+  criarCurso = false;
   imgCurso: any;
   formularioCurso: FormGroup;
   isMobile = Util.isMobile();
@@ -64,69 +69,35 @@ export class CursoEditarAdicionarComponent {
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private service: AuthService,
-    public dialog: MatDialog,
     private cursosService: CursosService,
     private arquivosService: ArquivosService,
     public usuarioService: UsuarioService,
+    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: DialogDataCurso,
     public dialogRef: MatDialogRef<CursoEditarAdicionarComponent>,
 
   ){
-    console.log(data.curso)
-    if(data.curso == null){
-      this.formularioCurso = this.fb.group({
-        Nome: [null],
-        Titulo: [null],
-        Tipo: ["CURSO"],
-        Status: ["INATIVO"],
-        Subtitulo: [null],
-        DataLancamento: [null],
-        Estrutura: [null],
-        MaterialApoio: [null],
-        Objetivo: [null],
-        Topico: [null],
-        Valor: [null],
-        ValorFormatado: [Util.formataValor(0)],
-      })
-    } else{
-      this.formularioCurso = this.fb.group({
-        Nome: [data.curso.titulo],
-        Titulo: [data.curso.titulo],
-        Tipo: [data.curso.tipoCurso == null? "CURSO" : data.curso.tipoCurso],
-        Status: [data.curso.status == null || data.curso.status == false? "INATIVO" : "ATIVO"],
-        Subtitulo: [data.curso.subtitulo],
-        DataLancamento: [data.curso.dataLançamentoFormatada],
-        Estrutura: [data.curso.estrutura],
-        MaterialApoio: [data.curso.materialApoio],
-        Objetivo: [data.curso.objetivo],
-        Topico: [null],
-        Valor: [data.curso.valor],
-        ValorFormatado: [Util.formataValor(data.curso.valor)],
-      })
-    }
-
-    //Rua: [data.usuario.endereco != null? data.usuario.endereco.rua : null],
-    //   Numero: [data.usuario.endereco != null? data.usuario.endereco.numero : null],
-    //   Complemento: [data.usuario.endereco != null? data.usuario.endereco.complemento : null],
-    //   NumeroCartao: [data.usuario.cartao != null? data.usuario.cartao.numeroCartao : null],
-    //   NomeCartao: [data.usuario.cartao != null? data.usuario.cartao.nomeCartao : null],
-    //   MesExpira: [data.usuario.cartao != null? data.usuario.cartao.mesExpira + "/" + data.usuario.cartao.anoExpira : null],
-    //   Bandeira: [data.usuario.cartao != null? data.usuario.cartao.creditCardBrand : null],
-    //   NovaSenha: [""],
-    //   ConfirmarSenha:[""]
-    // });
-
-    //this.statusSelecionado = data.curso.status == null || data.curso.status == false? "ATIVO" : "INATIVO";
-    // console.log(this.tipoSelecionado)
+    this.formularioCurso = this.fb.group({
+      Nome: [data.curso.titulo],
+      Titulo: [data.curso.titulo],
+      Tipo: [data.curso.tipoCurso == null? "CURSO" : data.curso.tipoCurso],
+      Status: [data.curso.status == null || data.curso.status == false? "INATIVO" : "ATIVO"],
+      Subtitulo: [data.curso.subtitulo],
+      DataLancamento: [data.curso.dataLançamentoFormatada],
+      Estrutura: [data.curso.estrutura],
+      MaterialApoio: [data.curso.materialApoio],
+      Objetivo: [data.curso.objetivo],
+      Topico: [null],
+      Valor: [data.curso.valor],
+      ValorFormatado: [Util.formataValor(data.curso.valor)],
+    })
   }
 
   ngOnInit(): void {
-
-    if(this.data.curso != null){
-      this.dataLancamento = this.formularioCurso.get('DataLancamento');
-      this.dataLancamento.disable();
-
-
+    this.criarCurso = Util.isNullOrEmpty(this.data.curso.id)? true : false;
+    this.dataLancamento = this.formularioCurso.get('DataLancamento');
+    this.dataLancamento.disable();
+    if(!this.criarCurso){
       if(this.data.curso.topcos != null)
         this.topicos = [...this.data.curso.topcos]
 
@@ -134,7 +105,6 @@ export class CursoEditarAdicionarComponent {
       //   this.listaArquivosApoio = [...this.data.curso.listaArquivosApoio]
       this.carregando = true;
       this.arquivosService.pegarArquivos(this.data.curso.id).subscribe(res=>{
-        console.log(res)
         res.forEach((arquivo: any) => {
           this.listaArquivosApoio.push(arquivo);
         });
@@ -143,6 +113,15 @@ export class CursoEditarAdicionarComponent {
       })
     }
 
+  }
+
+  openSnackBar(defineClass: any) {
+    this._snackBar.openFromComponent(SnackBarComponent, {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 4 * 1000,
+      panelClass: defineClass
+    });
   }
 
   formataValor(){
@@ -223,7 +202,6 @@ export class CursoEditarAdicionarComponent {
 
   adicionarNovoTopico(){
     var topico = this.formularioCurso.get("Topico");
-    console.log(topico?.value)
     if(topico?.value != '')
       this.topicos.push(topico?.value)
 
@@ -232,7 +210,6 @@ export class CursoEditarAdicionarComponent {
   }
 
   adicionaTopico(event: any, index: number){
-    console.log(event.target.value)
     if(event.target.value == ""){
       this.topicos.splice(index, 1)
     } else {
@@ -241,7 +218,6 @@ export class CursoEditarAdicionarComponent {
   }
 
   download(arquivo: Arquivo){
-    console.log(arquivo)
     // 'data:application/octet-stream;base64,' +
     var linkSource = arquivo.base64;
     const downloadLink = document.createElement('a');
@@ -265,19 +241,34 @@ export class CursoEditarAdicionarComponent {
     form.Status = form.Status == 'INATIVO'? false : true;
     form.src = this.data.curso.src;
 
-    // form.Valor = Util.limparNumero(form.Valor)
-
     this.carregando = true;
     this.cursosService.editar(form).subscribe(res => {
-      console.log(res)
       if(this.listaArquivosApoioNovos.length > 0){
         this.listaArquivosApoioNovos.forEach(arquivo => {
           this.cursosService.adicionarArquivo(arquivo, res).subscribe(res => {
+            SnackBarComponent.prototype.texto = "ARQUIVO ADICIONADO"
+            SnackBarComponent.prototype.tipo = 'success';
+            this.openSnackBar('success');
             this.carregando = false;
-          }, err => {console.log(err); this.carregando = false;})
+
+          }, err => {
+            console.log(err);
+            if(err.status == 200){
+              SnackBarComponent.prototype.texto = "ARQUIVO ADICIONADO"
+              SnackBarComponent.prototype.tipo = 'success';
+              this.openSnackBar('success');
+              this.carregando = false;
+            }
+
+          })
         });
-      } else
+      } else {
+        SnackBarComponent.prototype.texto = this.criarCurso? "CURSO CRIADO COM SUCESSO":"CURSO ATUALIZADO COM SUCESSO"
+        SnackBarComponent.prototype.tipo = 'success';
+        this.openSnackBar('success');
         this.carregando = false;
+        this.fechar();
+      }
 
     }, err =>{
       console.log(err)
@@ -285,15 +276,36 @@ export class CursoEditarAdicionarComponent {
         if(this.listaArquivosApoioNovos.length > 0){
           this.listaArquivosApoioNovos.forEach(arquivo => {
             this.cursosService.adicionarArquivo(arquivo, err.error.text).subscribe(res => {
+              SnackBarComponent.prototype.texto = "ARQUIVO ADICIONADO"
+              SnackBarComponent.prototype.tipo = 'success';
+              this.openSnackBar('success');
               this.carregando = false;
 
-            }, err => {console.log(err); this.carregando = false;})
+            }, err => {
+              console.log(err);
+              if(err.status == 200){
+                SnackBarComponent.prototype.texto = "ARQUIVO ADICIONADO"
+                SnackBarComponent.prototype.tipo = 'success';
+                this.openSnackBar('success');
+                this.carregando = false;
+              }
+            })
           });
-        } else
-          this.carregando = false;
 
-      } else
+        } else {
+          SnackBarComponent.prototype.texto = this.criarCurso? "CURSO CRIADO COM SUCESSO":"CURSO ATUALIZADO COM SUCESSO"
+          SnackBarComponent.prototype.tipo = 'success';
+          this.openSnackBar('success');
+          this.carregando = false;
+          this.fechar();
+        }
+
+      } else {
         this.carregando = false;
+        SnackBarComponent.prototype.texto = "ERRO, CURSO NÃO FOI CRIADO"
+        SnackBarComponent.prototype.tipo = 'error';
+        this.openSnackBar('error');
+      }
     })
   }
 }

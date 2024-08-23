@@ -10,10 +10,10 @@
 <div class="m-4 d-flex flex-wrap scroll" *ngIf="!carregando">
   <div class="col-6 d-flex">
     <!-- <h2 mat-dialog-title>{{data.curso.titulo.toLocaleUpperCase()}}</h2> -->
-    <h2 *ngIf="data.curso != null" class="">{{data.curso.titulo.length > 25? data.curso.titulo.substring(0, 25).toLocaleUpperCase() + "...":data.curso.titulo.toLocaleUpperCase()}}</h2>
-    <h2 *ngIf="data.curso == null" class="">NOVO CURSO</h2>
+    <h2 *ngIf="!criarCurso" class="">{{data.curso.titulo.length > 25? data.curso.titulo.substring(0, 25).toLocaleUpperCase() + "...":data.curso.titulo.toLocaleUpperCase()}}</h2>
+    <h2 *ngIf="criarCurso" class="">NOVO CURSO</h2>
 
-    <h2 *ngIf="data.curso != null && data.curso.tipoCurso != null" mat-dialog-title class="ms-2"> - {{data.curso.tipoCurso}}</h2>
+    <h2 *ngIf="!criarCurso && data.curso.tipoCurso != null" mat-dialog-title class="ms-2"> - {{data.curso.tipoCurso}}</h2>
 
   </div>
   <div class="col-6 d-flex justify-content-end" [formGroup]="formularioCurso">
@@ -34,7 +34,7 @@
       <input (change)="uploadImgCurso($event)" type="file" class="uploadImgCurso" multiple/>
       <div class="circle" style="height: 80px !important; width: 80px !important;">
 
-        <img *ngIf="data.curso != null" && src="{{data.curso.src}}">
+        <img src="{{data.curso.src}}">
       </div>
     </div>
   </div>

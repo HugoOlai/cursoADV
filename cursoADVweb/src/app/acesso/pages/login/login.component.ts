@@ -65,7 +65,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(){
     var usuario: Usuario = this.service.getUser();
 
-    console.log(usuario)
     if(usuario.email != null){
       var rota = usuario.tipo != null && usuario.tipo.toLocaleUpperCase() == 'PROFESSOR'? 'areaProfessor': 'areaAluno';
       this.router.navigate([rota]);

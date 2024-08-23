@@ -195,11 +195,14 @@
 
       <div *ngFor="let item of curso.listaVideos" class="col-12 d-flex px-4 {{item.aulaAtual?'aulaSelecionada':'aula'}}">
         <div class="col-12 d-flex flex-wrap" (click)="selecionaCurso(item)">
-          <video id="{{item.modulo}}" width="60" height="50" controlsList=" nodownload nofullscreen noremoteplayback" src="https://centroproinf.com.br/assets/videos/{{item.src}}.mp4">
+          <span class="material-icons fs-2 mt-2">
+            play_circle_filled
+            </span>
+          <!-- <video id="{{item.nome}}" width="60" height="50" controlsList=" nodownload nofullscreen noremoteplayback" src="https://centroproinf.com.br/assets/videos/{{item.nomeArquivo}}.mp4">
             <source  type="video/mp4" >
-          </video>
+          </video> -->
           <span class="mt-2 ms-3">
-            <h3>{{item.aula}}</h3>
+            <h3>{{item.nome}}</h3>
           </span>
         </div>
       </div>

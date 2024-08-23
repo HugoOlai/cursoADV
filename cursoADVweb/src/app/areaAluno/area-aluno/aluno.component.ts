@@ -1,13 +1,12 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { Util } from '../../class/util.class';
+import { CookieService } from 'ngx-cookie-service';
 import { Curso } from '../../shared/class/Curso.class';
 import { AuthService } from '../../services/auth.service';
 import { Usuario } from '../../shared/class/Usuario.class';
 import { UsuarioService } from '../../services/usuario.service';
 import { CursosService } from './../../services/cursos.service';
-import { SidebarAreaAlunoComponent } from '../../components/sidebarAreaAluno/sidebar-area-aluno/sidebar-area-aluno.component';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-aluno',
@@ -57,7 +56,9 @@ export class AlunoComponent {
                   if(cursoInformacoesCompletas.tipoCurso == "GRUPOESTUDOS"){
                     this.meusGruposEstudo = true;
                     if(!cursoInformacoesCompletas.statusPago){
-                      this.cursosService.conferirCobranca(cursoContratado.idPagamentoAsaas).subscribe({})
+                      if(cursoContratado.idPagamentoAsaas)
+                        this.cursosService.conferirCobranca(cursoContratado.idPagamentoAsaas).subscribe({})
+
                       this.temPagamentoPendente = true;
                     }
 
@@ -65,7 +66,9 @@ export class AlunoComponent {
 
                   } else {
                     if(!cursoInformacoesCompletas.statusPago){
-                      this.cursosService.conferirCobranca(cursoContratado.idPagamentoAsaas).subscribe({})
+                      if(cursoContratado.idPagamentoAsaas)
+                        this.cursosService.conferirCobranca(cursoContratado.idPagamentoAsaas).subscribe({})
+
                       this.temPagamentoPendente = true;
                     }
                     this.meusCursos = true;

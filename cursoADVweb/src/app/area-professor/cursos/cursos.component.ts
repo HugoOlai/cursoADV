@@ -27,7 +27,7 @@ export class cursosComponent {
   carregando: boolean = false;
   isMobile = Util.isMobile();
   listaCursos: Array<Curso> = [];
-
+  curso: Curso;
   header: HeaderTable[] = [
     {
       description: 'Titulo',
@@ -99,11 +99,29 @@ export class cursosComponent {
     private cursosService: CursosService,
     private cookie: CookieService,
     private router: Router,
-    public dialog: MatDialog,
     private service: AuthService,
+    public dialog: MatDialog,
     private _snackBar: MatSnackBar,
 
-  ){}
+  ){
+    this.curso = {
+      id: "",
+      titulo: "",
+      tipoCurso: "CURSO",
+      status: false,
+      subtitulo: "",
+      dataLançamento: new Date(),
+      dataLançamentoFormatada: Util.dataFormatada(new Date()),
+      estrutura: "",
+      materialApoio: "",
+      objetivo: "",
+      topcos: [],
+      valor: 0,
+      src: null,
+      listaVideos: [],
+      statusPago: false
+    }
+  }
 
   ngOnInit(): void {
     this.pegarCursos()
@@ -119,7 +137,7 @@ export class cursosComponent {
   }
 
   AdicionarCurso(){
-    this.openDialog()
+    this.openDialog(this.curso)
   }
 
   pegarCursos(){
@@ -144,7 +162,7 @@ export class cursosComponent {
     })
   }
 
-  openDialog(item: any = null): void {
+  openDialog(item: Curso): void {
     const dialogRef = this.dialog.open(CursoEditarAdicionarComponent, {
       panelClass: "second-modal-backdrop",
       width: "80%",

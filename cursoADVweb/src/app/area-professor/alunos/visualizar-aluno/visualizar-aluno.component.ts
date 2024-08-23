@@ -113,7 +113,6 @@ export class VisualizarAlunoComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogDataUsuario,
     public dialogRef: MatDialogRef<VisualizarAlunoComponent>,
   ){
-    console.log(data.usuario)
     this.formularioUsuario = this.fb.group({
       Nome: [data.usuario.nome],
       Tipo: [data.usuario.tipo == null? "Aluno" : data.usuario.tipo],
@@ -133,7 +132,6 @@ export class VisualizarAlunoComponent {
     });
 
     this.tipoSelecionado = data.usuario.tipo == null? "Aluno" : data.usuario.tipo;
-    console.log(this.tipoSelecionado)
   }
 
   ngOnInit(): void {
@@ -150,15 +148,15 @@ export class VisualizarAlunoComponent {
     this.carregando = true;
     if(this.data.usuario.listaCursos != null){
     this.cursosService.pegarTodos().subscribe((cursos: Array<Curso>)=>{
-      console.log(this.data.usuario.listaCursos)
-      console.log(cursos)
+
         this.data.usuario.listaCursos.forEach((cursoUsuario: Curso) => {
 
           //cursosIds.push(curso.id)
           cursos.forEach((curso: Curso) => {
-            console.log(curso)
             if(curso.id == cursoUsuario.id){
-              curso.dataContratacaoFormatada = Util.dataFormatada(cursoUsuario.dataContratacao);
+              if(cursoUsuario.dataContratacao)
+                curso.dataContratacaoFormatada = Util.dataFormatada(cursoUsuario.dataContratacao);
+
               curso.dataLançamentoFormatada = Util.dataFormatada(curso.dataLançamento);
               curso.statusPago = cursoUsuario.statusPago;
               this.listaCursos.push(curso)
@@ -167,7 +165,6 @@ export class VisualizarAlunoComponent {
         });
 
         this.carregando = false;
-        console.log(this.carregando)
 
 
         // console.log(this.listaCursos)
@@ -190,7 +187,6 @@ export class VisualizarAlunoComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if(result){
         var item = this.formularioUsuario.value;
         console.log(item);

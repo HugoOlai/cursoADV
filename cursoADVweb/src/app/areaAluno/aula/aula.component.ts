@@ -17,6 +17,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { ArquivosService } from '../../services/arquivos.service';
+import { VideoService } from '../../services/videos.service';
+import { Video } from '../../shared/class/Video';
 
 interface FoodNode {
   nome: string;
@@ -90,6 +92,7 @@ export class AulaComponent {
     private _snackBar: MatSnackBar,
     private cursosService: CursosService,
     private activedRoute: ActivatedRoute,
+    private videoService: VideoService,
     private arquivosService: ArquivosService,
 
   ) {
@@ -107,6 +110,8 @@ export class AulaComponent {
         this.curso.id = params['id'];
 
         if (this.curso.id != undefined) {
+          this.carregando = true;
+
           this.cursosService.pegar(this.curso).subscribe({
             next: (curso: Curso) =>{
               this.curso = curso;
@@ -114,21 +119,59 @@ export class AulaComponent {
                 this.tipoCurso = this.curso.tipoCurso
 
               if (this.curso.id != undefined){
+                this.carregando = true;
+
                 this.arquivosService.pegarArquivos(this.curso.id).subscribe(res=>{
-                  console.log(res)
                   res.forEach((arquivo: any) => {
                     this.arquivoAula.push(arquivo);
                   });
 
-                  this.carregando = false;
+                  this.videoService.pegarTodos().subscribe((resVideo: Array<Video>)=>{
+                    var lista: Array<Video> = []
+                    resVideo.forEach(video => {
+                      if(video.idCurso == this.curso.id){
+                        video.dataLancamentoFormatada = Util.dataFormatada(video.dataLancamento);
+                        lista.push(video)
+                      }
+                    });
+
+                    this.curso.listaVideos = lista;
+
+                    if(this.curso.listaVideos != null){
+                      this.curso.listaVideos.forEach(video => {
+                        // if(video.aulaAtual == true){
+                          this.ModuloSelecionado = video.nomeArquivo;
+                          this.nomeModulo = video.nome;
+                          this.descricao = video.descricao;
+                          // this.arquivoAula = video.arquivos
+
+                          var lista: Array<Arquivo> = [];
+                          if(video.listaIdsArquivos  != null)
+                            video.listaIdsArquivos.forEach((id: string) => {
+                              this.arquivoAula.forEach(arquivo => {
+                                if(id == arquivo.id){
+                                  lista.push(arquivo)
+                                }
+                              });
+
+                              this.arquivoAula = lista;
+
+                            });
+                        // }
+                        });
+                    }
+                    this.carregando = false;
+                  })
+
                 })
               }
 
-              console.log(this.curso)
               if(this.tipoCurso == 'GRUPOESTUDOS'){
                 if(this.curso.materialApoio)
                   this.descricao = this.curso.materialApoio
               }
+
+
 
               //   this.arquivoAula = this.curso.listaArquivosApoio;
               //   if(this.curso.listaArquivosApoio.length != null){
@@ -152,17 +195,8 @@ export class AulaComponent {
               //   }
               // }
 
-              if(this.curso.listaVideos != null)
-                this.curso.listaVideos.forEach(video => {
-                  if(video.aulaAtual == true){
-                    this.ModuloSelecionado = video.src;
-                    this.nomeModulo = video.aula;
-                    this.descricao = video.descricao;
-                    this.arquivoAula = video.arquivos
-                  }
-                  });
 
-              this.carregando = false;
+
             },
             error: (err:any)=> {
               SnackBarComponent.prototype.texto = "Erro ao pegar o curso";
@@ -212,11 +246,11 @@ export class AulaComponent {
     var novaLista: Array<any> = [];
     if(this.curso.listaVideos != null && this.curso.listaVideos != undefined){
       this.curso.listaVideos.forEach(video => {
-          if(video.modulo == novoVideo.modulo){
+          if(video.nome == novoVideo.nome){
             video.aulaAtual = true; this.ModuloSelecionado = video.src;
-            this.nomeModulo = video.aula;
+            this.ModuloSelecionado = video.nomeArquivo;
+            this.nomeModulo = video.nome;
             this.descricao = video.descricao;
-            this.arquivoAula = video.arquivos
 
           }else
             video.aulaAtual = false;

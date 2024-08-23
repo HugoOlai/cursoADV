@@ -8,5 +8,118 @@
     </div>
   </div>
 
-VIDEOS
+  <div *ngIf="!carregando">
+    <div class="col-12 d-flex">
+      <div class="col-6">
+        <span class="fs-6">VIDEOS</span>
+      </div>
+    </div>
+
+    <div class="col-12 d-flex flex-wrap mt-2">
+      <div class="col-6 pe-2">
+        <mat-form-field class=" ">
+          <mat-label>Vincule arquivos ao seu video</mat-label>
+          <mat-select [(value)]="cursoSelecionado">
+            <mat-option (onSelectionChange)="pegarArquivosCurso(item.id)" [value]="item.id" *ngFor="let item of listaNomesCursos">{{ item.nome }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <div class="col-12" *ngIf="carregandoArquivos">
+          <div class="clearfix d-flex justify-content-center">
+            <p class="fs-6"> Carregando </p>
+            <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+              <span class="sr-only"></span>
+            </div>
+          </div>
+        </div>
+        <mat-form-field class=" " *ngIf="!carregandoArquivos">
+          <mat-label>Escolha um curso</mat-label>
+          <mat-select [formControl]="toppings" multiple>
+            <mat-select-trigger>
+              {{toppings.value?.[0] || ''}}
+              @if ((toppings.value?.length || 0) > 1) {
+                <span class="example-additional-selection">
+                  (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              }
+            </mat-select-trigger>
+            @for (topping of toppingList; track topping) {
+          <mat-option (onSelectionChange)="definirArquivos(topping)" [value]="topping">{{topping}}</mat-option>
+          }
+        </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-6 pe-2">
+        <mat-form-field class="">
+          <mat-label>Nome do video</mat-label>
+          <input matInput [(ngModel)]="nomeVideo">
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field class="">
+          <mat-label>Nome do arquivo</mat-label>
+          <input matInput [(ngModel)]="nomeArquivo">
+        </mat-form-field>
+      </div>
+      <div class="col-12">
+        <mat-form-field class="w-100">
+          <mat-label>Descrição</mat-label>
+          <textarea matInput [(ngModel)]="descricaoVideo" rows="5" cols="40" placeholder="text" ></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="w-100 d-flex justify-content-end">
+        <button type="button" (click)="AdicionarVideo()" class="btn btn-primary rounded-pill text-light"><strong>ADICIONAR</strong></button>
+      </div>
+    </div>
+    <div class="w-100 d-flex flex-wrap pb-5">
+      <span *ngFor="let video of listaVideo" class="me-2">
+        <video width="300" height="300" controls controlsList="nodownload" src="https://centroproinf.com.br/video/{{video.nomeArquivo}}.mp4">
+          <source  type="video/mp4" >
+        </video>
+
+        <div class="card " >
+            <p class="text defineFont mt-2 ms-2" style="width: 100%;">
+              <strong class="">{{video.nome.length > 15? video.nome.substring(0, 25).toLocaleUpperCase() + "...": video.nome.toUpperCase()}}</strong>
+            </p>
+          <div class="card-body" >
+            <strong>Nome arquivo: </strong>
+            <p class="text defineFont mt-2" style="width: 100%;">
+              <strong class="">{{video.nomeArquivo.toUpperCase()}}</strong>
+            </p>
+            <strong>Data de postagem do video: </strong>
+            <p class="text defineFont mt-2" style="width: 100%;">
+              <strong class="">{{video.dataLancamentoFormatada}}</strong>
+            </p>
+            <strong>Descrição: </strong>
+            <p class="text defineFont mt-2" style="width: 100%;">
+              <strong class="">{{video.descricao}}</strong>
+            </p>
+          </div>
+          <div class="col-12 d-flex px-2 pb-2">
+            <div class="col-6 d-flex justify-content-start">
+              <button (click)="deletarVideo(video)" class="btn btn-danger rounded-pill text-light">DELETAR</button>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+              <button (click)="openDialog(video)" class="btn btn-primary rounded-pill text-light">EDITAR</button>
+
+            </div>
+          </div>
+        </div>
+      </span>
+    </div>
+    <!-- <app-table
+      [lista]="listaCursos"
+      [header]="header"
+      [options]="options"
+      [actions]="actions">
+    </app-table> -->
+
+  </div>
+
+
 </div>
+
+
+

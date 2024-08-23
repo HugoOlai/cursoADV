@@ -197,7 +197,6 @@ export class ContratacaoComponent {
   upload(event: any) {
     const keys = Object.keys(event.target.files);
     var reader = new FileReader();
-    console.log(event.target.files[0])
 
     reader.readAsDataURL(event.target.files[0]);
     this.nomeArquivo = event.target.files[0].name;

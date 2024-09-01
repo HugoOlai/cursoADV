@@ -31,11 +31,11 @@ export class VisualizarAlunoComponent {
   tipos: Array<any> = [
     {
       id: 1,
-      nome: "Professor",
+      nome: "PROFESSOR",
     },
     {
       id: 2,
-      nome: "Aluno",
+      nome: "ALUNO",
     }
   ]
 
@@ -95,6 +95,7 @@ export class VisualizarAlunoComponent {
     modeCard: this.isMobile,
     lineMode: this.isMobile,
     textAction: 'Ação',
+    class: "d-flex justify-content-center",
     pageSize: 5,
     handle: ()=>{},
     pagesSize: [5,10,15,20],
@@ -115,7 +116,7 @@ export class VisualizarAlunoComponent {
   ){
     this.formularioUsuario = this.fb.group({
       Nome: [data.usuario.nome],
-      Tipo: [data.usuario.tipo == null? "Aluno" : data.usuario.tipo],
+      Tipo: [data.usuario.tipo == null? "ALUNO" : data.usuario.tipo.toLocaleUpperCase()],
       Email: [data.usuario.email],
       Telefone: [data.usuario.telefone],
       CpfCnpj: [data.usuario.cpfCnpj],
@@ -131,7 +132,7 @@ export class VisualizarAlunoComponent {
       ConfirmarSenha:[""]
     });
 
-    this.tipoSelecionado = data.usuario.tipo == null? "Aluno" : data.usuario.tipo;
+    this.tipoSelecionado = data.usuario.tipo == null? "ALUNO" : data.usuario.tipo.toLocaleUpperCase();
   }
 
   ngOnInit(): void {
@@ -152,16 +153,25 @@ export class VisualizarAlunoComponent {
         this.data.usuario.listaCursos.forEach((cursoUsuario: Curso) => {
 
           //cursosIds.push(curso.id)
-          cursos.forEach((curso: Curso) => {
-            if(curso.id == cursoUsuario.id){
-              if(cursoUsuario.dataContratacao)
-                curso.dataContratacaoFormatada = Util.dataFormatada(cursoUsuario.dataContratacao);
+          var cursoEncontrado = cursos.find((curso: Curso)=> curso.id == cursoUsuario.id);
+          if(cursoEncontrado != null){
+            if(cursoUsuario.dataContratacao)
+              cursoEncontrado.dataContratacaoFormatada = Util.dataFormatada(cursoUsuario.dataContratacao);
 
-              curso.dataLançamentoFormatada = Util.dataFormatada(curso.dataLançamento);
-              curso.statusPago = cursoUsuario.statusPago;
-              this.listaCursos.push(curso)
+              cursoEncontrado.dataLançamentoFormatada = Util.dataFormatada(cursoEncontrado.dataLançamento);
+              cursoEncontrado.statusPago = cursoUsuario.statusPago;
+              this.listaCursos.push(cursoEncontrado)
             }
-          });
+          // cursos.forEach((curso: Curso) => {
+          //   if(curso.id == cursoUsuario.id){
+          //     if(cursoUsuario.dataContratacao)
+          //       curso.dataContratacaoFormatada = Util.dataFormatada(cursoUsuario.dataContratacao);
+
+          //     curso.dataLançamentoFormatada = Util.dataFormatada(curso.dataLançamento);
+          //     curso.statusPago = cursoUsuario.statusPago;
+          //     this.listaCursos.push(curso)
+          //   }
+          // });
         });
 
         this.carregando = false;
@@ -176,8 +186,8 @@ export class VisualizarAlunoComponent {
 
   }
 
-  fechar(){
-    this.dialogRef.close();
+  fechar(atualiza: boolean = false){
+    this.dialogRef.close({data: atualiza});
   }
 
   editar(){
@@ -189,8 +199,6 @@ export class VisualizarAlunoComponent {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         var item = this.formularioUsuario.value;
-        console.log(item);
-
         var obj = {
           Id: this.data.usuario.id,
           Nome: item.Nome,
@@ -220,13 +228,14 @@ export class VisualizarAlunoComponent {
           SnackBarComponent.prototype.texto = res.toUpperCase();
           SnackBarComponent.prototype.tipo = 'success';
           this.openSnackBar('success');
-          this.dialogRef.close(true);
+          this.fechar(true)
         }, err=>{
           if(err.status == 200){
             SnackBarComponent.prototype.texto = err.error.text.toUpperCase();
             SnackBarComponent.prototype.tipo = 'success';
             this.openSnackBar('success');
-            this.dialogRef.close();
+            this.fechar(true)
+
           }
         })
       }

@@ -348,7 +348,6 @@ export class ContratacaoComponent {
     var form: any = this.formularioCadastro.controls
 
     if(this.verificarCamposObrigatorios(form) == true){
-      this.carregando = true;
       var obj: any = {
           Nome: form.Nome.value,
           Email: form.Email.value,
@@ -402,53 +401,65 @@ export class ContratacaoComponent {
         obj.imagemSelecionada = this.imagemSelecionada;
         obj.tipoAluno = this.tipoAluno;
 
-        this.cursosService.contratarCurso(this.curso, obj).subscribe({
-          next: (res:any) =>{
-            SnackBarComponent.prototype.texto = "Curso contratado";
-            SnackBarComponent.prototype.tipo = 'success';
-            this.openSnackBar('success');
-            this.router.navigate(['areaAluno/inicio']);
-            this.carregando = false;
+        console.log(form)
+        if(form.Mes.value == "" || form.Ano.value == ""){
+          SnackBarComponent.prototype.texto = "SELECIONE MÊS E ANO CLICANDO NO ICONE DE CALENDÁRIO";
+          SnackBarComponent.prototype.tipo = 'warning';
+          this.openSnackBar('warning');
+        } else {
+          this.carregando = true;
 
-          },
-          error: (err:any)=> {
-            console.log(err)
-            this.carregando = false;
-
-            if(err.error == "Curso contratado" || err.error ==  "Estamos aguardando a confirmação do pagamento"){
-              SnackBarComponent.prototype.texto = err.error;
+          this.cursosService.contratarCurso(this.curso, obj).subscribe({
+            next: (res:any) =>{
+              SnackBarComponent.prototype.texto = "Curso contratado";
               SnackBarComponent.prototype.tipo = 'success';
               this.openSnackBar('success');
               this.router.navigate(['areaAluno/inicio']);
+              this.carregando = false;
 
-            } else {
-              if(err.error == "Erro na contratação"){
-                SnackBarComponent.prototype.texto = err.error +", VERIFIQUE OS DADOS DO SEU CARTÃO";
-                SnackBarComponent.prototype.tipo = 'warning';
-                this.openSnackBar('warning');
+            },
+            error: (err:any)=> {
+              console.log(err)
+              this.carregando = false;
+
+              if(err.status == 200){
+                SnackBarComponent.prototype.texto = this.tipoPagamento == 1? "Curso contratado": "Estamos aguardando a confirmação do pagamento";
+                SnackBarComponent.prototype.tipo = 'success';
+                this.openSnackBar('success');
+                this.router.navigate(['areaAluno/inicio']);
 
               } else {
-                SnackBarComponent.prototype.texto = "VERIFIQUE OS DADOS DO SEU CARTÃO";
-                SnackBarComponent.prototype.tipo = 'warning';
-                this.openSnackBar('warning');
+                if(err.status == 500){
+                  SnackBarComponent.prototype.texto = err.error +", VERIFIQUE OS DADOS DO SEU CARTÃO";
+                  SnackBarComponent.prototype.tipo = 'warning';
+                  this.openSnackBar('warning');
 
-                // if(err.status == 200)
-                //   this.router.navigate(['areaAluno/inicio']);
+                } else if(err.status == 400) {
+                  var erro = "Transação não autorizada, verifique o limite disponível no cartão."
+                  SnackBarComponent.prototype.texto = erro.toLocaleUpperCase();
+                  SnackBarComponent.prototype.tipo = 'warning';
+                  this.openSnackBar('warning');
 
-                // this.cookie.delete('nome');
-                // this.cookie.delete('email');
-                // this.service.clearUser();
-                // SnackBarComponent.prototype.texto = "conectar com a sua conta";
-                // SnackBarComponent.prototype.tipo = 'warning';
-                // this.openSnackBar('warning');
-                // this.router.navigate(['acesso/login']);
+                  // if(err.status == 200)
+                  //   this.router.navigate(['areaAluno/inicio']);
 
+                  // this.cookie.delete('nome');
+                  // this.cookie.delete('email');
+                  // this.service.clearUser();
+                  // SnackBarComponent.prototype.texto = "conectar com a sua conta";
+                  // SnackBarComponent.prototype.tipo = 'warning';
+                  // this.openSnackBar('warning');
+                  // this.router.navigate(['acesso/login']);
+
+                }
               }
+
+
             }
+          })
+        }
 
 
-          }
-        })
       }, 3000);
 
 

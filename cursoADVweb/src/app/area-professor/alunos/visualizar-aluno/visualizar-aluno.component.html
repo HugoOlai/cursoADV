@@ -1,182 +1,184 @@
-<div class="m-4 d-flex flex-wrap scroll">
-  <div class="col-6 d-flex">
-    <h1 mat-dialog-title>{{data.usuario.nome.toLocaleUpperCase()}}</h1>
-    <h1 *ngIf="data.usuario.tipo != null" mat-dialog-title class="ms-2"> - {{data.usuario.tipo}}</h1>
-
-  </div>
-  <div class="col-6 d-flex justify-content-end" [formGroup]="formularioUsuario">
-    <mat-form-field class="w-50 pt-2 ">
-      <mat-label>Tipo</mat-label>
-      <mat-select [(value)]="tipoSelecionado" formControlName="Tipo">
-        <mat-option [value]="item.nome" *ngFor="let item of tipos">{{ item.nome }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <!-- <mat-form-field class="w-100" appearance="outline">
-      <mat-label>Tipo</mat-label>
-      <mat-select formControlName="Tipo">
-        <mat-option [value]="item.nome" *ngFor="let item of tipos">{{ item.nome }}</mat-option>
-      </mat-select>
-    </mat-form-field> -->
-
-    <div class="circle" style="height: 80px !important; width: 80px !important;">
-      <img src="{{data.usuario.src}}">
+<div class="col-12 p-4" *ngIf="carregando">
+  <div class="clearfix d-flex justify-content-center">
+    <p class="fs-6"> Carregando </p>
+    <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+      <span class="sr-only"></span>
     </div>
   </div>
+</div>
 
-  <div mat-dialog-content >
-    <span class="fs-6">INFORMAÇÕES</span>
+<div class=" d-flex flex-wrap scroll" *ngIf="!carregando">
+  <div class="m-4 d-flex flex-wrap">
+    <div class="col-6 d-flex">
+      <h1 mat-dialog-title>{{data.usuario.nome.length > 10? data.usuario.nome.substring(0, 10).toLocaleUpperCase() + "..." : data.usuario.nome.toLocaleUpperCase()}}</h1>
+      <h1 *ngIf="data.usuario.tipo != null" mat-dialog-title class="ms-2"> - {{data.usuario.tipo}}</h1>
 
-    <!-- <p class="fs-6">Informe seu email e telefone registrados</p> -->
-    <form [formGroup]="formularioUsuario" class="d-flex flex-wrap">
-      <hr class="w-100" />
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Nome</mat-label>
-          <input matInput formControlName="Nome">
-        </mat-form-field>
+    </div>
+    <div class="col-6 d-flex justify-content-end" [formGroup]="formularioUsuario">
+      <mat-form-field class="w-50 pt-2 ">
+        <mat-label>Tipo</mat-label>
+        <mat-select [(value)]="tipoSelecionado" formControlName="Tipo">
+          <mat-option [value]="item.nome" *ngFor="let item of tipos">{{ item.nome }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="Tipo">
+          <mat-option [value]="item.nome" *ngFor="let item of tipos">{{ item.nome }}</mat-option>
+        </mat-select>
+      </mat-form-field> -->
+
+      <div title="Adicione uma imagem" class="circle pointer" style="height: 80px !important; width: 80px !important;">
+        <img src="{{data.usuario.src}}">
       </div>
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="Email">
-        </mat-form-field>
-      </div>
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Telefone</mat-label>
-          <input matInput formControlName="Telefone">
-        </mat-form-field>
-      </div>
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100">
-          <mat-label>Cpf/Cnpj</mat-label>
-          <input matInput formControlName="CpfCnpj">
-        </mat-form-field>
+    </div>
+
+    <div mat-dialog-content >
+      <span class="fs-6">INFORMAÇÕES</span>
+
+      <!-- <p class="fs-6">Informe seu email e telefone registrados</p> -->
+      <form [formGroup]="formularioUsuario" class="d-flex flex-wrap">
+        <hr class="w-100" />
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="Nome">
+          </mat-form-field>
+        </div>
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="Email">
+          </mat-form-field>
+        </div>
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="Telefone">
+          </mat-form-field>
+        </div>
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100">
+            <mat-label>Cpf/Cnpj</mat-label>
+            <input matInput formControlName="CpfCnpj">
+          </mat-form-field>
+        </div>
+
+        <span class="fs-6">ENDEREÇO</span>
+        <hr class="w-100" />
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Cep</mat-label>
+            <input matInput formControlName="Cep">
+          </mat-form-field>
+        </div>
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100">
+            <mat-label>Rua</mat-label>
+            <input matInput formControlName="Rua">
+          </mat-form-field>
+        </div>
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Numero</mat-label>
+            <input matInput formControlName="Numero">
+          </mat-form-field>
+        </div>
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100">
+            <mat-label>Complemento</mat-label>
+            <input matInput formControlName="Complemento">
+          </mat-form-field>
+        </div>
+
+        <span class="fs-6">CARTÃO</span>
+        <hr class="w-100" />
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Número do Cartão</mat-label>
+            <input matInput formControlName="NumeroCartao">
+          </mat-form-field>
+        </div>
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100">
+            <mat-label>Nome do Cartão</mat-label>
+            <input matInput formControlName="NomeCartao">
+          </mat-form-field>
+        </div>
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Mês do vencimento</mat-label>
+            <input matInput formControlName="MesExpira">
+          </mat-form-field>
+        </div>
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100">
+            <mat-label>Bandeira</mat-label>
+            <input matInput formControlName="Bandeira">
+          </mat-form-field>
+        </div>
+
+        <!-- <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Nova Senha</mat-label>
+            <input type="{{visivel? 'text':'password'}}" matInput formControlName="NovaSenha">
+            <button *ngIf="visivel == true" matSuffix mat-icon-button (click)="visivel=false">
+              <span class="material-icons">
+                lock_open
+              </span>
+            </button>
+            <button *ngIf="visivel == false" matSuffix mat-icon-button (click)="visivel=true">
+              <span class="material-icons">
+                lock
+              </span>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100">
+            <mat-label>Confirmar Senha</mat-label>
+            <input type="{{visivel2? 'text':'password'}}" matInput formControlName="ConfirmarSenha">
+            <button *ngIf="visivel2 == true" matSuffix mat-icon-button (click)="visivel2=false">
+              <span class="material-icons">
+                lock_open
+              </span>
+            </button>
+            <button *ngIf="visivel2 == false" matSuffix mat-icon-button (click)="visivel2=true">
+              <span class="material-icons">
+                lock
+              </span>
+            </button>
+          </mat-form-field>
+        </div> -->
+      </form>
+    </div>
+    <div class="w-100" mat-dialog-actions>
+      <div >
+        <span class="fs-6">CURSOS</span>
+        <span *ngIf="data.usuario.listaCursos == null || data.usuario.listaCursos.length !> 0">
+
+        </span>
+        <app-table *ngIf="data.usuario.listaCursos == null || data.usuario.listaCursos.length > 0"
+          [lista]="listaCursos"
+          [header]="header"
+          [options]="options">
+        </app-table>
+
       </div>
 
-      <span class="fs-6">ENDEREÇO</span>
-      <hr class="w-100" />
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Cep</mat-label>
-          <input matInput formControlName="Cep">
-        </mat-form-field>
-      </div>
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100">
-          <mat-label>Rua</mat-label>
-          <input matInput formControlName="Rua">
-        </mat-form-field>
-      </div>
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Numero</mat-label>
-          <input matInput formControlName="Numero">
-        </mat-form-field>
-      </div>
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100">
-          <mat-label>Complemento</mat-label>
-          <input matInput formControlName="Complemento">
-        </mat-form-field>
-      </div>
+      <div class="col-12 d-flex mt-5">
+        <div class="col-6">
+          <button *ngIf="!carregando" class="btn btn-danger rounded-pill" (click)="fechar()">FECHAR</button>
 
-      <span class="fs-6">CARTÃO</span>
-      <hr class="w-100" />
-      <div class="{{isMobile? 'col-12':'col-6'}}">
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+          <button *ngIf="!carregando" class="btn btn-primary rounded-pill" (click)="editar()">EDITAR</button>
 
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Número do Cartão</mat-label>
-          <input matInput formControlName="NumeroCartao">
-        </mat-form-field>
-      </div>
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100">
-          <mat-label>Nome do Cartão</mat-label>
-          <input matInput formControlName="NomeCartao">
-        </mat-form-field>
-      </div>
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Mês do vencimento</mat-label>
-          <input matInput formControlName="MesExpira">
-        </mat-form-field>
-      </div>
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100">
-          <mat-label>Bandeira</mat-label>
-          <input matInput formControlName="Bandeira">
-        </mat-form-field>
-      </div>
-
-      <!-- <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Nova Senha</mat-label>
-          <input type="{{visivel? 'text':'password'}}" matInput formControlName="NovaSenha">
-          <button *ngIf="visivel == true" matSuffix mat-icon-button (click)="visivel=false">
-            <span class="material-icons">
-              lock_open
-            </span>
-          </button>
-          <button *ngIf="visivel == false" matSuffix mat-icon-button (click)="visivel=true">
-            <span class="material-icons">
-              lock
-            </span>
-          </button>
-        </mat-form-field>
-      </div>
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100">
-          <mat-label>Confirmar Senha</mat-label>
-          <input type="{{visivel2? 'text':'password'}}" matInput formControlName="ConfirmarSenha">
-          <button *ngIf="visivel2 == true" matSuffix mat-icon-button (click)="visivel2=false">
-            <span class="material-icons">
-              lock_open
-            </span>
-          </button>
-          <button *ngIf="visivel2 == false" matSuffix mat-icon-button (click)="visivel2=true">
-            <span class="material-icons">
-              lock
-            </span>
-          </button>
-        </mat-form-field>
-      </div> -->
-    </form>
-  </div>
-  <div class="w-100" mat-dialog-actions>
-    <div class="col-12" *ngIf="carregando">
-      <div class="clearfix d-flex justify-content-center">
-        <p class="fs-6"> Carregando </p>
-        <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
-          <span class="sr-only"></span>
         </div>
       </div>
+      <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>ok</button> -->
     </div>
-
-    <div *ngIf="!carregando">
-      <span class="fs-6">CURSOS</span>
-      <span *ngIf="data.usuario.listaCursos == null || data.usuario.listaCursos.length !> 0">
-
-      </span>
-      <app-table *ngIf="data.usuario.listaCursos == null || data.usuario.listaCursos.length > 0"
-        [lista]="listaCursos"
-        [header]="header"
-        [options]="options">
-      </app-table>
-
-    </div>
-
-    <div class="col-12 d-flex mt-5">
-      <div class="col-6">
-        <button *ngIf="!carregando" class="btn btn-danger rounded-pill" (click)="fechar()">FECHAR</button>
-
-      </div>
-      <div class="col-6 d-flex justify-content-end">
-        <button *ngIf="!carregando" class="btn btn-primary rounded-pill" (click)="editar()">EDITAR</button>
-
-      </div>
-    </div>
-    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>ok</button> -->
   </div>
 </div>

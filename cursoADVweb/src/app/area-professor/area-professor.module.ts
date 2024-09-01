@@ -19,6 +19,7 @@ import { RodaPeModule } from '../components/roda-pe/roda-pe.module';
 import { AcessoRoutingModule } from '../acesso/acesso-routing.module';
 import { areaProfessorRoutes } from './area-professor.routing.module';
 import { SnackBarModule } from '../components/snack-bar/snack-bar.module';
+import { TarefaEditarComponent } from './tarefa/TarefaEditar/TarefaEditar.component';
 import { VideosEditarComponent } from './videos/videos-editar/videos-editar.component';
 import { VisualizarAlunoComponent } from './alunos/visualizar-aluno/visualizar-aluno.component';
 import { SidebarAreaProfessorModule } from '../components/sidebarAreaProfessor/sidebar-area-professor.module';
@@ -27,7 +28,7 @@ import { CursoEditarAdicionarComponent } from './cursos/curso-editar-adicionar/c
 @NgModule({
   declarations: [AreaProfessorComponent, CursoEditarAdicionarComponent, alunosComponent,
     cursosComponent, tarefaComponent, noticiasComponent, VisualizarAlunoComponent,
-    VideosComponent, VideosEditarComponent],
+    VideosComponent, VideosEditarComponent, TarefaEditarComponent],
   imports: [
     CommonModule,
     areaProfessorRoutes,

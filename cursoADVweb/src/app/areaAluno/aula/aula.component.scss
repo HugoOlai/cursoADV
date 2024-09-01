@@ -85,3 +85,18 @@
   border-bottom-width: 3px;
 }
 
+.tarefaSelecionada{
+  font-weight: 600;
+  border-bottom: 1px solid #ee5c55;
+  border-bottom-width: 3px;
+}
+
+.upload_btn {
+  position: relative;
+  width: 44%;
+  left: 46%;
+  height: 50px !important;
+  z-index: 10;
+  opacity: 0;
+}
+

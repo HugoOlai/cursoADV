@@ -37,7 +37,7 @@ export class CursosComponent {
         })
 
         res.forEach((curso: Curso) => {
-          if(this.usuario.tipo == 'PROFESSOR' && curso.status == false){
+          if(this.usuario.tipo?.toLocaleUpperCase() == 'PROFESSOR' && curso.status == false){
             if(curso.tipoCurso == "CURSO"){
               if(listaIdsCursos.includes(curso.id)){
                   curso.cursoContratado = true;

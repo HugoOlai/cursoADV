@@ -6,38 +6,30 @@ import { HttpBackend, HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class VideoService {
+export class TarefaService {
   cursoEscolhido: any;
 
   constructor(private http: HttpClient, http2: HttpBackend) {
   }
 
-  cadastrar(video: any) : Observable<any> {
-    return this.http.post(`${environment.baseUrl}/video/cadastrar`, video)
+  cadastrar(tarefa: any) : Observable<any> {
+    return this.http.post(`${environment.baseUrl}/tarefa/cadastrar`, tarefa)
       .pipe(
         take(1),
         map(result => result)
       );
   }
 
-  cadastrarPergunta(pergunta: any) : Observable<any> {
-    return this.http.post(`${environment.baseUrl}/video/cadastrarPergunta`, pergunta)
+  editar(tarefa: any) : Observable<any> {
+    return this.http.post(`${environment.baseUrl}/tarefa/editar`, tarefa)
       .pipe(
         take(1),
         map(result => result)
       );
   }
 
-  editar(video: any) : Observable<any> {
-    return this.http.post(`${environment.baseUrl}/video/editar`, video)
-      .pipe(
-        take(1),
-        map(result => result)
-      );
-  }
-
-  deletar(video: any) : Observable<any> {
-    return this.http.post(`${environment.baseUrl}/video/deletar`, video)
+  deletar(tarefa: any) : Observable<any> {
+    return this.http.post(`${environment.baseUrl}/tarefa/deletar`, tarefa)
       .pipe(
         take(1),
         map(result => result)
@@ -45,7 +37,7 @@ export class VideoService {
   }
 
   pegarTodos() : Observable<any> {
-    return this.http.get(`${environment.baseUrl}/video/pegarTodos`)
+    return this.http.get(`${environment.baseUrl}/tarefa/pegarTodos`)
       .pipe(
         take(1),
         map(result => result)

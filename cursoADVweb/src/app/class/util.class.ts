@@ -18,11 +18,11 @@ export class Util {
   }
 
   static isNullOrEmpty = (str: string) => {
-    return str == undefined || str == null || str == "" || str.trim() == "";
-    // if(typeof(str) == typeof('')){
-    // } else {
-    //   return str == undefined || str == null;
-    // }
+    if(typeof(str) == typeof('')){
+      return str == undefined || str == null || str == "" || str.trim() == "";
+    } else {
+      return str == undefined || str == null;
+    }
   }
 
   static isObjectNullOrEmpty = (obj: object) => {

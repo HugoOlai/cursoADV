@@ -7,233 +7,236 @@
   </div>
 </div>
 
-<div class="m-4 d-flex flex-wrap scroll" *ngIf="!carregando">
-  <div class="col-6 d-flex">
-    <!-- <h2 mat-dialog-title>{{data.curso.titulo.toLocaleUpperCase()}}</h2> -->
-    <h2 *ngIf="!criarCurso" class="">{{data.curso.titulo.length > 25? data.curso.titulo.substring(0, 25).toLocaleUpperCase() + "...":data.curso.titulo.toLocaleUpperCase()}}</h2>
-    <h2 *ngIf="criarCurso" class="">NOVO CURSO</h2>
+<div class="d-flex flex-wrap scroll" *ngIf="!carregando">
+  <div class="m-4 d-flex flex-wrap">
+    <div class="col-6 d-flex">
+      <!-- <h2 mat-dialog-title>{{data.curso.titulo.toLocaleUpperCase()}}</h2> -->
+      <h2 *ngIf="!criarCurso" class="">{{data.curso.titulo.length > 25? data.curso.titulo.substring(0, 25).toLocaleUpperCase() + "...":data.curso.titulo.toLocaleUpperCase()}}</h2>
+      <h2 *ngIf="criarCurso" class="">NOVO CURSO</h2>
 
-    <h2 *ngIf="!criarCurso && data.curso.tipoCurso != null" mat-dialog-title class="ms-2"> - {{data.curso.tipoCurso}}</h2>
+      <h2 *ngIf="!criarCurso && data.curso.tipoCurso != null" mat-dialog-title class="ms-2"> - {{data.curso.tipoCurso}}</h2>
 
-  </div>
-  <div class="col-6 d-flex justify-content-end" [formGroup]="formularioCurso">
-    <mat-form-field class="w-50 pt-2 " >
-      <mat-label>Tipo</mat-label>
-      <mat-select [(value)]="tipoSelecionado" formControlName="Tipo">
-        <mat-option [value]="item.nome" *ngFor="let item of tipos">{{ item.nome }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    </div>
+    <div class="col-6 d-flex justify-content-end" [formGroup]="formularioCurso">
+      <mat-form-field class="w-50 pt-2 " >
+        <mat-label>Tipo</mat-label>
+        <mat-select [(value)]="tipoSelecionado" formControlName="Tipo">
+          <mat-option [value]="item.nome" *ngFor="let item of tipos">{{ item.nome }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <!-- <mat-form-field class="w-100" appearance="outline">
-      <mat-label>Tipo</mat-label>
-      <mat-select formControlName="Tipo">
-        <mat-option [value]="item.nome" *ngFor="let item of tipos">{{ item.nome }}</mat-option>
-      </mat-select>
-    </mat-form-field> -->
-    <div class="d-flex w-25 justify-content-center">
-      <input (change)="uploadImgCurso($event)" type="file" class="uploadImgCurso" multiple/>
-      <div class="circle" style="height: 80px !important; width: 80px !important;">
+      <!-- <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="Tipo">
+          <mat-option [value]="item.nome" *ngFor="let item of tipos">{{ item.nome }}</mat-option>
+        </mat-select>
+      </mat-form-field> -->
+      <div class="d-flex w-25 justify-content-center">
+        <input (change)="uploadImgCurso($event)" type="file" class="uploadImgCurso" multiple/>
+        <div class="circle" style="height: 80px !important; width: 80px !important;">
 
-        <img src="{{data.curso.src}}">
+          <img src="{{data.curso.src}}">
+        </div>
       </div>
     </div>
-  </div>
 
 
-  <div mat-dialog-content>
-    <span class="fs-6">INFORMAÇÕES</span>
+    <div mat-dialog-content>
+      <span class="fs-6">INFORMAÇÕES</span>
 
-    <!-- <p class="fs-6">Informe seu email e telefone registrados</p> -->
-    <form [formGroup]="formularioCurso" class="d-flex flex-wrap">
-      <hr class="w-100" />
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Título</mat-label>
-          <input matInput formControlName="Titulo">
-        </mat-form-field>
-      </div>
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Subtítulo</mat-label>
-          <input matInput formControlName="Subtitulo">
-        </mat-form-field>
-      </div>
-
-      <div class="col-12">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Estrutura</mat-label>
-          <textarea matInput rows="5" cols="40" placeholder="text" formControlName="Estrutura"></textarea>
-        </mat-form-field>
-      </div>
-      <div class="{{isMobile? 'col-12':'col-4'}}">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Data de Lançamento</mat-label>
-          <input matInput formControlName="DataLancamento">
-        </mat-form-field>
-      </div>
-
-      <div class="{{isMobile? 'col-12':'col-4'}}">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Valor</mat-label>
-          <input (change)="formataValor()" matInput formControlName="ValorFormatado">
-        </mat-form-field>
-      </div>
-
-      <div class="{{isMobile? 'col-12':'col-4'}}">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}" >
-          <mat-label>Status</mat-label>
-          <mat-select [(value)]="statusSelecionado" formControlName="Status">
-            <mat-option [value]="item.nome" *ngFor="let item of status">{{ item.nome }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <span class="fs-6 w-100">MATERIAL</span>
-      <hr class="w-100" />
-      <div class="col-12">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Objetivo</mat-label>
-          <textarea matInput rows="5" cols="40" placeholder="text" formControlName="Objetivo"></textarea>
-        </mat-form-field>
-      </div>
-
-      <div class="col-12">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Descrição do Material de Apoio</mat-label>
-          <textarea matInput rows="5" cols="40" placeholder="text" formControlName="MaterialApoio"></textarea>
-
-        </mat-form-field>
-      </div>
-
-      <div class="col-12 d-flex justify-content-end px-4 pb-4" >
-        <input (change)="upload($event)" type="file" class="upload_btn" multiple/>
-
-        <div>
-          <button type="button"  class="btn btn-success rounded-pill">
-            ADICIONAR ARQUIVO
-          </button>
-          <!-- <button type="button" (click)="Limpar()" class="btn btn-danger rounded-pill text-light ms-2">
-            <span class="material-icons mt-1">
-              delete
-            </span>
-          </button> -->
+      <!-- <p class="fs-6">Informe seu email e telefone registrados</p> -->
+      <form [formGroup]="formularioCurso" class="d-flex flex-wrap">
+        <hr class="w-100" />
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Título</mat-label>
+            <input matInput formControlName="Titulo">
+          </mat-form-field>
         </div>
-        <div>
-
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Subtítulo</mat-label>
+            <input matInput formControlName="Subtitulo">
+          </mat-form-field>
         </div>
-      </div>
 
-      <div *ngIf="this.listaArquivosApoio.length > 0" class="d-flex flex-wrap w-100">
-        <span *ngFor="let arquivo of this.listaArquivosApoio">
-          <div title="{{arquivo.nome}}" class="flex-wrap pointer d-flex justify-content-center mb-4" (click)="download(arquivo)">
-            <img src="assets/imgs/pdf.png" class="" height="100">
-            <!-- <span > {{arquivo.nome}} </span> -->
-            <small class="w-100 d-flex justify-content-center">{{arquivo.nome.length > 15? arquivo.nome.substring(0, 15) + "...": arquivo.nome}}</small>
+        <div class="col-12">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Estrutura</mat-label>
+            <textarea matInput rows="5" cols="40" placeholder="text" formControlName="Estrutura"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="{{isMobile? 'col-12':'col-4'}}">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Data de Lançamento</mat-label>
+            <input matInput formControlName="DataLancamento">
+          </mat-form-field>
+        </div>
+
+        <div class="{{isMobile? 'col-12':'col-4'}}">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Valor</mat-label>
+            <input (change)="formataValor()" matInput formControlName="ValorFormatado">
+          </mat-form-field>
+        </div>
+
+        <div class="{{isMobile? 'col-12':'col-4'}}">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}" >
+            <mat-label>Status</mat-label>
+            <mat-select [(value)]="statusSelecionado" formControlName="Status">
+              <mat-option [value]="item.nome" *ngFor="let item of status">{{ item.nome }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <span class="fs-6 w-100">MATERIAL</span>
+        <hr class="w-100" />
+        <div class="col-12">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Objetivo</mat-label>
+            <textarea matInput rows="5" cols="40" placeholder="text" formControlName="Objetivo"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Descrição do Material de Apoio</mat-label>
+            <textarea matInput rows="5" cols="40" placeholder="text" formControlName="MaterialApoio"></textarea>
+
+          </mat-form-field>
+        </div>
+
+        <div class="col-12 d-flex justify-content-end px-4 pb-4" >
+          <input (change)="upload($event)" type="file" class="upload_btn" multiple/>
+
+          <div>
+            <button type="button"  class="btn btn-success rounded-pill">
+              ADICIONAR ARQUIVO
+            </button>
+            <!-- <button type="button" (click)="Limpar()" class="btn btn-danger rounded-pill text-light ms-2">
+              <span class="material-icons mt-1">
+                delete
+              </span>
+            </button> -->
+          </div>
+          <div>
 
           </div>
-        </span>
-      </div>
-
-      <div *ngIf="this.listaArquivosApoio.length == 0"
-      class="d-flex justify-content-center w-100 mb-5">
-        NÃO POSSUI ARQUIVOS ADICIONADOS
-      </div>
-
-      <span class="fs-6 w-100">TÓPICOS</span>
-      <hr class="w-100" />
-      <div class="w-100">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Adicione um novo tópico</mat-label>
-          <textarea matInput rows="2" cols="40" placeholder="text" formControlName="Topico"></textarea>
-        </mat-form-field>
-        <div class="col-12 d-flex justify-content-end mb-4">
-          <button *ngIf="!carregando" class="btn btn-primary rounded-pill" (click)="adicionarNovoTopico()">ADICIONAR</button>
-
         </div>
-      </div>
 
-      <div *ngIf="this.topicos.length > 0" class="d-flex flex-wrap w-100">
-        <span *ngFor="let topico of topicos; index as i" class="col-12">
-          <div class="w-100">
-            <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-              <mat-label>Tópico {{i}}</mat-label>
-              <textarea (change)="adicionaTopico($event, i)" [value]="topico" matInput rows="2" cols="40" placeholder="text"></textarea>
-            </mat-form-field>
+        <div *ngIf="this.listaArquivosApoio.length > 0" class="d-flex flex-wrap w-100">
+          <span *ngFor="let arquivo of this.listaArquivosApoio">
+            <div title="{{arquivo.nome}}" class="flex-wrap pointer d-flex justify-content-center mb-4" (click)="download(arquivo)">
+              <img src="assets/imgs/pdf.png" class="" height="100">
+              <!-- <span > {{arquivo.nome}} </span> -->
+              <small class="w-100 d-flex justify-content-center">{{arquivo.nome.length > 15? arquivo.nome.substring(0, 15) + "...": arquivo.nome}}</small>
+
+            </div>
+          </span>
+        </div>
+
+        <div *ngIf="this.listaArquivosApoio.length == 0"
+        class="d-flex justify-content-center w-100 mb-5">
+          NÃO POSSUI ARQUIVOS ADICIONADOS
+        </div>
+
+        <span class="fs-6 w-100">TÓPICOS</span>
+        <hr class="w-100" />
+        <div class="w-100">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Adicione um novo tópico</mat-label>
+            <textarea matInput rows="2" cols="40" placeholder="text" formControlName="Topico"></textarea>
+          </mat-form-field>
+          <div class="col-12 d-flex justify-content-end mb-4">
+            <button *ngIf="!carregando" class="btn btn-primary rounded-pill" (click)="adicionarNovoTopico()">ADICIONAR</button>
+
           </div>
-        </span>
-      </div>
+        </div>
 
-      <div *ngIf="this.topicos.length == 0"
-      class="d-flex justify-content-center w-100">
-        NÃO POSSUI TÓPICOS ADICIONADOS
-      </div>
-      <!-- <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-          <mat-label>Nova Senha</mat-label>
-          <input type="{{visivel? 'text':'password'}}" matInput formControlName="NovaSenha">
-          <button *ngIf="visivel == true" matSuffix mat-icon-button (click)="visivel=false">
-            <span class="material-icons">
-              lock_open
-            </span>
-          </button>
-          <button *ngIf="visivel == false" matSuffix mat-icon-button (click)="visivel=true">
-            <span class="material-icons">
-              lock
-            </span>
-          </button>
-        </mat-form-field>
-      </div>
-      <div class="{{isMobile? 'col-12':'col-6'}}">
-        <mat-form-field class="w-100">
-          <mat-label>Confirmar Senha</mat-label>
-          <input type="{{visivel2? 'text':'password'}}" matInput formControlName="ConfirmarSenha">
-          <button *ngIf="visivel2 == true" matSuffix mat-icon-button (click)="visivel2=false">
-            <span class="material-icons">
-              lock_open
-            </span>
-          </button>
-          <button *ngIf="visivel2 == false" matSuffix mat-icon-button (click)="visivel2=true">
-            <span class="material-icons">
-              lock
-            </span>
-          </button>
-        </mat-form-field>
+        <div *ngIf="this.topicos.length > 0" class="d-flex flex-wrap w-100">
+          <span *ngFor="let topico of topicos; index as i" class="col-12">
+            <div class="w-100">
+              <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+                <mat-label>Tópico {{i}}</mat-label>
+                <textarea (change)="adicionaTopico($event, i)" [value]="topico" matInput rows="2" cols="40" placeholder="text"></textarea>
+              </mat-form-field>
+            </div>
+          </span>
+        </div>
+
+        <div *ngIf="this.topicos.length == 0"
+        class="d-flex justify-content-center w-100">
+          NÃO POSSUI TÓPICOS ADICIONADOS
+        </div>
+        <!-- <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Nova Senha</mat-label>
+            <input type="{{visivel? 'text':'password'}}" matInput formControlName="NovaSenha">
+            <button *ngIf="visivel == true" matSuffix mat-icon-button (click)="visivel=false">
+              <span class="material-icons">
+                lock_open
+              </span>
+            </button>
+            <button *ngIf="visivel == false" matSuffix mat-icon-button (click)="visivel=true">
+              <span class="material-icons">
+                lock
+              </span>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100">
+            <mat-label>Confirmar Senha</mat-label>
+            <input type="{{visivel2? 'text':'password'}}" matInput formControlName="ConfirmarSenha">
+            <button *ngIf="visivel2 == true" matSuffix mat-icon-button (click)="visivel2=false">
+              <span class="material-icons">
+                lock_open
+              </span>
+            </button>
+            <button *ngIf="visivel2 == false" matSuffix mat-icon-button (click)="visivel2=true">
+              <span class="material-icons">
+                lock
+              </span>
+            </button>
+          </mat-form-field>
+        </div> -->
+      </form>
+    </div>
+    <div class="w-100" mat-dialog-actions>
+      <!-- <div class="col-12" *ngIf="carregando">
+        <div class="clearfix d-flex justify-content-center">
+          <p class="fs-6"> Carregando </p>
+          <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+            <span class="sr-only"></span>
+          </div>
+        </div>
       </div> -->
-    </form>
-  </div>
-  <div class="w-100" mat-dialog-actions>
-    <!-- <div class="col-12" *ngIf="carregando">
-      <div class="clearfix d-flex justify-content-center">
-        <p class="fs-6"> Carregando </p>
-        <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
-          <span class="sr-only"></span>
+
+      <!-- <div *ngIf="!carregando">
+        <span class="fs-6">CURSOS</span>
+        <span *ngIf="data.usuario.listaCursos == null || data.usuario.listaCursos.length !> 0">
+
+        </span>
+        <app-table *ngIf="data.usuario.listaCursos == null || data.usuario.listaCursos.length > 0"
+          [lista]="listaCursos"
+          [header]="header"
+          [options]="options">
+        </app-table>
+
+      </div> -->
+
+      <div class="col-12 d-flex mt-5">
+        <div class="col-6">
+          <button *ngIf="!carregando" class="btn btn-danger rounded-pill" (click)="fechar()">FECHAR</button>
+
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+          <button *ngIf="!carregando" class="btn btn-primary rounded-pill" (click)="salvar()">SALVAR</button>
+
         </div>
       </div>
-    </div> -->
-
-    <!-- <div *ngIf="!carregando">
-      <span class="fs-6">CURSOS</span>
-      <span *ngIf="data.usuario.listaCursos == null || data.usuario.listaCursos.length !> 0">
-
-      </span>
-      <app-table *ngIf="data.usuario.listaCursos == null || data.usuario.listaCursos.length > 0"
-        [lista]="listaCursos"
-        [header]="header"
-        [options]="options">
-      </app-table>
-
-    </div> -->
-
-    <div class="col-12 d-flex mt-5">
-      <div class="col-6">
-        <button *ngIf="!carregando" class="btn btn-danger rounded-pill" (click)="fechar()">FECHAR</button>
-
-      </div>
-      <div class="col-6 d-flex justify-content-end">
-        <button *ngIf="!carregando" class="btn btn-primary rounded-pill" (click)="salvar()">SALVAR</button>
-
-      </div>
+      <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>ok</button> -->
     </div>
-    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>ok</button> -->
+
   </div>
 </div>

@@ -86,7 +86,7 @@ export class LoginProfessorComponent {
           this.cookie.delete('email');
           this.cookie.delete('nome');
 
-          if(res.obj.tipo == 'PROFESSOR'){
+          if(res.obj.tipo.toLocaleUpperCase() == 'PROFESSOR'){
             this.cookie.set('email', res.obj.email);
             this.cookie.set('nome', res.obj.nome);
 

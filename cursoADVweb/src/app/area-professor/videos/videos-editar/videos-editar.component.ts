@@ -1,3 +1,4 @@
+import { Arquivo } from './../../../shared/class/Arquivo.class';
 import { Component, Inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { SnackBarComponent } from '../../../components/snack-bar/snack-bar.component';
@@ -53,7 +54,6 @@ export class VideosEditarComponent {
   ){ }
 
   ngOnInit(): void {
-    console.log(this.data.video)
     this.pegarCursos()
   }
 
@@ -67,12 +67,27 @@ export class VideosEditarComponent {
     this.nomeArquivo = this.data.video.nomeArquivo
     this.descricaoVideo = this.data.video.descricao
 
+    console.log(this.data.video)
+    if(this.data.video.listaIdsArquivos != null)
+      this.arquivosService.pegarArquivos(this.data.video.idCurso).subscribe((res: Array<any>)=> {
+        console.log(res)
+        this.data.video.listaIdsArquivos.forEach(idArquivo => {
+          this.listaArquivos = res;
+          var arquivoEncontrado = res.find((ar: Arquivo) => ar.id == idArquivo)
+          if(arquivoEncontrado){
+            this.arquivosSelecionado.push(arquivoEncontrado.nome);
+            this.listaArquivosSelecionados.push(arquivoEncontrado)
+            this.toppings = new FormControl(this.arquivosSelecionado)
+          }
+        });
+      })
+
+
     this.cursosService.pegarTodos().subscribe((res: Array<Curso>)=>{
       res.forEach((curso: Curso) => {
         this.listaNomesCursos.push({id: curso.id, nome: curso.titulo})
 
       });
-
 
       this.carregando = false
     }, err =>{
@@ -100,33 +115,46 @@ export class VideosEditarComponent {
     this.listaArquivos.forEach(arquivo => {
       if(arquivo.nome == topping){
         var arquivoEncontrado = this.listaArquivosSelecionados.find(a=> a.nome == topping)
-        if(!arquivoEncontrado){
-          this.listaArquivosSelecionados.push(arquivo)
+        console.log(arquivoEncontrado)
+        if(!arquivoEncontrado || arquivoEncontrado == undefined){
+            var ar = this.listaArquivos.find(a => a.nome == topping)
+            this.listaArquivosSelecionados.push(ar)
+            this.arquivosSelecionado.push(ar.nome);
+            this.toppings = new FormControl(ar)
+            console.log(this.arquivosSelecionado)
+
         } else {
           var lista = this.listaArquivosSelecionados.filter((a: any)=> {if(a.nome != topping) return a})
           this.listaArquivosSelecionados = lista;
+          console.log(this.listaArquivosSelecionados)
+          // if(arquivoEncontrado){
+            this.arquivosSelecionado.push(arquivo.nome);
+            this.toppings = new FormControl(this.arquivosSelecionado)
+          // }
         }
 
-        if(this.data.video.listaIdsArquivos != null){
-          this.data.video.listaIdsArquivos.forEach(id => {
-            if(id == arquivo.id){
-              this.arquivosSelecionado.push(arquivo.nome);
-              this.toppings = new FormControl(this.arquivosSelecionado)
-            }
-          });
-        }
+        // if(this.data.video.listaIdsArquivos != null){
+        //   this.data.video.listaIdsArquivos.forEach(id => {
+        //     if(id == arquivo.id){
+        //       this.arquivosSelecionado.push(arquivo.nome);
+        //       this.toppings = new FormControl(this.arquivosSelecionado)
+        //     }
+        //   });
+        // }
       }
 
     });
   }
 
-  AdicionarVideo(){
+  AtualizarrVideo(){
     this.carregando = true;
     var form = this.toppings.value;
     var lista: Array<string> = []
     this.listaArquivosSelecionados.forEach(arquivo => {
       lista.push(arquivo.id);
     });
+
+    console.log(this.listaArquivosSelecionados)
 
     this.videoService.editar({ id: this.data.video.id, Nome: this.nomeVideo, NomeArquivo: this.nomeArquivo, IdCurso: this.cursoSelecionado, listaIdsArquivos: this.data.video.listaIdsArquivos ,Descricao: this.descricaoVideo})
       .subscribe((res: any) => {
@@ -141,7 +169,7 @@ export class VideosEditarComponent {
         SnackBarComponent.prototype.tipo = 'success';
         this.openSnackBar('success');
         this.carregando = false;
-        this.fechar()
+        this.fechar(true)
 
       }
     })
@@ -163,8 +191,8 @@ export class VideosEditarComponent {
     this.router.navigate(['acesso/loginProfessor']);
   }
 
-  fechar(){
-    this.dialogRef.close();
+  fechar(atualiza: boolean = false){
+    this.dialogRef.close({data: atualiza});
   }
 
   pegarArquivosCurso(id: string){

@@ -29,18 +29,19 @@ export class VideosComponent {
   horizontalPosition: MatSnackBarHorizontalPosition = SnackBarComponent.prototype.horizontalPosition;
   toppings = new FormControl('');
 
-  nomeVideo = "";
-  descricaoVideo = "";
-  nomeArquivo = "";
+  nomeVideo: string  = "";
+  nomeArquivo: string  = "";
+  descricaoVideo: string  = "";
+  cursoSelecionado: string = "";
 
-  cursoSelecionado: any;
   isMobile = Util.isMobile();
   carregando: boolean = false;
   carregandoArquivos: boolean = false;
-  listaVideo: Array<Video> = [];
-  listaNomesCursos: Array<any> = [];
+
   toppingList: Array<any> = [];
+  listaVideo: Array<Video> = [];
   listaArquivos: Array<any> = [];
+  listaNomesCursos: Array<any> = [];
   listaArquivosSelecionados: Array<any> = [];
 
   constructor(
@@ -160,10 +161,10 @@ export class VideosComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       var teste: any = dialogRef.componentRef;
-      // if(result){
+      if(result.data){
         this.carregando = true;
         this.pegarCursos();
-      // }
+      }
     });
   }
 
@@ -175,22 +176,30 @@ export class VideosComponent {
       lista.push(arquivo.id);
     });
 
-    this.videoService.cadastrar({ Nome: this.nomeVideo, NomeArquivo: this.nomeArquivo, IdCurso: this.cursoSelecionado, listaIdsArquivos: lista ,Descricao: this.descricaoVideo})
-      .subscribe((res: any) => {
+    if(this.nomeVideo == "" || this.descricaoVideo == "" || this.nomeArquivo == "" || this.cursoSelecionado == ""){
+      SnackBarComponent.prototype.texto = "PREENCHA TODOS OS CAMPOS"
+      SnackBarComponent.prototype.tipo = 'warning';
+      this.openSnackBar('warning');
       this.carregando = false;
-
-    }, (err: any) =>{
-      console.log(err)
-      this.carregando = false;
-
-      if(err.status == 200){
-        SnackBarComponent.prototype.texto = "VIDEO REGISTRADO COM SUCESSO"
-        SnackBarComponent.prototype.tipo = 'success';
-        this.openSnackBar('success');
+    } else {
+      this.videoService.cadastrar({ Nome: this.nomeVideo, NomeArquivo: this.nomeArquivo, IdCurso: this.cursoSelecionado, listaIdsArquivos: lista ,Descricao: this.descricaoVideo})
+        .subscribe((res: any) => {
         this.carregando = false;
-        this.pegarCursos()
 
-      }
-    })
+      }, (err: any) =>{
+        console.log(err)
+        this.carregando = false;
+
+        if(err.status == 200){
+          SnackBarComponent.prototype.texto = "VIDEO REGISTRADO COM SUCESSO"
+          SnackBarComponent.prototype.tipo = 'success';
+          this.openSnackBar('success');
+          this.carregando = false;
+          this.pegarCursos()
+
+        }
+      })
+    }
+
   }
 }

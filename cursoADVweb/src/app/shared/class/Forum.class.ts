@@ -5,6 +5,7 @@ export interface Forum {
   usuario: Partial<Usuario>,
   titulo: string,
   conteudo: string,
+  resposta?: string,
   arquivos?: Array<Arquivo>
 
 }

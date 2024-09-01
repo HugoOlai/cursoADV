@@ -159,11 +159,10 @@ export class alunosComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       var teste: any = dialogRef.componentRef;
-      console.log(result);
-      // if(result){
+      if(result.data){
         this.carregando = true;
         this.pegarUsuarios();
-      // }
+      }
     });
   }
 

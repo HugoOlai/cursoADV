@@ -2,7 +2,7 @@ import { saveAs } from 'file-saver'
 import { Curso } from './../../shared/class/Curso.class';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { take } from 'rxjs';
+import { AsyncSubject, take } from 'rxjs';
 import { AlunoComponent } from '../area-aluno/aluno.component';
 import { SnackBarComponent } from '../../components/snack-bar/snack-bar.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
@@ -19,6 +19,7 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 import { ArquivosService } from '../../services/arquivos.service';
 import { VideoService } from '../../services/videos.service';
 import { Video } from '../../shared/class/Video';
+import { SelectedFiles } from '../../Admin/admin/admin.component';
 
 interface FoodNode {
   nome: string;
@@ -41,14 +42,19 @@ export class AulaComponent {
   horizontalPosition: MatSnackBarHorizontalPosition = SnackBarComponent.prototype.horizontalPosition;
   verticalPosition: MatSnackBarVerticalPosition = SnackBarComponent.prototype.verticalPosition;
   ModuloSelecionado!: string;
+  tarefaResposta: any = null;
   imagemSelecionada: any;
   imagensACarregar?: Array<Arquivo>;
   arquivoAula: Array<Arquivo> = [];
   nomeModulo!: string;
   descricao!: string;
+  descricaoTarefa: string = "";
+  idCurso: string = "";
+
   usuario: Partial<Usuario> = {};
   selecionarEmoji = false;
   descricaoSelecionado = true;
+  tarefaSelecionada = false;
   carregando = true;
   curso: Partial<Curso> = {};
   listaSearch: Array<Forum> = [];
@@ -104,7 +110,6 @@ export class AulaComponent {
   ngOnInit() {
 
     this.usuario = this.service.getUser();
-
     this.activedRoute.params.subscribe((params: any) => {
       try {
         this.curso.id = params['id'];
@@ -136,13 +141,36 @@ export class AulaComponent {
                     });
 
                     this.curso.listaVideos = lista;
-
                     if(this.curso.listaVideos != null){
+                      this.curso.listaVideos[0].aulaAtual = true;
                       this.curso.listaVideos.forEach(video => {
-                        // if(video.aulaAtual == true){
+                        console.log(video);
+                        if(video.aulaAtual == true){
+                          this.idCurso = video.id
                           this.ModuloSelecionado = video.nomeArquivo;
                           this.nomeModulo = video.nome;
                           this.descricao = video.descricao;
+
+                          if(video.listaPerguntas != null){
+                            video.listaPerguntas.forEach((pergunta: any) => {
+                              var obj: Forum = {
+                                usuario: this.usuario,
+                                titulo: pergunta.titulo,
+                                conteudo: pergunta.conteudo,
+                                resposta: pergunta.resposta == null? 'Aguardando resposta' : pergunta.resposta
+                              }
+
+                              if(this.imagensACarregar != undefined || this.imagensACarregar != null)
+                                obj.arquivos = [...this.imagensACarregar]
+
+                              this.listaForuns.unshift(obj);
+                              this.listaSearch = [];
+                              this.mergeSort(this.listaForuns, 0, this.listaForuns.length);
+
+                            });
+                          }
+                          // video.aulaAtual = true;
+
                           // this.arquivoAula = video.arquivos
 
                           var lista: Array<Arquivo> = [];
@@ -157,7 +185,7 @@ export class AulaComponent {
                               this.arquivoAula = lista;
 
                             });
-                        // }
+                        }
                         });
                     }
                     this.carregando = false;
@@ -247,7 +275,9 @@ export class AulaComponent {
     if(this.curso.listaVideos != null && this.curso.listaVideos != undefined){
       this.curso.listaVideos.forEach(video => {
           if(video.nome == novoVideo.nome){
-            video.aulaAtual = true; this.ModuloSelecionado = video.src;
+            this.idCurso = video.id;
+            video.aulaAtual = true;
+            this.ModuloSelecionado = video.src;
             this.ModuloSelecionado = video.nomeArquivo;
             this.nomeModulo = video.nome;
             this.descricao = video.descricao;
@@ -277,27 +307,39 @@ export class AulaComponent {
 
   upload(event: any) {
     const keys = Object.keys(event.target.files);
+    var files = event.target.files
     var reader = new FileReader();
+    const result = new AsyncSubject<SelectedFiles[]>();
+
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = (event) => { // called once readAsDataURL is completed
       if(event.target != null)
-        this.imagemSelecionada = event.target.result;
+        this.imagemSelecionada = reader.result;
     }
 
-    this.imagensACarregar = keys.map((key: any) => {
-      if (key !== 'length') {
-        return event.target.files[key];
-      }
+    Object.keys(files)?.forEach(async (file, i) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(files[i]);
+      reader.onload = (e) => {
+        console.log(files[i])
+        this.tarefaResposta = { nome: files[i]?.name, file: "", base64: reader?.result as string }
+        // this.listaArquivosApoio = this.listaArquivosApoio?.filter(f => f?.name != files[i]?.name)
+        // // this.listaArquivosApoio.push(files[i])
+        // this.listaArquivosApoio.push({ nome: files[i]?.name, file: "",
+        //   base64: reader?.result as string })
+        // this.listaArquivosApoioNovos.push({ nome: files[i]?.name, file: "",
+        //   base64: reader?.result as string })
+        // result.next(this.listaArquivosApoio);
+
+        console.log(this.tarefaResposta)
+        if (files?.length === (i + 1)) {
+          result.complete();
+        }
+
+      };
     });
 
-    if(this.imagensACarregar.length > 0) {
-      event.target.value = '';
-      // this.imagensACarregar.forEach(file => this.formData.append('file', file, file.name));
-      // this.service
-      // .salvarArquivos(this.pasta.id, formData)
-      // .subscribe(
-      //   (res: any) => {})
-    }
+    this.imagemSelecionada = event.target.files[0]
   }
 
   addEmoji(emoji: any){
@@ -366,6 +408,8 @@ export class AulaComponent {
         usuario: this.usuario,
         titulo: this.formulario.controls['Titulo'].value,
         conteudo: this.formulario.controls['Conteudo'].value,
+        resposta: 'Aguardando resposta'
+
       }
 
       if(this.imagensACarregar != undefined || this.imagensACarregar != null)
@@ -374,7 +418,13 @@ export class AulaComponent {
       this.listaForuns.unshift(obj);
       this.listaSearch = [];
       this.mergeSort(this.listaForuns, 0, this.listaForuns.length);
-
+      var pergunta = {
+        idVideo: this.idCurso,
+        titulo: this.formulario.controls['Titulo'].value,
+        conteudo: this.formulario.controls['Conteudo'].value,
+      }
+      console.log(pergunta)
+      this.videoService.cadastrarPergunta(pergunta).subscribe(res=>{});
       this.Limpar();
 
     }

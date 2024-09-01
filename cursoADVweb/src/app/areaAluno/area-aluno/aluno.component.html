@@ -30,7 +30,7 @@
       </h1>
     </div>
     <div *ngFor="let curso of listaMeusCursos">
-      <div *ngIf="curso.statusPago" class="card me-2" (click)="assistirAula(curso)" style="width: 18rem; cursor: pointer;">
+      <div *ngIf="curso.statusPago" class="card me-2 {{isMobile? 'mb-2':''}}" (click)="assistirAula(curso)" style="width: 18rem; cursor: pointer;">
         <h4 class="text-center textImagem">
           <p class="text defineFont mt-3" style="width: 100%;">
             <strong class="">{{curso.titulo.toLocaleUpperCase()}}</strong>
@@ -57,7 +57,7 @@
       </h1>
     </div>
     <div *ngFor="let curso of listaMeusGruposEstudos">
-      <div *ngIf="curso.statusPago" class="card me-2" (click)="assistirAula(curso)" style="width: 18rem; cursor: pointer;">
+      <div *ngIf="curso.statusPago" class="card me-2 {{isMobile? 'mb-2':''}}" (click)="assistirAula(curso)" style="width: 18rem; cursor: pointer;">
         <h4 class="text-center textImagem">
           <p class="text defineFont mt-3" style="width: 100%;">
             <strong class="">{{curso.titulo.toLocaleUpperCase()}}</strong>

@@ -229,8 +229,8 @@ export class CursoEditarAdicionarComponent {
 
   }
 
-  fechar(){
-    this.dialogRef.close();
+  fechar(atualiza: boolean = false){
+    this.dialogRef.close({data: atualiza});
   }
 
   salvar(){
@@ -267,7 +267,7 @@ export class CursoEditarAdicionarComponent {
         SnackBarComponent.prototype.tipo = 'success';
         this.openSnackBar('success');
         this.carregando = false;
-        this.fechar();
+        this.fechar(true);
       }
 
     }, err =>{
@@ -297,7 +297,8 @@ export class CursoEditarAdicionarComponent {
           SnackBarComponent.prototype.tipo = 'success';
           this.openSnackBar('success');
           this.carregando = false;
-          this.fechar();
+          this.fechar(true);
+
         }
 
       } else {

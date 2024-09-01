@@ -401,8 +401,7 @@ export class ContratacaoComponent {
         obj.imagemSelecionada = this.imagemSelecionada;
         obj.tipoAluno = this.tipoAluno;
 
-        console.log(form)
-        if(form.Mes.value == "" || form.Ano.value == ""){
+        if((form.Mes.value == "" || form.Ano.value == "") && this.tipoPagamento == 1){
           SnackBarComponent.prototype.texto = "SELECIONE MÊS E ANO CLICANDO NO ICONE DE CALENDÁRIO";
           SnackBarComponent.prototype.tipo = 'warning';
           this.openSnackBar('warning');

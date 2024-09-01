@@ -143,7 +143,6 @@ export class CadastrarComponent {
   }
 
   formataCpfCpjs(){
-    console.log(this.formularioCadastro.controls['CpfCnpj'].value)
     let regex = new RegExp(/(\d{3}).(\d{3}).(\d{3})-(\d{2})/);
     var validaCPF;
     var cpfCnpj: string = this.formularioCadastro.controls['CpfCnpj'].value;

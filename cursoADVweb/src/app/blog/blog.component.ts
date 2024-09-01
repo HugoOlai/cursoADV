@@ -58,7 +58,6 @@ export class BlogComponent implements OnInit {
   ngOnInit() {
     // if(location.hash.includes('acesso') || location.hash.includes('areaAluno') || location.hash.includes('admin')){
     this.menu.map((menu: Menu) => {if(menu.Link == location.hash) menu.Ativo = true; else menu.Ativo = false; return menu} )
-    console.log(window.location.href)
     if(window.location.href.includes('cursos'))
       this.marcarComoSelecionado('Cursos')
 

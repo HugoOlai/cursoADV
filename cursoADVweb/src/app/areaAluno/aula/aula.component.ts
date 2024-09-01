@@ -144,7 +144,6 @@ export class AulaComponent {
                     if(this.curso.listaVideos != null){
                       this.curso.listaVideos[0].aulaAtual = true;
                       this.curso.listaVideos.forEach(video => {
-                        console.log(video);
                         if(video.aulaAtual == true){
                           this.idCurso = video.id
                           this.ModuloSelecionado = video.nomeArquivo;
@@ -153,6 +152,7 @@ export class AulaComponent {
 
                           if(video.listaPerguntas != null){
                             video.listaPerguntas.forEach((pergunta: any) => {
+                              console.log(pergunta)
                               var obj: Forum = {
                                 usuario: this.usuario,
                                 titulo: pergunta.titulo,
@@ -258,7 +258,6 @@ export class AulaComponent {
   }
 
   download(arquivo: Arquivo){
-    console.log(arquivo)
     // 'data:application/octet-stream;base64,' +
     var linkSource = arquivo.base64;
     const downloadLink = document.createElement('a');
@@ -321,7 +320,6 @@ export class AulaComponent {
       const reader = new FileReader();
       reader.readAsDataURL(files[i]);
       reader.onload = (e) => {
-        console.log(files[i])
         this.tarefaResposta = { nome: files[i]?.name, file: "", base64: reader?.result as string }
         // this.listaArquivosApoio = this.listaArquivosApoio?.filter(f => f?.name != files[i]?.name)
         // // this.listaArquivosApoio.push(files[i])
@@ -331,7 +329,6 @@ export class AulaComponent {
         //   base64: reader?.result as string })
         // result.next(this.listaArquivosApoio);
 
-        console.log(this.tarefaResposta)
         if (files?.length === (i + 1)) {
           result.complete();
         }
@@ -420,10 +417,11 @@ export class AulaComponent {
       this.mergeSort(this.listaForuns, 0, this.listaForuns.length);
       var pergunta = {
         idVideo: this.idCurso,
+        idUsuario: this.usuario.id,
         titulo: this.formulario.controls['Titulo'].value,
         conteudo: this.formulario.controls['Conteudo'].value,
       }
-      console.log(pergunta)
+
       this.videoService.cadastrarPergunta(pergunta).subscribe(res=>{});
       this.Limpar();
 

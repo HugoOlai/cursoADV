@@ -33,14 +33,11 @@ export class TarefaEditarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.data)
     this.tituloTarefa = this.data.tarefa.nome;
     this.descricaoTarefa = this.data.tarefa.descricao;
     this.listaNomesVideos = this.data.listaNomesVideos
     var videoEncontrado = this.data.listaNomesVideos.find(v=> v.id == this.data.tarefa.idVideo)
     this.videoSelecionado = videoEncontrado.id;
-    console.log(this.listaNomesVideos)
-    console.log(this.videoSelecionado)
   }
 
   openSnackBar(defineClass: any) {
@@ -58,7 +55,6 @@ export class TarefaEditarComponent implements OnInit {
 
   salvar(){
     this.carregando = true;
-    console.log(this.videoSelecionado)
     if(this.tituloTarefa == "" || this.descricaoTarefa == "" || this.videoSelecionado == ""){
       SnackBarComponent.prototype.texto = "PREENCHA TODOS OS CAMPOS"
       SnackBarComponent.prototype.tipo = 'warning';

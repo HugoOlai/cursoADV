@@ -173,8 +173,6 @@ export class cursosComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       var teste: any = dialogRef.componentRef;
-      console.log(result);
-      console.log(teste);
       if(result.data){
         this.carregando = true;
         this.pegarCursos();

@@ -67,10 +67,8 @@ export class VideosEditarComponent {
     this.nomeArquivo = this.data.video.nomeArquivo
     this.descricaoVideo = this.data.video.descricao
 
-    console.log(this.data.video)
     if(this.data.video.listaIdsArquivos != null)
       this.arquivosService.pegarArquivos(this.data.video.idCurso).subscribe((res: Array<any>)=> {
-        console.log(res)
         this.data.video.listaIdsArquivos.forEach(idArquivo => {
           this.listaArquivos = res;
           var arquivoEncontrado = res.find((ar: Arquivo) => ar.id == idArquivo)
@@ -115,18 +113,15 @@ export class VideosEditarComponent {
     this.listaArquivos.forEach(arquivo => {
       if(arquivo.nome == topping){
         var arquivoEncontrado = this.listaArquivosSelecionados.find(a=> a.nome == topping)
-        console.log(arquivoEncontrado)
         if(!arquivoEncontrado || arquivoEncontrado == undefined){
             var ar = this.listaArquivos.find(a => a.nome == topping)
             this.listaArquivosSelecionados.push(ar)
             this.arquivosSelecionado.push(ar.nome);
             this.toppings = new FormControl(ar)
-            console.log(this.arquivosSelecionado)
 
         } else {
           var lista = this.listaArquivosSelecionados.filter((a: any)=> {if(a.nome != topping) return a})
           this.listaArquivosSelecionados = lista;
-          console.log(this.listaArquivosSelecionados)
           // if(arquivoEncontrado){
             this.arquivosSelecionado.push(arquivo.nome);
             this.toppings = new FormControl(this.arquivosSelecionado)

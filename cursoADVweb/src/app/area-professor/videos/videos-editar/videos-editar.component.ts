@@ -1,20 +1,19 @@
-import { Arquivo } from './../../../shared/class/Arquivo.class';
-import { Component, Inject } from '@angular/core';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import { SnackBarComponent } from '../../../components/snack-bar/snack-bar.component';
+import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Util } from '../../../class/util.class';
-import { Video } from '../../../shared/class/Video';
-import { Router } from '@angular/router';
-import { AuthService } from '../../../services/auth.service';
+import { Component, Inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { CursosService } from '../../../services/cursos.service';
-import { VideoService } from '../../../services/videos.service';
-import { ArquivosService } from '../../../services/arquivos.service';
-import { Curso } from '../../../shared/class/Curso.class';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { DialogDataCurso } from '../../cursos/cursos.component';
+import { Video } from '../../../shared/class/Video';
 import { DialogDataVideo } from '../videos.component';
+import { Curso } from '../../../shared/class/Curso.class';
+import { AuthService } from '../../../services/auth.service';
+import { Arquivo } from './../../../shared/class/Arquivo.class';
+import { VideoService } from '../../../services/videos.service';
+import { CursosService } from '../../../services/cursos.service';
+import { ArquivosService } from '../../../services/arquivos.service';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { SnackBarComponent } from '../../../components/snack-bar/snack-bar.component';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-videos-editar',
@@ -39,7 +38,7 @@ export class VideosEditarComponent {
   toppingList: Array<any> = [];
   listaArquivos: Array<any> = [];
   listaArquivosSelecionados: Array<any> = [];
-  arquivosSelecionado: Array<string> = ["RESP 1930593 - Execução Alimentos - CUMULAÇÃO DE TÉCNICAS EXECUTIVAS.pdf","Cadernos Defensoria - habitação e urbanismo -Def-Pub-SP_n.5_1.pdf"];
+  arquivosSelecionado: Array<string> = [];
   constructor(
     private router: Router,
     private service: AuthService,
@@ -69,12 +68,16 @@ export class VideosEditarComponent {
 
     if(this.data.video.listaIdsArquivos != null)
       this.arquivosService.pegarArquivos(this.data.video.idCurso).subscribe((res: Array<any>)=> {
+        this.listaArquivos = res;
+        console.log({listaIdsArquivosIds: this.data.video.listaIdsArquivos})
         this.data.video.listaIdsArquivos.forEach(idArquivo => {
-          this.listaArquivos = res;
+
           var arquivoEncontrado = res.find((ar: Arquivo) => ar.id == idArquivo)
+          console.log({arquivoEncontrado: arquivoEncontrado})
+
           if(arquivoEncontrado){
             this.arquivosSelecionado.push(arquivoEncontrado.nome);
-            this.listaArquivosSelecionados.push(arquivoEncontrado)
+            this.listaArquivosSelecionados.push(arquivoEncontrado);
             this.toppings = new FormControl(this.arquivosSelecionado)
           }
         });
@@ -109,47 +112,105 @@ export class VideosEditarComponent {
     // })
   }
 
-  definirArquivos(topping: string){
-    this.listaArquivos.forEach(arquivo => {
-      if(arquivo.nome == topping){
-        var arquivoEncontrado = this.listaArquivosSelecionados.find(a=> a.nome == topping)
-        if(!arquivoEncontrado || arquivoEncontrado == undefined){
-            var ar = this.listaArquivos.find(a => a.nome == topping)
-            this.listaArquivosSelecionados.push(ar)
-            this.arquivosSelecionado.push(ar.nome);
-            this.toppings = new FormControl(ar)
+  definirArquivos(topping: any){
+    console.log(this.listaArquivosSelecionados)
+    console.log({topping: topping})
+    console.log(this.toppings.value)
+    if(this.toppings.value?.length != 0){
+      var lista: any = [];
+      var ids: any = []
 
-        } else {
-          var lista = this.listaArquivosSelecionados.filter((a: any)=> {if(a.nome != topping) return a})
-          this.listaArquivosSelecionados = lista;
-          // if(arquivoEncontrado){
-            this.arquivosSelecionado.push(arquivo.nome);
-            this.toppings = new FormControl(this.arquivosSelecionado)
-          // }
-        }
+      if(this.toppings.value){
+        this.toppings.value.forEach(nome => {
+          var arquivoEncontrado = this.listaArquivos.find(arquivo=> arquivo.nome == nome)
+          console.log({arquivoEncontrado: arquivoEncontrado})
+          if(arquivoEncontrado){
+            lista.push(arquivoEncontrado);
+            ids.push(arquivoEncontrado.id)
+          }
+        });
 
-        // if(this.data.video.listaIdsArquivos != null){
-        //   this.data.video.listaIdsArquivos.forEach(id => {
-        //     if(id == arquivo.id){
-        //       this.arquivosSelecionado.push(arquivo.nome);
-        //       this.toppings = new FormControl(this.arquivosSelecionado)
-        //     }
-        //   });
-        // }
+        this.listaArquivosSelecionados = lista;
+        this.data.video.listaIdsArquivos = ids;
+        console.log({
+          listaArquivosSelecionados: this.listaArquivosSelecionados,
+          listaIdsArquivos: this.data.video.listaIdsArquivos
+
+        })
       }
 
-    });
+    }
+
+    // var arquivoEncontrado = this.listaArquivosSelecionados.find(arquivo => arquivo.nome == topping[topping.length -1])
+    // console.log(arquivoEncontrado)
+    // if(arquivoEncontrado == undefined){
+    //   var pegarArquivo = this.listaArquivos.find(arquivo=> arquivo.nome == topping[topping.length -1])
+    //   this.listaArquivosSelecionados.push(pegarArquivo)
+    //   console.log(this.listaArquivosSelecionados)
+    // } else {
+    //   var novaLista: any = [];
+    //   this.listaArquivosSelecionados.forEach(arquivo => {
+    //     if(topping.length != 0)
+    //       if(arquivo.nome != topping[topping.length -1])
+    //         novaLista.push(arquivo)
+    //   });
+    //   this.listaArquivosSelecionados = novaLista;
+    //   console.log(novaLista)
+    // }
+
+    // var ids: any = []
+    // this.listaArquivosSelecionados.forEach(arquivo => {
+    //   ids.push(arquivo.id)
+    // });
+
+    // this.data.video.listaIdsArquivos = ids;
+
+
+
+    // this.listaArquivos.forEach(arquivo => {
+    //   console.log({listaArquivosSelecionados: this.listaArquivosSelecionados})
+
+    //   var arquivoEncontrado = this.listaArquivosSelecionados.find((a: Arquivo) => a != undefined && a.nome == topping)
+    //   console.log({arquivoEncontrado: arquivoEncontrado})
+      // if(!arquivoEncontrado || arquivoEncontrado == undefined){
+      //   this.listaArquivosSelecionados.push(arquivo)
+      //   this.arquivosSelecionado.push(arquivo.nome);
+      //   console.log({arquivosSelecionado: this.arquivosSelecionado})
+      //   //this.toppings = new FormControl(ar)
+
+      // } else {
+      //   var lista = this.listaArquivosSelecionados.filter((a: Arquivo)=> a.nome != topping)
+      //   this.listaArquivosSelecionados = lista;
+      //   // if(arquivoEncontrado){
+      //     this.arquivosSelecionado.push(arquivo.nome);
+      //     //this.toppings = new FormControl(this.arquivosSelecionado)
+      //   // }
+      // }
+
+      // if(this.data.video.listaIdsArquivos != null){
+      //   this.data.video.listaIdsArquivos.forEach(id => {
+      //     if(id == arquivo.id){
+      //       this.arquivosSelecionado.push(arquivo.nome);
+      //       this.toppings = new FormControl(this.arquivosSelecionado)
+      //     }
+      //   });
+      // }
+
+
+    // });
   }
 
   AtualizarrVideo(){
     this.carregando = true;
     var form = this.toppings.value;
     var lista: Array<string> = []
-    this.listaArquivosSelecionados.forEach(arquivo => {
-      lista.push(arquivo.id);
-    });
+    // this.listaArquivosSelecionados.forEach((arquivo: Arquivo) => {
+    //   if(arquivo.id)
+    //     lista.push(arquivo.id);
+    // });
 
     console.log(this.listaArquivosSelecionados)
+    console.log(this.data.video.listaIdsArquivos)
 
     this.videoService.editar({ id: this.data.video.id, Nome: this.nomeVideo, NomeArquivo: this.nomeArquivo, IdCurso: this.cursoSelecionado, listaIdsArquivos: this.data.video.listaIdsArquivos ,Descricao: this.descricaoVideo})
       .subscribe((res: any) => {

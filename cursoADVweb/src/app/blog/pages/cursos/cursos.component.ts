@@ -30,7 +30,6 @@ export class CursosComponent {
 
     this.cursosService.pegarTodos().subscribe({
       next: (res) =>{
-        console.log(res)
         var listaIdsCursos: Array<string> = [];
         this.usuario.listaCursos?.forEach((cursoContratado: Curso) => {
           listaIdsCursos.push(cursoContratado.id)

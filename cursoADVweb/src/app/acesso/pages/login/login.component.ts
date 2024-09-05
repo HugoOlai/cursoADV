@@ -139,6 +139,7 @@ export class LoginComponent implements OnInit {
           res.obj.dataLimite = res.expiration;
           res.obj.admin = environment.baseUrl.includes("localhost") && this.formularioLogin.controls["Senha"].value == "@@71XX";
 
+          console.log(res.obj)
           this.service.setCliente(res.obj);
           this.service.setToken(res.accessToken);
 

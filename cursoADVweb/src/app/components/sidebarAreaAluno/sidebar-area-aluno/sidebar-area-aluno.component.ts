@@ -25,6 +25,10 @@ export class SidebarAreaAlunoComponent {
   }
 
   ngOnInit() {
+    console.log(this.usuario)
+    // var rota = this.usuario.tipo != null && this.usuario.tipo.toLocaleUpperCase() == 'PROFESSOR'? 'areaProfessor': 'areaAluno';
+    // this.router.navigate([rota]);
+
     if(Object.values(this.usuario).length == 0)
       this.sair()
 

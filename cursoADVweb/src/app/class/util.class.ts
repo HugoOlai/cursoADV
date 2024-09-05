@@ -14,7 +14,7 @@ export class Util {
   }
 
   static formataValor = (str: any) => {
-    return Number(str).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+    return Number(str).toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'});
   }
 
   static isNullOrEmpty = (str: string) => {

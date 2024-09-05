@@ -3,6 +3,7 @@ export interface Curso {
   dataLançamento: Date,
   dataContratacao?: Date,
 
+  cupom?: string,
   titulo: string,
   objetivo: string,
   parcelas?: string,
@@ -14,6 +15,7 @@ export interface Curso {
   valorFormatado?: string,
   idPagamentoAsaas?: string,
   valorComDesconto?: string,
+  valorCupomFormatado?: string,
   dataLançamentoFormatada?: string,
   dataContratacaoFormatada?: string,
 
@@ -25,6 +27,7 @@ export interface Curso {
   listaArquivosApoio?: any,
 
   valor: number,
+  valorCupom: number,
 
   status: boolean,
   statusPago: boolean,

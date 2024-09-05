@@ -7,9 +7,13 @@
       </div>
       <div class="col-12">
         <!-- <h2><p><b>{{grupoEstudos.titulo}}</b></p></h2> -->
-        <h1>
+        <h1 *ngIf="curso.tipoCurso != 'CURSO'">
           <b style="color: #e64944;">{{curso.parcelas}}</b><br>
           <small style="font-size:medium;">{{curso.valorFormatado}} à vista ou {{curso.valorComDesconto}} para os inscritos pelas cotistas</small>
+        </h1>
+        <h1 *ngIf="curso.tipoCurso == 'CURSO'">
+          <b style="color: #e64944;">{{curso.parcelas}}</b><br>
+          <small style="font-size:medium;">{{curso.valorFormatado}} à vista</small>
         </h1>
       </div>
       <div class="col-12" *ngIf="true">
@@ -29,7 +33,8 @@
 
   <div class="col-12 d-flex flex-wrap {{isMobile? 'p-2':'p-5'}} ">
     <div class="{{isMobile? 'col-12':'col-6'}} d-flex justify-content-center">
-      <img src="{{curso.src}}" style="border-radius: 30px;"  height="350" />
+      <!-- <img src="{{curso.src}}" style="border-radius: 30px;"  height="350" /> -->
+      <img src="https://centroproinf.com.br/video/Direito da crianca.jpg" style="border-radius: 30px;"  height="350" />
 
     </div>
     <div class="{{isMobile? 'col-12 pt-5':'col-6'}} d-flex justify-content-center">

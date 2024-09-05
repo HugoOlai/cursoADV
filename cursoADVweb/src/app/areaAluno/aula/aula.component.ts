@@ -130,6 +130,7 @@ export class AulaComponent {
                   res.forEach((arquivo: any) => {
                     this.arquivoAula.push(arquivo);
                   });
+                  console.log({arquivoAula:this.arquivoAula})
 
                   this.videoService.pegarTodos().subscribe((resVideo: Array<Video>)=>{
                     var lista: Array<Video> = []
@@ -141,7 +142,9 @@ export class AulaComponent {
                     });
 
                     this.curso.listaVideos = lista;
-                    if(this.curso.listaVideos != null){
+                    if(this.curso.listaVideos != null && this.curso.tipoCurso != 'GRUPOESTUDOS'){
+                      var listaArq: Array<Arquivo> = [];
+
                       this.curso.listaVideos[0].aulaAtual = true;
                       this.curso.listaVideos.forEach(video => {
                         if(video.aulaAtual == true){
@@ -151,6 +154,7 @@ export class AulaComponent {
                           this.descricao = video.descricao;
 
                           if(video.listaPerguntas != null){
+
                             video.listaPerguntas.forEach((pergunta: any) => {
                               console.log(pergunta)
                               var obj: Forum = {
@@ -173,20 +177,20 @@ export class AulaComponent {
 
                           // this.arquivoAula = video.arquivos
 
-                          var lista: Array<Arquivo> = [];
-                          if(video.listaIdsArquivos  != null)
+                          if(video.listaIdsArquivos != null)
                             video.listaIdsArquivos.forEach((id: string) => {
                               this.arquivoAula.forEach(arquivo => {
                                 if(id == arquivo.id){
-                                  lista.push(arquivo)
+                                  listaArq.push(arquivo)
                                 }
                               });
 
-                              this.arquivoAula = lista;
+                              console.log(this.arquivoAula)
 
                             });
                         }
                         });
+                        this.arquivoAula = listaArq;
                     }
                     this.carregando = false;
                   })

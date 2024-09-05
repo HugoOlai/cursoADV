@@ -69,8 +69,8 @@ export class cursosComponent {
     lineSize: true,
     placeholder: '',
     captionShow: true,
-    caption: 'Total de {@} alunos',
-    empty: 'Não existem alunos para serem exibidos',
+    caption: 'Total de {@} videos',
+    empty: 'Não existem videos para serem exibidos',
     pagination: true,
     modeCard: this.isMobile,
     lineMode: this.isMobile,
@@ -78,7 +78,7 @@ export class cursosComponent {
     pageSize: 5,
     handle: ()=>{},
     pagesSize: [5,10,15,20],
-    descriptionPageSize: 'Alunos por página',
+    descriptionPageSize: 'Cursos por página',
 
   };
 
@@ -117,6 +117,7 @@ export class cursosComponent {
       objetivo: "",
       topcos: [],
       valor: 0,
+      valorCupom: 0,
       src: null,
       listaVideos: [],
       statusPago: false
@@ -148,6 +149,7 @@ export class cursosComponent {
       res.forEach((curso: Curso) => {
         curso.dataLançamentoFormatada = Util.dataFormatada(curso.dataLançamento)
         curso.valorFormatado = Util.formataValor(curso.valor)
+        curso.valorCupomFormatado = Util.formataValor(curso.valorCupom)
         this.listaCursos.push(curso)
       });
       this.carregando = false

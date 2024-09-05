@@ -44,4 +44,12 @@ export class UsuarioService {
         map(result => result)
       );
   }
+
+  pegarUsuarioPorId(IdUsuario: string) : Observable<any> {
+    return this.http.get(`${environment.baseUrl}/usuario/pegarPeloId/${IdUsuario}`)
+      .pipe(
+        take(1),
+        map(result => result)
+      );
+  }
 }

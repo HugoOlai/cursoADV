@@ -77,6 +77,7 @@ export class CursoEditarAdicionarComponent {
     public dialogRef: MatDialogRef<CursoEditarAdicionarComponent>,
 
   ){
+    console.log(data.curso)
     this.formularioCurso = this.fb.group({
       Nome: [data.curso.titulo],
       Titulo: [data.curso.titulo],
@@ -88,6 +89,9 @@ export class CursoEditarAdicionarComponent {
       MaterialApoio: [data.curso.materialApoio],
       Objetivo: [data.curso.objetivo],
       Topico: [null],
+      Cupom: [data.curso.cupom],
+      ValorCupom: [data.curso.valorCupom],
+      ValorCupomFormatado: [Util.formataValor(data.curso.valorCupom)],
       Valor: [data.curso.valor],
       ValorFormatado: [Util.formataValor(data.curso.valor)],
     })
@@ -124,8 +128,18 @@ export class CursoEditarAdicionarComponent {
     });
   }
 
+  formataValorCupom(){
+    var form = this.formularioCurso.value;
+    // console.log(form.ValorFormatado.replace("R$", '').replace(",",".").trim())
+    form.ValorCupomFormatado = form.ValorCupomFormatado.replace("R$", '').replace(",",".").trim()
+    this.formularioCurso.get('ValorCupomFormatado')?.setValue(Util.formataValor(form.ValorCupomFormatado))
+    this.formularioCurso.get('ValorCupom')?.setValue(form.ValorCupomFormatado)
+  }
+
   formataValor(){
     var form = this.formularioCurso.value;
+    // console.log(form.ValorFormatado.replace("R$", '').replace(",",".").trim())
+    form.ValorFormatado = form.ValorFormatado.replace("R$", '').replace(",",".").trim()
     this.formularioCurso.get('ValorFormatado')?.setValue(Util.formataValor(form.ValorFormatado))
     this.formularioCurso.get('Valor')?.setValue(form.ValorFormatado)
   }

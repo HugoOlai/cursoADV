@@ -49,6 +49,18 @@
         <hr class="w-100" />
         <div class="{{isMobile? 'col-12':'col-6'}}">
           <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Cupom</mat-label>
+            <input matInput formControlName="Cupom">
+          </mat-form-field>
+        </div>
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
+            <mat-label>Valor Cupom</mat-label>
+            <input (change)="formataValorCupom()" matInput formControlName="ValorCupomFormatado">
+          </mat-form-field>
+        </div>
+        <div class="{{isMobile? 'col-12':'col-6'}}">
+          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
             <mat-label>Título</mat-label>
             <input matInput formControlName="Titulo">
           </mat-form-field>
@@ -89,14 +101,15 @@
           </mat-form-field>
         </div>
 
-        <span class="fs-6 w-100">MATERIAL</span>
-        <hr class="w-100" />
         <div class="col-12">
           <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
             <mat-label>Objetivo</mat-label>
             <textarea matInput rows="5" cols="40" placeholder="text" formControlName="Objetivo"></textarea>
           </mat-form-field>
         </div>
+
+        <span class="fs-6 w-100">MATERIAL</span>
+        <hr class="w-100" />
 
         <div class="col-12">
           <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">

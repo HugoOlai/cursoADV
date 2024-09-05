@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { cursosComponent } from './cursos/cursos.component';
 import { alunosComponent } from './alunos/alunos.component';
-import { AreaProfessorComponent } from './area-professor.component';
 import { tarefaComponent } from './tarefa/tarefa.component';
-import { noticiasComponent } from './noticias/noticias.component';
 import { VideosComponent } from './videos/videos.component';
+import { noticiasComponent } from './noticias/noticias.component';
+import { AreaProfessorComponent } from './area-professor.component';
+import { ResponderPerguntasComponent } from './responder-perguntas/responder-perguntas.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'videos', component: VideosComponent},
       { path: 'tarefas', component: tarefaComponent},
       { path: 'noticias', component: noticiasComponent},
+      { path: 'responderPerguntas', component: ResponderPerguntasComponent},
 
     ],
   }

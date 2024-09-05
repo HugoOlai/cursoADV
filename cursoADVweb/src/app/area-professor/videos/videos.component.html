@@ -91,10 +91,11 @@
             <strong>Data de postagem do video: </strong>
             <p class="text defineFont mt-2" style="width: 100%;">
               <strong class="">{{video.dataLancamentoFormatada}}</strong>
+
             </p>
             <strong>Descrição: </strong>
             <p class="text defineFont mt-2" style="width: 100%;">
-              <strong class="">{{video.descricao}}</strong>
+              <strong class="">{{video.descricao.length > 15? video.descricao.substring(0, 25).toLocaleUpperCase() + "...": video.descricao.toUpperCase()}}</strong>
             </p>
           </div>
           <div class="col-12 d-flex px-2 pb-2">

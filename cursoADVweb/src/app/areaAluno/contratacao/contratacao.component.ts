@@ -109,6 +109,7 @@ export class ContratacaoComponent {
         CpfCnpj:{value: Util.formataCpfCpjs(this.usuario.cpfCnpj).cpfCnpj, disabled: true},
         ConfirmaSenha: [""],
         NumeroCartao: [""],
+        Cupom:[""],
         ValorCurso: [""],
         NomeTitular: [""],
         // Cep: [ {value: this.usuario.endereco.cep, disabled: true}],
@@ -129,6 +130,7 @@ export class ContratacaoComponent {
         Email: [""],
         ConfirmaEmail: [""],
         Telefone: [""],
+        Cupom:[""],
         Senha: [""],
         CpfCnpj:[""],
         ConfirmaSenha: [""],
@@ -189,6 +191,33 @@ export class ContratacaoComponent {
     });
   }
 
+  validaCupon(){
+    var form = this.formularioCadastro.value
+    console.log(form.Cupom)
+    if(form.Cupom == this.curso.cupom){
+      console.log('cupom valido')
+
+      if(this.curso.valor && this.curso.valorCupom){
+        this.curso.valor = this.curso.valor - this.curso.valorCupom;
+        this.formularioCadastro.get("ValorCurso")?.setValue(this.curso.valor);
+        if(this.curso.valor){
+          var divisao = this.curso.valor/12;
+          this.parcelas = `12x de ${Util.formataValor(divisao)}`
+          this.valorFormatado = Util.formataValor(this.curso.valor) ;
+          this.valorComDesconto = Util.formataValor(this.curso.valor - 200)
+        }
+
+        this.listaParcelas = [];
+        for (let index = 1; index <= 12; index++) {
+          if(this.curso.valor)
+            this.listaParcelas.push({index: index, descricao:`${index}x de ${Util.formataValor(this.curso.valor/index)}`});
+
+        }
+      }
+
+
+    }
+  }
   changeClient(item: any){
 
 
@@ -346,6 +375,7 @@ export class ContratacaoComponent {
 
   contratar(){
     var form: any = this.formularioCadastro.controls
+    this.carregando = true;
 
     if(this.verificarCamposObrigatorios(form) == true){
       var obj: any = {
@@ -402,13 +432,16 @@ export class ContratacaoComponent {
         obj.tipoAluno = this.tipoAluno;
 
         if((form.Mes.value == "" || form.Ano.value == "") && this.tipoPagamento == 1){
+          this.carregando = false;
+
           SnackBarComponent.prototype.texto = "SELECIONE MÊS E ANO CLICANDO NO ICONE DE CALENDÁRIO";
           SnackBarComponent.prototype.tipo = 'warning';
           this.openSnackBar('warning');
         } else {
           this.carregando = true;
-
-          this.cursosService.contratarCurso(this.curso, obj).subscribe({
+          var curso: any = this.curso;
+          curso.valor = this.curso.valor?.toString();
+          this.cursosService.contratarCurso(curso, obj).subscribe({
             next: (res:any) =>{
               SnackBarComponent.prototype.texto = "Curso contratado";
               SnackBarComponent.prototype.tipo = 'success';
@@ -461,6 +494,9 @@ export class ContratacaoComponent {
 
       }, 3000);
 
+
+    } else{
+      this.carregando = false;
 
     }
   }

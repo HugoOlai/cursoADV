@@ -24,11 +24,13 @@ import { VideosEditarComponent } from './videos/videos-editar/videos-editar.comp
 import { VisualizarAlunoComponent } from './alunos/visualizar-aluno/visualizar-aluno.component';
 import { SidebarAreaProfessorModule } from '../components/sidebarAreaProfessor/sidebar-area-professor.module';
 import { CursoEditarAdicionarComponent } from './cursos/curso-editar-adicionar/curso-editar-adicionar.component';
+import { ResponderPerguntasComponent } from './responder-perguntas/responder-perguntas.component';
+import { EditaRespostaComponent } from './responder-perguntas/edita-resposta/edita-resposta.component';
 
 @NgModule({
   declarations: [AreaProfessorComponent, CursoEditarAdicionarComponent, alunosComponent,
-    cursosComponent, tarefaComponent, noticiasComponent, VisualizarAlunoComponent,
-    VideosComponent, VideosEditarComponent, TarefaEditarComponent],
+    cursosComponent, tarefaComponent, noticiasComponent, VisualizarAlunoComponent, EditaRespostaComponent,
+    VideosComponent, VideosEditarComponent, TarefaEditarComponent, ResponderPerguntasComponent],
   imports: [
     CommonModule,
     areaProfessorRoutes,

@@ -52,4 +52,19 @@ export class VideoService {
       );
   }
 
+  pegarPerguntas() : Observable<any> {
+    return this.http.get(`${environment.baseUrl}/video/pegarPerguntas`)
+      .pipe(
+        take(1),
+        map(result => result)
+      );
+  }
+
+  pegarPeloId(IdVideo: string) : Observable<any> {
+    return this.http.get(`${environment.baseUrl}/video/pegarPeloId/${IdVideo}`)
+      .pipe(
+        take(1),
+        map(result => result)
+      );
+  }
 }

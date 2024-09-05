@@ -38,14 +38,22 @@
           Tarefas
         </div>
       </button>
-      <button (click)="direciona('areaProfessor/noticias')" class="btn btn-outline-light d-flex mt-2" style="border: solid white 1px" mat-menu-item>
+      <button (click)="direciona('areaProfessor/responderPerguntas')" class="btn btn-outline-light d-flex mt-2" style="border: solid white 1px" mat-menu-item>
+        <span class="material-icons pe-2">
+          compare_arrows
+          </span>
+        <div class="col-1">
+          Perguntas/Responder
+        </div>
+      </button>
+      <!-- <button (click)="direciona('areaProfessor/noticias')" class="btn btn-outline-light d-flex mt-2" style="border: solid white 1px" mat-menu-item>
         <span class="material-icons pe-2">
           feed
           </span>
         <div class="col-1">
           Noticias
         </div>
-      </button>
+      </button> -->
     </mat-menu>
     <img *ngIf="!isMobile" src="assets/imgs/logo.png" (click)="redirecionar()" [height]="isMobile? 35:40" alt="" style="border-radius: 54px;">
     <img *ngIf="isMobile" src="../../assets/imgs/logoMobile.png" height="40">

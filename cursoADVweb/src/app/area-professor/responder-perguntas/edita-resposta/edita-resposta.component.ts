@@ -45,7 +45,6 @@ export class EditaRespostaComponent {
   }
 
   ngOnInit(): void {
-    console.log("listaResposta: ",this.data.pergunta.listaResposta)
     // this.pergunta = this.formularioPergunta.get('Pergunta');
     // this.pergunta.disable();
     if(this.data.pergunta.listaResposta == null)

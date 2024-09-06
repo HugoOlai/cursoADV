@@ -69,11 +69,9 @@ export class VideosEditarComponent {
     if(this.data.video.listaIdsArquivos != null)
       this.arquivosService.pegarArquivos(this.data.video.idCurso).subscribe((res: Array<any>)=> {
         this.listaArquivos = res;
-        console.log({listaIdsArquivosIds: this.data.video.listaIdsArquivos})
         this.data.video.listaIdsArquivos.forEach(idArquivo => {
 
           var arquivoEncontrado = res.find((ar: Arquivo) => ar.id == idArquivo)
-          console.log({arquivoEncontrado: arquivoEncontrado})
 
           if(arquivoEncontrado){
             this.arquivosSelecionado.push(arquivoEncontrado.nome);
@@ -113,9 +111,6 @@ export class VideosEditarComponent {
   }
 
   definirArquivos(topping: any){
-    console.log(this.listaArquivosSelecionados)
-    console.log({topping: topping})
-    console.log(this.toppings.value)
     if(this.toppings.value?.length != 0){
       var lista: any = [];
       var ids: any = []
@@ -123,7 +118,6 @@ export class VideosEditarComponent {
       if(this.toppings.value){
         this.toppings.value.forEach(nome => {
           var arquivoEncontrado = this.listaArquivos.find(arquivo=> arquivo.nome == nome)
-          console.log({arquivoEncontrado: arquivoEncontrado})
           if(arquivoEncontrado){
             lista.push(arquivoEncontrado);
             ids.push(arquivoEncontrado.id)
@@ -132,11 +126,7 @@ export class VideosEditarComponent {
 
         this.listaArquivosSelecionados = lista;
         this.data.video.listaIdsArquivos = ids;
-        console.log({
-          listaArquivosSelecionados: this.listaArquivosSelecionados,
-          listaIdsArquivos: this.data.video.listaIdsArquivos
 
-        })
       }
 
     }
@@ -208,9 +198,6 @@ export class VideosEditarComponent {
     //   if(arquivo.id)
     //     lista.push(arquivo.id);
     // });
-
-    console.log(this.listaArquivosSelecionados)
-    console.log(this.data.video.listaIdsArquivos)
 
     this.videoService.editar({ id: this.data.video.id, Nome: this.nomeVideo, NomeArquivo: this.nomeArquivo, IdCurso: this.cursoSelecionado, listaIdsArquivos: this.data.video.listaIdsArquivos ,Descricao: this.descricaoVideo})
       .subscribe((res: any) => {

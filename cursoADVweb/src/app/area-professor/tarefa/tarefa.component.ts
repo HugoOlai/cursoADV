@@ -163,7 +163,6 @@ export class tarefaComponent {
   pegarVideos(){
     this.carregando = true;
     this.videoService.pegarTodos().subscribe((res: Array<Video>) => {
-      console.log(res)
       res.forEach((video: Video)=>{
         this.listaNomesVideos.push({id: video.id, nome: video.nome})
       })

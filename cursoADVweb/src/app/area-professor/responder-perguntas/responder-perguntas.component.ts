@@ -114,21 +114,17 @@ export class ResponderPerguntasComponent {
 
   pegarPerguntas(){
     this.videoService.pegarPerguntas().subscribe((res: Array<Pergunta>)=>{
-      console.log(res)
       res.forEach((pergunta: Pergunta) => {
           this.videoService.pegarPeloId(pergunta.idVideo).subscribe((video: Video)=>{
-            console.log(video)
             pergunta.nomeVideo = video.nome
           });
 
           this.usuarioService.pegarUsuarioPorId(pergunta.idUsuario).subscribe((usuario: Usuario)=>{
-            console.log(usuario)
             pergunta.nomeUsuario = usuario.nome
           });
       });
 
       this.listaPerguntas = res;
-      console.log("resultado: ", res)
     }, err=>{
       if(err.status == 0){
         this.sair();
@@ -144,7 +140,6 @@ export class ResponderPerguntasComponent {
     this.router.navigate(['acesso/loginProfessor']);
   }
   openDialog(item: any){
-    console.log(item)
     const dialogRef = this.dialog.open(EditaRespostaComponent, {
       panelClass: "second-modal-backdrop",
       width: "80%",

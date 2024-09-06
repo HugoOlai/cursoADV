@@ -160,7 +160,6 @@ export class ForunsComponent {
   }
 
   irParapublicacao() {
-    console.log('irParapublicacao')
   }
 
   upload(event: any) {

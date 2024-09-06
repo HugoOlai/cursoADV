@@ -193,9 +193,7 @@ export class ContratacaoComponent {
 
   validaCupon(){
     var form = this.formularioCadastro.value
-    console.log(form.Cupom)
     if(form.Cupom == this.curso.cupom){
-      console.log('cupom valido')
 
       if(this.curso.valor && this.curso.valorCupom){
         this.curso.valor = this.curso.valor - this.curso.valorCupom;

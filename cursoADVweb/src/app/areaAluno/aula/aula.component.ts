@@ -128,11 +128,9 @@ export class AulaComponent {
                 this.carregando = true;
 
                 this.arquivosService.pegarArquivos(this.curso.id).subscribe(res=>{
-                  console.log(res)
                   res.forEach((arquivo: any) => {
                     this.arquivoAula.push(arquivo);
                   });
-                  console.log({arquivoAula:this.arquivoAula})
                   this.listaTodosArquivos = this.arquivoAula;
                   this.videoService.pegarTodos().subscribe((resVideo: Array<Video>)=>{
                     var lista: Array<Video> = []
@@ -149,7 +147,6 @@ export class AulaComponent {
 
                       this.curso.listaVideos[0].aulaAtual = true;
                       this.curso.listaVideos.forEach(video => {
-                        console.log("video: ",video)
                         if(video.aulaAtual == true){
                           this.idCurso = video.id
                           this.ModuloSelecionado = video.nomeArquivo;
@@ -159,7 +156,6 @@ export class AulaComponent {
                           if(video.listaPerguntas != null){
 
                             video.listaPerguntas.forEach((pergunta: Pergunta) => {
-                              console.log("pergunta: ",pergunta)
                               var obj: Forum = {
                                 usuario: this.usuario,
                                 titulo: pergunta.titulo,
@@ -189,7 +185,6 @@ export class AulaComponent {
                                 }
                               });
 
-                              console.log(this.arquivoAula)
 
                             });
                         }

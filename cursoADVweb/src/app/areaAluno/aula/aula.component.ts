@@ -18,7 +18,7 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { ArquivosService } from '../../services/arquivos.service';
 import { VideoService } from '../../services/videos.service';
-import { Video } from '../../shared/class/Video';
+import { Pergunta, Video } from '../../shared/class/Video';
 import { SelectedFiles } from '../../Admin/admin/admin.component';
 
 interface FoodNode {
@@ -46,6 +46,7 @@ export class AulaComponent {
   imagemSelecionada: any;
   imagensACarregar?: Array<Arquivo>;
   arquivoAula: Array<Arquivo> = [];
+  listaTodosArquivos: Array<Arquivo> = [];
   nomeModulo!: string;
   descricao!: string;
   descricaoTarefa: string = "";
@@ -127,11 +128,12 @@ export class AulaComponent {
                 this.carregando = true;
 
                 this.arquivosService.pegarArquivos(this.curso.id).subscribe(res=>{
+                  console.log(res)
                   res.forEach((arquivo: any) => {
                     this.arquivoAula.push(arquivo);
                   });
                   console.log({arquivoAula:this.arquivoAula})
-
+                  this.listaTodosArquivos = this.arquivoAula;
                   this.videoService.pegarTodos().subscribe((resVideo: Array<Video>)=>{
                     var lista: Array<Video> = []
                     resVideo.forEach(video => {
@@ -147,6 +149,7 @@ export class AulaComponent {
 
                       this.curso.listaVideos[0].aulaAtual = true;
                       this.curso.listaVideos.forEach(video => {
+                        console.log("video: ",video)
                         if(video.aulaAtual == true){
                           this.idCurso = video.id
                           this.ModuloSelecionado = video.nomeArquivo;
@@ -155,13 +158,14 @@ export class AulaComponent {
 
                           if(video.listaPerguntas != null){
 
-                            video.listaPerguntas.forEach((pergunta: any) => {
-                              console.log(pergunta)
+                            video.listaPerguntas.forEach((pergunta: Pergunta) => {
+                              console.log("pergunta: ",pergunta)
                               var obj: Forum = {
                                 usuario: this.usuario,
                                 titulo: pergunta.titulo,
                                 conteudo: pergunta.conteudo,
-                                resposta: pergunta.resposta == null? 'Aguardando resposta' : pergunta.resposta
+                                resposta: pergunta.resposta == null? 'Aguardando resposta' : pergunta.resposta,
+                                listaResposta: pergunta.listaResposta,
                               }
 
                               if(this.imagensACarregar != undefined || this.imagensACarregar != null)
@@ -278,12 +282,20 @@ export class AulaComponent {
     if(this.curso.listaVideos != null && this.curso.listaVideos != undefined){
       this.curso.listaVideos.forEach(video => {
           if(video.nome == novoVideo.nome){
+            this.arquivoAula = []
+
             this.idCurso = video.id;
             video.aulaAtual = true;
             this.ModuloSelecionado = video.src;
             this.ModuloSelecionado = video.nomeArquivo;
             this.nomeModulo = video.nome;
             this.descricao = video.descricao;
+            video.listaIdsArquivos.forEach((id: string) => {
+              var arq = this.listaTodosArquivos.find(a=> a.id == id);
+
+              if(arq)
+                this.arquivoAula.push(arq)
+            });
 
           }else
             video.aulaAtual = false;
@@ -401,16 +413,15 @@ export class AulaComponent {
   }
 
   Adicionar(){
-    if(this.formulario.controls['Titulo'].value == ''
-    || this.formulario.controls['Conteudo'].value == ''){
+    if(this.formulario.controls['Conteudo'].value == ''){
 
     } else {
       var obj: Forum = {
         usuario: this.usuario,
         titulo: this.formulario.controls['Titulo'].value,
         conteudo: this.formulario.controls['Conteudo'].value,
-        resposta: 'Aguardando resposta'
-
+        resposta: 'Aguardando resposta',
+        listaResposta: [{ nome: this.usuario.nome != undefined? this.usuario.nome:"", resposta: this.formulario.controls['Conteudo'].value, tipo: 1}],
       }
 
       if(this.imagensACarregar != undefined || this.imagensACarregar != null)
@@ -424,6 +435,8 @@ export class AulaComponent {
         idUsuario: this.usuario.id,
         titulo: this.formulario.controls['Titulo'].value,
         conteudo: this.formulario.controls['Conteudo'].value,
+        listaResposta: [{ nome: this.usuario.nome != undefined? this.usuario.nome:"", resposta: this.formulario.controls['Conteudo'].value, tipo: 1}],
+
       }
 
       this.videoService.cadastrarPergunta(pergunta).subscribe(res=>{});

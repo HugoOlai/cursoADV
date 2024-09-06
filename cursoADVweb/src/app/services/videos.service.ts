@@ -36,6 +36,14 @@ export class VideoService {
       );
   }
 
+  responder(pergunta: any) : Observable<any> {
+    return this.http.post(`${environment.baseUrl}/video/responder`, pergunta)
+      .pipe(
+        take(1),
+        map(result => result)
+      );
+  }
+
   deletar(video: any) : Observable<any> {
     return this.http.post(`${environment.baseUrl}/video/deletar`, video)
       .pipe(

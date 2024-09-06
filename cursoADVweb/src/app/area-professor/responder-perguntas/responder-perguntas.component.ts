@@ -144,6 +144,7 @@ export class ResponderPerguntasComponent {
     this.router.navigate(['acesso/loginProfessor']);
   }
   openDialog(item: any){
+    console.log(item)
     const dialogRef = this.dialog.open(EditaRespostaComponent, {
       panelClass: "second-modal-backdrop",
       width: "80%",

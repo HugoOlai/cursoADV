@@ -139,16 +139,16 @@
 
         </div>
         <form class="col-10" [formGroup]="formulario">
-          <div class="col-12  form-angular-material">
+          <!-- <div class="col-12  form-angular-material">
             <mat-form-field class="ps-3" style="width: 100%;" appearance="outline">
               <mat-label class="">O que você quer perguntar ou compartilhar? </mat-label>
               <input matInput (focus)="campoSelecionado = 'Titulo'" formControlName="Titulo" type="text" autocomplete="off">
 
             </mat-form-field>
-          </div>
+          </div> -->
           <div class="col-12">
             <mat-form-field>
-              <!-- <mat-label>No que voçê esta pensando?</mat-label> -->
+              <mat-label>O que você quer perguntar ou compartilhar?</mat-label>
               <textarea class="pt-1" style="height: 73px !important;" (focus)="campoSelecionado = 'Conteudo'" formControlName="Conteudo" matInput></textarea>
             </mat-form-field>
           </div>
@@ -205,23 +205,33 @@
       </div>
       <div class="col-12 mt-4 mb-4">
         <div class="w-100 mt-4 p-4 d-flex flex-wrap" *ngFor="let item of listaSearch" style="border: #c3c1c1 solid 1px; border-radius: 10px;">
-          <div class="{{isMobile?'col-4':'col-1'}}" [style]="isMobile? '':'width: 13.333333% !important;'">
+          <!-- <div class="{{isMobile?'col-4':'col-1'}}" [style]="isMobile? '':'width: 13.333333% !important;'">
             <div class="circle" style="height: 80px !important; width: 80px !important;">
               <img src="{{item.usuario.src}}">
             </div>
-          </div>
-          <div class="{{isMobile?'col-8':'col-10'}} pt-3">
+          </div> -->
+          <!-- <div class="{{isMobile?'col-8':'col-10'}} pt-3">
             <div class="col-12 {{isMobile?'fs-5':'fs-4'}} fontTitulo3 defineFontBold">
               <strong>{{item.usuario.nome}}</strong>
             </div>
             <div style="color:#c3c1c1" class="col-12 fontTitulo2 {{isMobile?'fs-5':'fs-4'}} pt-2">
               {{item.usuario.cargo}}
             </div>
+          </div> -->
+          <div class="w-100 d-flex flex-wrap w-100 mt-2 {{resposta.tipo == 0? 'justify-content-end':'justify-content-start'}}" *ngFor="let resposta of item.listaResposta" >
+            <!-- <div class="" style="width: fit-content;"> -->
+              <div class="col-6 d-flex {{resposta.tipo == 0? 'justify-content-end':'justify-content-start'}}">
+                <div class="p-2" style="background-color: #fbefed; border-radius: 10px;">{{resposta.nome}}:</div>
+              </div>
+              <div class="col-12 mt-2 d-flex {{resposta.tipo == 0? 'justify-content-end':'justify-content-start'}}" >{{resposta.resposta}}</div>
+            <!-- </div> -->
           </div>
-          <div class="col-12 {{isMobile?'mt-3':''}}">
-            <div style="line-height:1.0;" class="col-12 fontTitulo3 fs-3 defineFontBold">
+
+          <!-- <div *ngFor="let resposta of item.listaResposta" class="col-12 {{isMobile?'mt-3':''}}">
+            <!-- <div style="line-height:1.0;" class="col-12 fontTitulo3 fs-3 defineFontBold">
               <strong>{{item.titulo}}</strong>
             </div>
+
             <div style="color:#9c9a9a" class="col-12 pt-2 fs-6">
               {{item.conteudo}}
             </div>
@@ -232,7 +242,7 @@
             <div>
               <img src="{{imagemSelecionada}}"   height="300"/>
             </div>
-          </div>
+          </div> -->
           <!-- <div class="col-12 pt-2">
             <span style="cursor:pointer ;" (click)="irParapublicacao()" class="fontTitulo2 fs-6" > Entrar na discussão... </span>
           </div> -->
@@ -252,7 +262,7 @@
   </div>
   <!-- menu de aulas para pc -->
   <div  class="{{isMobile? 'col-12':'col-4'}}" *ngIf="curso.tipoCurso != 'GRUPOESTUDOS' && !carregando && !isMobile">
-    <div class="w-100 m-2 modulos mt-5 pt-4 pb-3" s >
+    <div class="w-100 {{isMobile? '':'m-2'}}  modulos mt-5 pt-4 pb-3" s >
       <h1 class="px-4"><b>Aulas</b></h1>
           <hr class="w-100" />
 

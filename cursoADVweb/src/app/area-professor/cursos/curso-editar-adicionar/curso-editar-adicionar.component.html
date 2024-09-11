@@ -59,6 +59,19 @@
             <input (change)="formataValorCupom()" matInput formControlName="ValorCupomFormatado">
           </mat-form-field>
         </div>
+        <div class="col-12 mb-2">
+          <div class="w-100 d-flex justify-content-end">
+            <button *ngIf="!carregando" class="btn btn-primary rounded-pill" (click)="adicionarCupom()">ADICIONAR</button>
+          </div>
+          <app-table class="w-100" *ngIf="listaCupons.length > 0"
+            [lista]="listaCupons"
+            [header]="header"
+            [options]="options"
+            [actions]="actions">
+          </app-table>
+        </div>
+
+
         <div class="{{isMobile? 'col-12':'col-6'}}">
           <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
             <mat-label>Título</mat-label>

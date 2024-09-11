@@ -23,7 +23,8 @@ export interface Curso {
   video?: null,
   arquivo?: null,
   topcos: Array<string>,
-  listaVideos: Array<any>
+  listaCupons?: Array<any>,
+  listaVideos: Array<any>,
   listaArquivosApoio?: any,
 
   valor: number,

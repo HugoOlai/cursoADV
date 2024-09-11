@@ -73,6 +73,8 @@ export class ContratacaoComponent {
   tipoPagamento = 1;
   listaParcelas: Array<any> = [];
   listaTipoAluno: Array<any> = [];
+  listaCupon: Array<any> = [];
+  valorOriginal: any;
   desabilitar: boolean = false;
   usuario: Usuario;
   tipoAluno: any = "0";
@@ -160,7 +162,10 @@ export class ContratacaoComponent {
               this.carregando = false;
               this.curso = curso;
 
+              this.valorOriginal = this.curso.valor;
               this.formularioCadastro.get("ValorCurso")?.setValue(this.curso.valor);
+              if(curso.listaCupons != null)
+                this.listaCupon = curso.listaCupons;
 
               if(this.curso.valor){
                 var divisao = this.curso.valor/12;
@@ -193,10 +198,12 @@ export class ContratacaoComponent {
 
   validaCupon(){
     var form = this.formularioCadastro.value
-    if(form.Cupom == this.curso.cupom){
+    var cuponEncontrado = this.listaCupon.find(c => c.cupom == form.Cupom)
+    console.log(cuponEncontrado)
+    if(cuponEncontrado){
 
-      if(this.curso.valor && this.curso.valorCupom){
-        this.curso.valor = this.curso.valor - this.curso.valorCupom;
+      if(this.curso.valor && cuponEncontrado.valorCupom){
+        this.curso.valor = this.valorOriginal - cuponEncontrado.valorCupom;
         this.formularioCadastro.get("ValorCurso")?.setValue(this.curso.valor);
         if(this.curso.valor){
           var divisao = this.curso.valor/12;

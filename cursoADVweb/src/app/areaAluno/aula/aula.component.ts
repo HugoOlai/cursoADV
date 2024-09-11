@@ -145,7 +145,7 @@ export class AulaComponent {
                     if(this.curso.listaVideos != null && this.curso.tipoCurso != 'GRUPOESTUDOS'){
                       var listaArq: Array<Arquivo> = [];
 
-                      this.curso.listaVideos[0].aulaAtual = true;
+                      // this.curso.listaVideos[0].aulaAtual = true;
                       this.curso.listaVideos.forEach(video => {
                         if(video.aulaAtual == true){
                           this.idCurso = video.id

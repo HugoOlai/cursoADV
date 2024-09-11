@@ -11,6 +11,7 @@ import { ArquivosService } from '../../../services/arquivos.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SnackBarComponent } from '../../../components/snack-bar/snack-bar.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { ActionsTable, HeaderTable, OptionsTable } from '../../../components/table/table.class';
 
 export interface SelectedFiles {
   name: string;
@@ -38,8 +39,9 @@ export class CursoEditarAdicionarComponent {
   statusSelecionado: any;
   imagemSelecionada: any;
 
-  imagensACarregar?: Array<Arquivo>;
   topicos: Array<String> = [];
+  listaCupons: Array<any> = [];
+  imagensACarregar?: Array<Arquivo>;
   listaArquivosApoio:Array<any> = [];
   listaArquivosApoioNovos:Array<any> = [];
 
@@ -62,6 +64,57 @@ export class CursoEditarAdicionarComponent {
     {
       id: 2,
       nome: "GRUPOESTUDOS",
+    }
+  ]
+
+  header: HeaderTable[] = [
+    {
+      description: 'Cupom',
+      key: 'cupom', order: false, class: 'text-left',
+      selectAll: false,
+      select: false
+    },
+    {
+      description: 'Valor Cupom',
+      key: 'valorCupomFormatado',
+      order: false,
+      class: 'text-left',
+      selectAll: false,
+      select: false
+    }
+  ]
+
+  options: OptionsTable = {
+    select: false,
+    selectAll: false,
+    action: true,
+    searchShow: false,
+    lineSize: true,
+    placeholder: '',
+    captionShow: true,
+    caption: 'Total de {@} cupons',
+    empty: 'Não existem cupons para serem exibidos',
+    pagination: true,
+    modeCard: this.isMobile,
+    lineMode: this.isMobile,
+    textAction: 'Ação',
+    pageSize: 5,
+    handle: ()=>{},
+    pagesSize: [5,10,15,20],
+    descriptionPageSize: 'Cupons por página',
+
+  };
+
+  actions: ActionsTable[] = [
+    {
+      description: 'Deletar',
+      icon: 'edit',
+      isButton: true,
+      class: 'btn btn-primary btn-sm rounded-pill icon-button-only',
+      tooltip: '',
+      classIcon: 'ft-14',
+      placement: 'top',
+      handle: (item: any) => { this.deletarCupom(item) }
     }
   ]
 
@@ -105,6 +158,8 @@ export class CursoEditarAdicionarComponent {
       if(this.data.curso.topcos != null)
         this.topicos = [...this.data.curso.topcos]
 
+      if(this.data.curso.listaCupons != null)
+        this.listaCupons = this.data.curso.listaCupons
       // if(this.data.curso.listaArquivosApoio != null)
       //   this.listaArquivosApoio = [...this.data.curso.listaArquivosApoio]
       this.carregando = true;
@@ -119,6 +174,34 @@ export class CursoEditarAdicionarComponent {
 
   }
 
+  adicionarCupom(){
+    var form = this.formularioCurso.value;
+    this.carregando = true;
+
+    var index = this.listaCupons.length > 0? this.listaCupons.length + 1 : this.listaCupons.length;
+    if(this.listaCupons.length > 0)
+      index ++
+
+
+    var obj = {
+      index: index,
+      cupom: form.Cupom,
+      valorCupomFormatado: form.ValorCupomFormatado,
+      valorCupom: form.ValorCupomFormatado.replace("R$", '').replace(",",".").trim(),
+    }
+
+    if(this.listaCupons.length == 0)
+      index ++
+
+    this.listaCupons.push(obj);
+
+    setTimeout(() => {
+      this.carregando = false;
+
+    }, 1000);
+
+  }
+
   openSnackBar(defineClass: any) {
     this._snackBar.openFromComponent(SnackBarComponent, {
       horizontalPosition: this.horizontalPosition,
@@ -126,6 +209,20 @@ export class CursoEditarAdicionarComponent {
       duration: 4 * 1000,
       panelClass: defineClass
     });
+  }
+
+  deletarCupom(cupom: any){
+    this.carregando = true;
+
+    console.log(cupom)
+    var lista = this.listaCupons.filter(c => c.index != cupom.index)
+    this.listaCupons = lista;
+
+    console.log(lista)
+    setTimeout(() => {
+      this.carregando = false;
+
+    }, 1000);
   }
 
   formataValorCupom(){
@@ -254,7 +351,7 @@ export class CursoEditarAdicionarComponent {
     form.tipoCurso = form.Tipo
     form.Status = form.Status == 'INATIVO'? false : true;
     form.src = this.data.curso.src;
-
+    form.listaCupons = this.listaCupons;
     this.carregando = true;
     this.cursosService.editar(form).subscribe(res => {
       if(this.listaArquivosApoioNovos.length > 0){

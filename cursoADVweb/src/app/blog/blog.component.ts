@@ -58,14 +58,22 @@ export class BlogComponent implements OnInit {
   ngOnInit() {
     // if(location.hash.includes('acesso') || location.hash.includes('areaAluno') || location.hash.includes('admin')){
     this.menu.map((menu: Menu) => {if(menu.Link == location.hash) menu.Ativo = true; else menu.Ativo = false; return menu} )
-    if(window.location.href.includes('cursos'))
+    if(window.location.href.includes('cursos')){
+      this.menuAnteriroSelecionado = 'Cursos';
       this.marcarComoSelecionado('Cursos')
+    }
 
-    if(window.location.href.includes('quemSomos'))
+    if(window.location.href.includes('quemSomos')){
+      this.menuAnteriroSelecionado = 'Quem Somos';
       this.marcarComoSelecionado('Quem Somos')
 
-    if(window.location.href.includes('cursos'))
+    }
+
+    if(window.location.href.includes('inicio')){
+      this.menuAnteriroSelecionado = 'Início';
       this.marcarComoSelecionado('Início')
+
+    }
   }
 
   redirecionarLogin() {
@@ -89,6 +97,8 @@ export class BlogComponent implements OnInit {
   }
 
   marcarComoSelecionado(nome: string){
+    console.log({nome: nome})
+    console.log({menuAnteriroSelecionado: this.menuAnteriroSelecionado})
     if(nome != this.menuAnteriroSelecionado){
       (document.getElementById(nome) as HTMLButtonElement).style.borderBottom = 'thick solid #ed8f00';
       (document.getElementById(nome) as HTMLButtonElement).style.fontWeight = '900';

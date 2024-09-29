@@ -119,6 +119,7 @@ export class cursosComponent {
       valor: 0,
       valorCupom: 0,
       src: null,
+      idImg: "",
       listaVideos: [],
       statusPago: false
     }

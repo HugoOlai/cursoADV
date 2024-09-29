@@ -283,11 +283,11 @@
   </div>
 
 </div>
-<div class="col-12 d-flex mb-4">
+<div *ngIf="!carregando" class="col-12 d-flex mb-4">
   <div class="col-6 justify-content-start ps-4">
     <button type="button" (click)="voltarInicio()" class="btn btn-info text-light"><strong>VOLTAR</strong></button>
   </div>
 </div>
 
-<app-roda-pe></app-roda-pe>
+<app-roda-pe *ngIf="!carregando"></app-roda-pe>
 

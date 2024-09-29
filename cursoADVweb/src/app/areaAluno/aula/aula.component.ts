@@ -129,7 +129,8 @@ export class AulaComponent {
 
                 this.arquivosService.pegarArquivos(this.curso.id).subscribe(res=>{
                   res.forEach((arquivo: any) => {
-                    this.arquivoAula.push(arquivo);
+                    if(arquivo.nome != "Capa")
+                      this.arquivoAula.push(arquivo);
                   });
                   this.listaTodosArquivos = this.arquivoAula;
                   this.videoService.pegarTodos().subscribe((resVideo: Array<Video>)=>{

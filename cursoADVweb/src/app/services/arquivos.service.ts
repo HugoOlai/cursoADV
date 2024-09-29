@@ -20,5 +20,13 @@ export class ArquivosService {
       );
   }
 
+  pegarArquivo(id: string) : Observable<any> {
+    return this.http.post(`${environment.baseUrl}/Arquivos/PegarArquivo`, {Id: id})
+      .pipe(
+        take(1),
+        map(result => result)
+      );
+  }
+
 
 }

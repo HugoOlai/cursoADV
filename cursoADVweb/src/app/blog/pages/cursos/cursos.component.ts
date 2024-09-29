@@ -5,6 +5,7 @@ import { Curso } from '../../../shared/class/Curso.class';
 import { AuthService } from '../../../services/auth.service';
 import { Usuario } from '../../../shared/class/Usuario.class';
 import { CursosService } from '../../../services/cursos.service';
+import { ArquivosService } from '../../../services/arquivos.service';
 
 @Component({
   selector: 'app-cursos',
@@ -14,6 +15,7 @@ import { CursosService } from '../../../services/cursos.service';
 export class CursosComponent {
   isMobile = Util.isMobile();
   carregando: boolean = true;
+  carregandoGrupoEstudo: boolean = true;
   usuario: Partial<Usuario> = {};
   // usuario?: Usuario;
 
@@ -22,6 +24,7 @@ export class CursosComponent {
   constructor(
     private service: AuthService,
     public router: Router,
+    private arquivosService: ArquivosService,
     public cursosService: CursosService
   ) { }
 
@@ -36,41 +39,60 @@ export class CursosComponent {
         })
 
         res.forEach((curso: Curso) => {
+          this.carregando = true;
           if(this.usuario.tipo?.toLocaleUpperCase() == 'PROFESSOR' && curso.status == false){
-            if(curso.tipoCurso == "CURSO"){
-              if(listaIdsCursos.includes(curso.id)){
+            this.arquivosService.pegarArquivo(curso.idImg).subscribe(res=>{
+              console.log(res)
+              curso.src = res.base64;
+              curso.idImg = res.id;
+              //this.carregando = false;
+              if(curso.tipoCurso == "CURSO"){
+                if(listaIdsCursos.includes(curso.id)){
+                    curso.cursoContratado = true;
+                }
+                  this.listaCursos.push(curso);
+              }
+
+              if(curso.tipoCurso == "GRUPOESTUDOS"){
+                if(listaIdsCursos.includes(curso.id)){
                   curso.cursoContratado = true;
-              }
-                this.listaCursos.push(curso);
-            }
+                }
 
-            if(curso.tipoCurso == "GRUPOESTUDOS"){
-              if(listaIdsCursos.includes(curso.id)){
-                curso.cursoContratado = true;
+                this.listaGrupoEstudos.push(curso);
               }
+            });
 
-              this.listaGrupoEstudos.push(curso);
-            }
+
+
           } else if(curso.status){
-            if(curso.tipoCurso == "CURSO"){
-              if(listaIdsCursos.includes(curso.id)){
+            this.arquivosService.pegarArquivo(curso.idImg).subscribe(res=>{
+              console.log(res)
+              curso.src = res.base64;
+              curso.idImg = res.id;
+              //this.carregando = false;
+              if(curso.tipoCurso == "CURSO"){
+                if(listaIdsCursos.includes(curso.id)){
+                    curso.cursoContratado = true;
+                }
+                  this.listaCursos.push(curso);
+              }
+
+              if(curso.tipoCurso == "GRUPOESTUDOS"){
+                if(listaIdsCursos.includes(curso.id)){
                   curso.cursoContratado = true;
-              }
-                this.listaCursos.push(curso);
-            }
+                }
 
-            if(curso.tipoCurso == "GRUPOESTUDOS"){
-              if(listaIdsCursos.includes(curso.id)){
-                curso.cursoContratado = true;
+                this.listaGrupoEstudos.push(curso);
               }
-
-              this.listaGrupoEstudos.push(curso);
-            }
+            });
           }
 
+          setTimeout(() => {
+            this.carregando = false;
+          }, 3000);
         });
 
-        this.carregando = false;
+        //this.carregando = false;
 
       },
       error: (err)=>{

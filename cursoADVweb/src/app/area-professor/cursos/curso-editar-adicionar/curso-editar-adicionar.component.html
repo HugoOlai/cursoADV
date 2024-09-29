@@ -161,7 +161,15 @@
           </span>
         </div>
 
-        <div *ngIf="this.listaArquivosApoio.length == 0"
+        <div class="col-12 p-4" *ngIf="carregandoArquivos">
+          <div class="w-100 clearfix d-flex justify-content-center">
+            <p class="fs-6"> Carregando </p>
+            <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+              <span class="sr-only"></span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="this.listaArquivosApoio.length == 0 && !carregandoArquivos"
         class="d-flex justify-content-center w-100 mb-5">
           NÃO POSSUI ARQUIVOS ADICIONADOS
         </div>

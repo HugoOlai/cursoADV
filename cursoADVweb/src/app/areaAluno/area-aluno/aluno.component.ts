@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { Usuario } from '../../shared/class/Usuario.class';
 import { UsuarioService } from '../../services/usuario.service';
 import { CursosService } from './../../services/cursos.service';
+import { ArquivosService } from '../../services/arquivos.service';
 
 @Component({
   selector: 'app-aluno',
@@ -30,6 +31,7 @@ export class AlunoComponent {
     private service: AuthService,
     public router: Router,
     private usuarioService: UsuarioService,
+    private arquivosService: ArquivosService,
     private cookie: CookieService,
     private cursosService: CursosService
   ) { }
@@ -40,17 +42,26 @@ export class AlunoComponent {
       next: (res: any) =>{
         this.usuario = res;
         this.service.setCliente(res)
-        this.carregando = false;
 
         if(this.usuario.listaCursos != undefined) {
-          this.carregando = true;
 
           this.cursosService.pegarTodos().subscribe({
             next: (cursos: Array<Curso>) =>{
               this.usuario.listaCursos?.forEach((cursoContratado: Curso) => {
+                this.carregando = true;
+
                 var cursoInformacoesCompletas = cursos.find(curs => curs.id == cursoContratado.id);
 
                 if(cursoInformacoesCompletas){
+                  this.arquivosService.pegarArquivo(cursoInformacoesCompletas.idImg).subscribe(res=>{
+                    console.log(res)
+                    if(cursoInformacoesCompletas != undefined)
+                      cursoInformacoesCompletas.src = res.base64;
+
+                    this.carregando = false;
+
+                  });
+
                   cursoInformacoesCompletas.statusPago = cursoContratado.statusPago
 
                   if(cursoInformacoesCompletas.tipoCurso == "GRUPOESTUDOS"){
@@ -78,7 +89,6 @@ export class AlunoComponent {
                 }
 
               });
-              this.carregando = false;
               if(this.temPagamentoPendente)
                 this.pegarCursosPagamentoAtualizado();
 
@@ -139,6 +149,8 @@ export class AlunoComponent {
                 }
 
               });
+
+
               this.carregando = false;
 
             },

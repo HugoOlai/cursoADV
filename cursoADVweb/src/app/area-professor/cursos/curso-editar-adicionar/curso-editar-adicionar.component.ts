@@ -29,6 +29,7 @@ export class CursoEditarAdicionarComponent {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   carregando = false;
+  carregandoArquivos = true;
   criarCurso = false;
   imgCurso: any;
   formularioCurso: FormGroup;
@@ -160,15 +161,30 @@ export class CursoEditarAdicionarComponent {
 
       if(this.data.curso.listaCupons != null)
         this.listaCupons = this.data.curso.listaCupons
-      // if(this.data.curso.listaArquivosApoio != null)
-      //   this.listaArquivosApoio = [...this.data.curso.listaArquivosApoio]
+
       this.carregando = true;
+      this.arquivosService.pegarArquivo(this.data.curso.idImg).subscribe(res=>{
+        console.log(res)
+        if(res != null){
+          this.data.curso.src = res.base64;
+          this.data.curso.idImg = res.id;
+        }
+
+        this.carregando = false;
+      }, err=>{
+        this.carregando = false;
+
+      });
+
+      if(this.data.curso.listaArquivosApoio != null)
+        this.listaArquivosApoio = [...this.data.curso.listaArquivosApoio]
+      this.carregandoArquivos = true;
       this.arquivosService.pegarArquivos(this.data.curso.id).subscribe(res=>{
         res.forEach((arquivo: any) => {
           this.listaArquivosApoio.push(arquivo);
         });
 
-        this.carregando = false;
+        this.carregandoArquivos = false;
       })
     }
 
@@ -347,11 +363,13 @@ export class CursoEditarAdicionarComponent {
   salvar(){
     var form = this.formularioCurso.value;
     form.id = this.data.curso.id;
+    form.idImg = this.data.curso.idImg;
     form.topcos = this.topicos;
     form.tipoCurso = form.Tipo
     form.Status = form.Status == 'INATIVO'? false : true;
     form.src = this.data.curso.src;
     form.listaCupons = this.listaCupons;
+
     this.carregando = true;
     this.cursosService.editar(form).subscribe(res => {
       if(this.listaArquivosApoioNovos.length > 0){

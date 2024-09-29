@@ -10,7 +10,7 @@
   </div>
 
   <div *ngIf="(this.usuario.listaCursos == null || this.usuario.listaCursos.length == 0) && !carregando"
-  class="col-12 d-flex flex-wrap justify-content-center">
+    class="col-12 d-flex flex-wrap justify-content-center">
     <div class="col-12">
       <h1 class="w-100">
         <strong class="fontTitulo  d-flex justify-content-center {{isMobile? 'fs-5':' fs-3'}} text-center">
@@ -23,7 +23,7 @@
     </button>
   </div>
 
-  <div class="col-12 d-flex flex-wrap {{isMobile?'justify-content-center':''}} " *ngIf="meusCursos">
+  <div class="col-12 d-flex flex-wrap {{isMobile?'justify-content-center':''}} " *ngIf="meusCursos && !carregando">
     <div class="col-12 pb-2">
       <h1 class="fontTitulo d-flex {{isMobile?'justify-content-center':''}} " >
         <strong style="font-size: 33px;">MEUS CURSOS</strong>
@@ -37,7 +37,9 @@
           </p>
         </h4>
         <!-- <img src="{{curso.src}}" class="card-img-top" alt="..."> -->
-        <img src="https://centroproinf.com.br/video/Direito da crianca.jpg" class="card-img-top" alt="...">
+        <img *ngIf="curso.src == ''" src="assets/imgs/site proinf quem somos e cursos/6.png" class="card-img-top" alt="...">
+
+        <img *ngIf="curso.src != ''" src="{{curso.src}}" class="card-img-top" alt="...">
       </div>
 
       <div *ngIf="!curso.statusPago" class="card me-2" style="width: 18rem;">
@@ -51,7 +53,7 @@
     </div>
   </div>
 
-  <div class="col-12 d-flex flex-wrap {{isMobile?'justify-content-center':''}}  mt-4" *ngIf="meusGruposEstudo">
+  <div class="col-12 d-flex flex-wrap {{isMobile?'justify-content-center':''}}  mt-4" *ngIf="meusGruposEstudo && !carregando">
     <div class="col-12 pb-2">
       <h1 class="fontTitulo d-flex {{isMobile?'justify-content-center':''}} " >
         <strong [style]="isMobile?'font-size: 27px':'font-size: 33px'">MEUS GRUPOS DE ESTUDO</strong>
@@ -64,7 +66,9 @@
             <strong class="">{{curso.titulo.toLocaleUpperCase()}}</strong>
           </p>
         </h4>
-        <img src="{{curso.src}}" class="card-img-top" alt="...">
+        <img *ngIf="curso.src == ''" src="assets/imgs/site proinf quem somos e cursos/6.png" class="card-img-top" alt="...">
+
+        <img *ngIf="curso.src != ''" src="{{curso.src}}" class="card-img-top" alt="...">
       </div>
 
       <div *ngIf="!curso.statusPago" class="card me-2" style="width: 18rem;">
@@ -79,3 +83,5 @@
   </div>
 
 </div>
+
+<app-roda-pe *ngIf="!carregando"></app-roda-pe>

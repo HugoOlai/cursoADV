@@ -12,6 +12,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 import { Usuario } from '../../shared/class/Usuario.class';
 import { AuthService } from '../../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
+import { ArquivosService } from '../../services/arquivos.service';
 
 const moment = _rollupMoment || _moment;
 
@@ -89,6 +90,7 @@ export class ContratacaoComponent {
     private service: AuthService,
     private cookie: CookieService,
     public router: Router,
+    private arquivosService: ArquivosService,
     private fb: FormBuilder,
     private cursosService: CursosService,
     private _snackBar: MatSnackBar
@@ -159,26 +161,36 @@ export class ContratacaoComponent {
         if (this.curso.id != undefined) {
           this.cursosService.pegar(this.curso).subscribe({
             next: (curso: Curso) =>{
-              this.carregando = false;
               this.curso = curso;
+              this.arquivosService.pegarArquivo(curso.idImg).subscribe(res=>{
+                console.log(res)
+                this.curso.src = res.base64;
+                //this.carregando = false;
+                this.valorOriginal = this.curso.valor;
+                this.formularioCadastro.get("ValorCurso")?.setValue(this.curso.valor);
+                if(curso.listaCupons != null)
+                  this.listaCupon = curso.listaCupons;
 
-              this.valorOriginal = this.curso.valor;
-              this.formularioCadastro.get("ValorCurso")?.setValue(this.curso.valor);
-              if(curso.listaCupons != null)
-                this.listaCupon = curso.listaCupons;
+                if(this.curso.valor){
+                  var divisao = this.curso.valor/12;
+                  this.parcelas = `12x de ${Util.formataValor(divisao)}`
+                  this.valorFormatado = Util.formataValor(this.curso.valor) ;
+                  this.valorComDesconto = Util.formataValor(this.curso.valor - 200)
+                }
 
-              if(this.curso.valor){
-                var divisao = this.curso.valor/12;
-                this.parcelas = `12x de ${Util.formataValor(divisao)}`
-                this.valorFormatado = Util.formataValor(this.curso.valor) ;
-                this.valorComDesconto = Util.formataValor(this.curso.valor - 200)
-              }
+                for (let index = 1; index <= 12; index++) {
+                  if(this.curso.valor)
+                    this.listaParcelas.push({index: index, descricao:`${index}x de ${Util.formataValor(this.curso.valor/index)}`});
 
-              for (let index = 1; index <= 12; index++) {
-                if(this.curso.valor)
-                  this.listaParcelas.push({index: index, descricao:`${index}x de ${Util.formataValor(this.curso.valor/index)}`});
+                }
 
-              }
+                this.carregando = false;
+
+              }, err=>{
+                this.carregando = false;
+
+              });
+
             },
             error: (err:any)=> {
               this.carregando = false;

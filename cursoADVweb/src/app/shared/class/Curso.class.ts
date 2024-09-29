@@ -21,6 +21,7 @@ export interface Curso {
 
   src: null,
   video?: null,
+  idImg: string,
   arquivo?: null,
   topcos: Array<string>,
   listaCupons?: Array<any>,

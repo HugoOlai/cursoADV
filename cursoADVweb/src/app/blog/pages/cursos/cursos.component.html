@@ -16,24 +16,24 @@
       <img [style]="isMobile?'':'position: relative; top: -4rem;'" src="assets/imgs/site proinf quem somos e cursos/13.png" alt="" height="{{isMobile?'368':'300'}}">
     </div>
   </div>
+  <div class="col-12 pt-5" *ngIf="carregando">
+    <div class="clearfix d-flex justify-content-center">
+      <p class="fs-6"> Carregando </p>
+      <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+        <span class="sr-only"></span>
+      </div>
+    </div>
+  </div>
 
-  <div class="col-12 d-flex flex-wrap defineFont pt-5 {{isMobile? '':'contemPaginas'}}">
+  <div *ngIf="!carregando" class="col-12 d-flex flex-wrap defineFont pt-5 {{isMobile? '':'contemPaginas'}}">
     <div class="col-12 d-flex flex-wrap" >
       <div class="col-12 pb-4 {{isMobile? 'px-3':''}}">
         <h1 class="fontTitulo" >
           <strong style="font-size: 33px;">CURSOS</strong>
         </h1>
       </div>
-      <div class="col-12" *ngIf="carregando">
-        <div class="clearfix d-flex justify-content-center">
-          <p class="fs-6"> Carregando </p>
-          <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
-            <span class="sr-only"></span>
-          </div>
-        </div>
-      </div>
 
-      <div *ngFor="let curso of listaCursos" class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
+      <div *ngFor="let curso of listaCursos" class="{{isMobile?'col-12 pb-3 justify-content-center':'col-4'}} d-flex flex-wrap ">
         <div class="card" style="width: 18rem;">
           <!-- <h4 class="text-center textImagem">
             <p class="text defineFont mt-2" style="width: 100%;">
@@ -42,7 +42,7 @@
           </h4> -->
           <!-- *ngIf="!grupoEstudos.cursoContratado" -->
           <!-- <img src="{{curso.src}}" class="card-img-top" alt="..."> -->
-          <img src="https://centroproinf.com.br/video/Direito da crianca.jpg" class="card-img-top" alt="...">
+          <img src="{{curso.src}}" class="card-img-top" alt="...">
           <div class="card-body" *ngIf="!curso.cursoContratado">
             <button type="button" (click)="redirecionar(curso)"
             class="btn btn-sm w-100 btn-danger icon-button shadow-sm rounded ">
@@ -54,10 +54,14 @@
         </div>
       </div>
 
-      <div class=" w-100 d-flex flex-wrap justify-content-center">
+      <div class=" w-100 d-flex flex-wrap {{isMobile?'justify-content-center':''}}">
         <div *ngIf="!carregando && listaCursos.length == 0" class="card" style="width: 18rem;">
-          <h4 class="text-center textImagem">
-            <p class="text defineFont mt-2" style="width: 100%;">
+          <h4 class="text-center textImagem d-flex justify-content-center pt-2">
+            <p *ngIf="carregando" class="fs-6"> Carregando </p>
+            <div *ngIf="carregando" class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+              <span class="sr-only"></span>
+            </div>
+            <p *ngIf="!carregando" class="text defineFont mt-2" style="width: 100%;">
               <strong class="">EM BREVE</strong>
             </p>
           </h4>
@@ -98,16 +102,16 @@
         </h1>
       </div>
 
-      <div class="col-12" *ngIf="carregando">
+      <!-- <div class="col-12" *ngIf="carregando">
         <div class="clearfix d-flex justify-content-center">
           <p class="fs-6"> Carregando </p>
           <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
             <span class="sr-only"></span>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div *ngFor="let grupoEstudos of listaGrupoEstudos" class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
+      <div *ngFor="let grupoEstudos of listaGrupoEstudos" class="{{isMobile?'col-12 pb-3 justify-content-center':'col-4'}} d-flex flex-wrap">
         <div class="card" style="width: 18rem;">
           <!-- <h4 class="text-center textImagem">
             <p class="text defineFont mt-2" style="width: 100%;">
@@ -127,10 +131,14 @@
         </div>
       </div>
 
-      <div *ngIf="listaGrupoEstudos.length == 0 && !carregando" class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
+      <div *ngIf="listaGrupoEstudos.length == 0 && !carregando" class="{{isMobile?'col-12 pb-3 justify-content-center':'col-4'}} d-flex flex-wrap ">
         <div class="card" style="width: 18rem;">
-          <h4 class="text-center textImagem">
-            <p class="text defineFont mt-2" style="width: 100%;">
+          <h4 class="text-center textImagem d-flex justify-content-center pt-2">
+            <p *ngIf="carregando" class="fs-6"> Carregando </p>
+            <div *ngIf="carregando" class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+              <span class="sr-only"></span>
+            </div>
+            <p *ngIf="!carregando" class="text defineFont mt-2" style="width: 100%;">
               <strong class="">EM BREVE</strong>
             </p>
           </h4>
@@ -208,7 +216,7 @@
         </div>
       </div> -->
 
-      <div class="{{isMobile?'col-12 pb-3':'col-4'}} d-flex flex-wrap justify-content-center">
+      <div class="{{isMobile?'col-12 pb-3 justify-content-center':'col-4'}} d-flex flex-wrap ">
         <div class="card" style="width: 18rem;">
           <h4 class="text-center textImagem">
             <p class="text defineFont mt-2" style="width: 100%;">

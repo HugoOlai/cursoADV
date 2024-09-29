@@ -42,7 +42,6 @@ export class CursosComponent {
           this.carregando = true;
           if(this.usuario.tipo?.toLocaleUpperCase() == 'PROFESSOR' && curso.status == false){
             this.arquivosService.pegarArquivo(curso.idImg).subscribe(res=>{
-              console.log(res)
               curso.src = res.base64;
               curso.idImg = res.id;
               //this.carregando = false;
@@ -66,7 +65,6 @@ export class CursosComponent {
 
           } else if(curso.status){
             this.arquivosService.pegarArquivo(curso.idImg).subscribe(res=>{
-              console.log(res)
               curso.src = res.base64;
               curso.idImg = res.id;
               //this.carregando = false;

@@ -163,7 +163,6 @@ export class ContratacaoComponent {
             next: (curso: Curso) =>{
               this.curso = curso;
               this.arquivosService.pegarArquivo(curso.idImg).subscribe(res=>{
-                console.log(res)
                 this.curso.src = res.base64;
                 //this.carregando = false;
                 this.valorOriginal = this.curso.valor;
@@ -211,7 +210,6 @@ export class ContratacaoComponent {
   validaCupon(){
     var form = this.formularioCadastro.value
     var cuponEncontrado = this.listaCupon.find(c => c.cupom == form.Cupom)
-    console.log(cuponEncontrado)
     if(cuponEncontrado){
 
       if(this.curso.valor && cuponEncontrado.valorCupom){

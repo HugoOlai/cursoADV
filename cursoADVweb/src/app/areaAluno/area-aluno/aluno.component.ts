@@ -54,7 +54,6 @@ export class AlunoComponent {
 
                 if(cursoInformacoesCompletas){
                   this.arquivosService.pegarArquivo(cursoInformacoesCompletas.idImg).subscribe(res=>{
-                    console.log(res)
                     if(cursoInformacoesCompletas != undefined)
                       cursoInformacoesCompletas.src = res.base64;
 

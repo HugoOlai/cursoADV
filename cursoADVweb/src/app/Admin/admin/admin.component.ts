@@ -111,7 +111,7 @@ export class AdminComponent {
       next: res=>{
       },
       error:err=>{
-        console.log(err);
+        //console.log(err);
 
       }
     })

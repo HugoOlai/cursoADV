@@ -97,8 +97,7 @@ export class BlogComponent implements OnInit {
   }
 
   marcarComoSelecionado(nome: string){
-    console.log({nome: nome})
-    console.log({menuAnteriroSelecionado: this.menuAnteriroSelecionado})
+
     if(nome != this.menuAnteriroSelecionado){
       (document.getElementById(nome) as HTMLButtonElement).style.borderBottom = 'thick solid #ed8f00';
       (document.getElementById(nome) as HTMLButtonElement).style.fontWeight = '900';

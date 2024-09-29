@@ -131,7 +131,6 @@ export class CursoEditarAdicionarComponent {
     public dialogRef: MatDialogRef<CursoEditarAdicionarComponent>,
 
   ){
-    console.log(data.curso)
     this.formularioCurso = this.fb.group({
       Nome: [data.curso.titulo],
       Titulo: [data.curso.titulo],
@@ -164,7 +163,6 @@ export class CursoEditarAdicionarComponent {
 
       this.carregando = true;
       this.arquivosService.pegarArquivo(this.data.curso.idImg).subscribe(res=>{
-        console.log(res)
         if(res != null){
           this.data.curso.src = res.base64;
           this.data.curso.idImg = res.id;
@@ -230,11 +228,9 @@ export class CursoEditarAdicionarComponent {
   deletarCupom(cupom: any){
     this.carregando = true;
 
-    console.log(cupom)
     var lista = this.listaCupons.filter(c => c.index != cupom.index)
     this.listaCupons = lista;
 
-    console.log(lista)
     setTimeout(() => {
       this.carregando = false;
 

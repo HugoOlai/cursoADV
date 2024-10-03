@@ -180,7 +180,9 @@ export class VisualizarAlunoComponent {
         // console.log(this.listaCursos)
       }, err=> console.log(err));
     } else {
-      this.mensagem = "USUARIO NÃO POSSUI CURSO"
+      this.mensagem = "USUARIO NÃO POSSUI CURSO";
+      this.carregando = false;
+
     }
 
 

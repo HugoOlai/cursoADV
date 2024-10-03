@@ -7,11 +7,18 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!carregando">
+  <div *ngIf="!carregando" class="d-flex flex-wrap">
     <span class="fs-6">ALUNOS</span>
+    <div class="ms-auto">
+      <mat-form-field class="">
+        <mat-label>Consulta por nome</mat-label>
+        <input required matInput (keyup)="filtro($event)">
+      </mat-form-field>
 
-    <app-table
-      [lista]="listaAlunos"
+    </div>
+
+    <app-table class="w-100"
+      [lista]="listaAlunosFiltrada"
       [header]="header"
       [options]="options"
       (selection)="pegarSelecionados()"

@@ -47,6 +47,7 @@ export class AlunoComponent {
 
           this.cursosService.pegarTodos().subscribe({
             next: (cursos: Array<Curso>) =>{
+
               this.usuario.listaCursos?.forEach((cursoContratado: Curso) => {
                 this.carregando = true;
 
@@ -98,6 +99,9 @@ export class AlunoComponent {
 
             }
           })
+        } else {
+          this.carregando = false;
+
         }
 
       }, error: err =>{

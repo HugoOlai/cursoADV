@@ -9,7 +9,8 @@
         <!-- <h2><p><b>{{grupoEstudos.titulo}}</b></p></h2> -->
         <h1 *ngIf="curso.tipoCurso != 'CURSO'">
           <b style="color: #e64944;">{{curso.parcelas}}</b><br>
-          <small style="font-size:medium;">{{curso.valorFormatado}} à vista ou {{curso.valorComDesconto}} para os inscritos pelas cotistas</small>
+          <small style="font-size:medium;">{{curso.valorFormatado}} à vista </small>
+          <!-- ou {{curso.valorComDesconto}} para os inscritos pelas cotistas</small> -->
         </h1>
         <h1 *ngIf="curso.tipoCurso == 'CURSO'">
           <b style="color: #e64944;">{{curso.parcelas}}</b><br>

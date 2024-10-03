@@ -37,8 +37,10 @@ export class CursosComponent {
         this.usuario.listaCursos?.forEach((cursoContratado: Curso) => {
           listaIdsCursos.push(cursoContratado.id)
         })
+        console.log(res)
 
         res.forEach((curso: Curso) => {
+
           this.carregando = true;
           if(this.usuario.tipo?.toLocaleUpperCase() == 'PROFESSOR' && curso.status == false){
             this.arquivosService.pegarArquivo(curso.idImg).subscribe(res=>{
@@ -49,7 +51,8 @@ export class CursosComponent {
                 if(listaIdsCursos.includes(curso.id)){
                     curso.cursoContratado = true;
                 }
-                  this.listaCursos.push(curso);
+
+                this.listaCursos.push(curso);
               }
 
               if(curso.tipoCurso == "GRUPOESTUDOS"){
@@ -81,6 +84,8 @@ export class CursosComponent {
                 }
 
                 this.listaGrupoEstudos.push(curso);
+                console.log(this.listaGrupoEstudos)
+
               }
             });
           }

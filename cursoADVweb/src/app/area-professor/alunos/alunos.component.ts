@@ -26,7 +26,8 @@ export class alunosComponent {
 
   carregando: boolean = true;
   isMobile = Util.isMobile();
-  listaAlunos: Array<Usuario> = [];
+  listaAlunosFiltrada: Array<Usuario> = [];
+  listaAlunosCompleta: Array<Usuario> = [];
 
   header: HeaderTable[] = [
     {
@@ -109,12 +110,13 @@ export class alunosComponent {
   }
 
   pegarUsuarios(){
-    this.listaAlunos = [];
+    this.listaAlunosFiltrada = [];
 
     this.usuarioService.listaUsuarios().subscribe((res: Array<Usuario>)=>{
-      // console.log(res)
+      console.log(res)
       res.forEach(usuario => {
-        this.listaAlunos.push(usuario)
+        this.listaAlunosFiltrada.push(usuario)
+        this.listaAlunosCompleta.push(usuario)
       });
       this.carregando = false
     }, err =>{
@@ -142,6 +144,20 @@ export class alunosComponent {
       duration: 4 * 1000,
       panelClass: defineClass
     });
+  }
+
+  filtro(valor: any){
+    console.log(valor.target.value)
+    this.listaAlunosFiltrada = [];
+
+    if(valor.target.value.length > 2){
+      this.listaAlunosCompleta.forEach(aluno => {
+        if(aluno.nome.toLocaleUpperCase().includes(valor.target.value.toLocaleUpperCase()))
+          this.listaAlunosFiltrada.push(aluno)
+      });
+    } else {
+      this.listaAlunosFiltrada = this.listaAlunosCompleta
+    }
   }
 
   pegarSelecionados(){

@@ -14,7 +14,7 @@
 
   <!-- menu de aulas para mobile -->
   <div  class="{{isMobile? 'col-12':'col-4'}}" *ngIf="curso.tipoCurso != 'GRUPOESTUDOS' && !carregando && isMobile">
-    <div class="w-100 m-2 modulos mt-5 pt-4 pb-3" s >
+    <div class="w-100 {{isMobile? 'm-2':''}} modulos mt-5 pt-4 pb-3" s >
       <h1 class="px-4"><b>Aulas</b></h1>
           <hr class="w-100" />
 
@@ -82,7 +82,16 @@
         </mat-tree-node>
       </mat-tree>
 
-      <div *ngIf="this.arquivoAula.length > 0" class="d-flex flex-wrap w-100 mt-4">
+      <div class="col-12" *ngIf="carregandoArq">
+        <div class="clearfix d-flex justify-content-center">
+          <p class="fs-6"> Carregando </p>
+          <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+            <span class="sr-only"></span>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="this.arquivoAula.length > 0 && !carregandoArq" class="d-flex flex-wrap w-100 mt-4">
         <span *ngFor="let arquivo of this.arquivoAula">
           <div title="{{arquivo.nome}}" class="flex-wrap pointer d-flex justify-content-center mb-4" (click)="download(arquivo)">
             <img src="assets/imgs/pdf.png" class="" height="100">
@@ -93,7 +102,7 @@
         </span>
       </div>
 
-      <div *ngIf="arquivoAula.length == 0" class="mt-5">
+      <div *ngIf="arquivoAula.length == 0 && !carregandoArq" class="mt-5">
         <h1 class="w-100">
           <strong class="fontTitulo  d-flex justify-content-center {{isMobile? 'fs-5':' fs-3'}} text-center">
             SEU MATERIAL ESTARA DISPONIVEL EM BREVE

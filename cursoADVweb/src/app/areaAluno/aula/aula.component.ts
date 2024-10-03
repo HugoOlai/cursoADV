@@ -57,6 +57,7 @@ export class AulaComponent {
   descricaoSelecionado = true;
   tarefaSelecionada = false;
   carregando = true;
+  carregandoArq = true;
   curso: Partial<Curso> = {};
   listaSearch: Array<Forum> = [];
   isMobile = Util.isMobile();
@@ -127,73 +128,137 @@ export class AulaComponent {
               if (this.curso.id != undefined){
                 this.carregando = true;
 
+                this.videoService.pegarTodos().subscribe((resVideo: Array<Video>)=>{
+                  var lista: Array<Video> = []
+                  resVideo.forEach(video => {
+                    if(video.idCurso == this.curso.id){
+                      video.dataLancamentoFormatada = Util.dataFormatada(video.dataLancamento);
+                      lista.push(video)
+                    }
+                  });
+
+                  this.curso.listaVideos = lista;
+                  if(this.curso.listaVideos != null && this.curso.tipoCurso != 'GRUPOESTUDOS'){
+                    var listaArq: Array<Arquivo> = [];
+
+                    // this.curso.listaVideos[0].aulaAtual = true;
+                    this.curso.listaVideos.forEach(video => {
+                      if(video.aulaAtual == true){
+                        this.idCurso = video.id
+                        this.ModuloSelecionado = video.nomeArquivo;
+                        this.nomeModulo = video.nome;
+                        this.descricao = video.descricao;
+
+                        if(video.listaPerguntas != null){
+
+                          video.listaPerguntas.forEach((pergunta: Pergunta) => {
+                            var obj: Forum = {
+                              usuario: this.usuario,
+                              titulo: pergunta.titulo,
+                              conteudo: pergunta.conteudo,
+                              resposta: pergunta.resposta == null? 'Aguardando resposta' : pergunta.resposta,
+                              listaResposta: pergunta.listaResposta,
+                            }
+
+                            if(this.imagensACarregar != undefined || this.imagensACarregar != null)
+                              obj.arquivos = [...this.imagensACarregar]
+
+                            this.listaForuns.unshift(obj);
+                            this.listaSearch = [];
+                            this.mergeSort(this.listaForuns, 0, this.listaForuns.length);
+
+                          });
+                        }
+                        // video.aulaAtual = true;
+
+                        // this.arquivoAula = video.arquivos
+
+                        if(video.listaIdsArquivos != null)
+                          video.listaIdsArquivos.forEach((id: string) => {
+                            this.arquivoAula.forEach(arquivo => {
+                              if(id == arquivo.id){
+                                listaArq.push(arquivo)
+                              }
+                            });
+
+
+                          });
+                      }
+                      });
+                      this.arquivoAula = listaArq;
+                  }
+                  this.carregando = false;
+                })
+
                 this.arquivosService.pegarArquivos(this.curso.id).subscribe(res=>{
                   res.forEach((arquivo: any) => {
                     if(arquivo.nome != "Capa")
                       this.arquivoAula.push(arquivo);
                   });
+                  this.carregandoArq = false;
+
                   this.listaTodosArquivos = this.arquivoAula;
-                  this.videoService.pegarTodos().subscribe((resVideo: Array<Video>)=>{
-                    var lista: Array<Video> = []
-                    resVideo.forEach(video => {
-                      if(video.idCurso == this.curso.id){
-                        video.dataLancamentoFormatada = Util.dataFormatada(video.dataLancamento);
-                        lista.push(video)
-                      }
-                    });
+                  // this.videoService.pegarTodos().subscribe((resVideo: Array<Video>)=>{
+                  //   var lista: Array<Video> = []
+                  //   resVideo.forEach(video => {
+                  //     if(video.idCurso == this.curso.id){
+                  //       video.dataLancamentoFormatada = Util.dataFormatada(video.dataLancamento);
+                  //       lista.push(video)
+                  //     }
+                  //   });
 
-                    this.curso.listaVideos = lista;
-                    if(this.curso.listaVideos != null && this.curso.tipoCurso != 'GRUPOESTUDOS'){
-                      var listaArq: Array<Arquivo> = [];
+                  //   this.curso.listaVideos = lista;
+                  //   if(this.curso.listaVideos != null && this.curso.tipoCurso != 'GRUPOESTUDOS'){
+                  //     var listaArq: Array<Arquivo> = [];
 
-                      // this.curso.listaVideos[0].aulaAtual = true;
-                      this.curso.listaVideos.forEach(video => {
-                        if(video.aulaAtual == true){
-                          this.idCurso = video.id
-                          this.ModuloSelecionado = video.nomeArquivo;
-                          this.nomeModulo = video.nome;
-                          this.descricao = video.descricao;
+                  //     // this.curso.listaVideos[0].aulaAtual = true;
+                  //     this.curso.listaVideos.forEach(video => {
+                  //       if(video.aulaAtual == true){
+                  //         this.idCurso = video.id
+                  //         this.ModuloSelecionado = video.nomeArquivo;
+                  //         this.nomeModulo = video.nome;
+                  //         this.descricao = video.descricao;
 
-                          if(video.listaPerguntas != null){
+                  //         if(video.listaPerguntas != null){
 
-                            video.listaPerguntas.forEach((pergunta: Pergunta) => {
-                              var obj: Forum = {
-                                usuario: this.usuario,
-                                titulo: pergunta.titulo,
-                                conteudo: pergunta.conteudo,
-                                resposta: pergunta.resposta == null? 'Aguardando resposta' : pergunta.resposta,
-                                listaResposta: pergunta.listaResposta,
-                              }
+                  //           video.listaPerguntas.forEach((pergunta: Pergunta) => {
+                  //             var obj: Forum = {
+                  //               usuario: this.usuario,
+                  //               titulo: pergunta.titulo,
+                  //               conteudo: pergunta.conteudo,
+                  //               resposta: pergunta.resposta == null? 'Aguardando resposta' : pergunta.resposta,
+                  //               listaResposta: pergunta.listaResposta,
+                  //             }
 
-                              if(this.imagensACarregar != undefined || this.imagensACarregar != null)
-                                obj.arquivos = [...this.imagensACarregar]
+                  //             if(this.imagensACarregar != undefined || this.imagensACarregar != null)
+                  //               obj.arquivos = [...this.imagensACarregar]
 
-                              this.listaForuns.unshift(obj);
-                              this.listaSearch = [];
-                              this.mergeSort(this.listaForuns, 0, this.listaForuns.length);
+                  //             this.listaForuns.unshift(obj);
+                  //             this.listaSearch = [];
+                  //             this.mergeSort(this.listaForuns, 0, this.listaForuns.length);
 
-                            });
-                          }
-                          // video.aulaAtual = true;
+                  //           });
+                  //         }
+                  //         // video.aulaAtual = true;
 
-                          // this.arquivoAula = video.arquivos
+                  //         // this.arquivoAula = video.arquivos
 
-                          if(video.listaIdsArquivos != null)
-                            video.listaIdsArquivos.forEach((id: string) => {
-                              this.arquivoAula.forEach(arquivo => {
-                                if(id == arquivo.id){
-                                  listaArq.push(arquivo)
-                                }
-                              });
+                  //         if(video.listaIdsArquivos != null)
+                  //           video.listaIdsArquivos.forEach((id: string) => {
+                  //             this.arquivoAula.forEach(arquivo => {
+                  //               if(id == arquivo.id){
+                  //                 listaArq.push(arquivo)
+                  //               }
+                  //             });
 
 
-                            });
-                        }
-                        });
-                        this.arquivoAula = listaArq;
-                    }
-                    this.carregando = false;
-                  })
+                  //           });
+                  //       }
+                  //       });
+                  //       this.arquivoAula = listaArq;
+                  //   }
+                  //   this.carregando = false;
+                  // })
 
                 })
               }

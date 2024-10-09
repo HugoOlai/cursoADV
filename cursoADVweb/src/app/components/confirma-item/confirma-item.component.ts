@@ -21,11 +21,18 @@ import { DialogData } from '../../acesso/pages/login/login.component';
 })
 export class ConfirmaItemComponent {
   resposta: boolean = false;
+  mensagem: string = "";
+  subMensagem: string = "";
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<ConfirmaItemComponent>,
   ){}
+
+  ngOnInit(): void {
+    this.mensagem = this.data.mensagem
+    this.subMensagem = this.data.subMensagem
+  }
 
   validaResposta(resposta: boolean){
     this.resposta = resposta;

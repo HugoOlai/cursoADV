@@ -1,9 +1,12 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
+import { Util } from '../../../class/util.class';
+import { CookieService } from 'ngx-cookie-service';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../../services/auth.service';
 import { Usuario } from '../../../shared/class/Usuario.class';
-import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
-import { Util } from '../../../class/util.class';
+import { VisualizarAlunoComponent } from '../../../area-professor/alunos/visualizar-aluno/visualizar-aluno.component';
+import { EditarAlunoComponent } from '../editar-aluno/editar-aluno.component';
 
 @Component({
   selector: 'app-sidebar-area-aluno',
@@ -17,6 +20,7 @@ export class SidebarAreaAlunoComponent {
   constructor(
     private service: AuthService,
     private cookie: CookieService,
+    public dialog: MatDialog,
     private router: Router,
 
   ) {
@@ -32,6 +36,24 @@ export class SidebarAreaAlunoComponent {
       this.sair()
 
     // console.log(this.usuario?.src)
+  }
+
+  visualizarAluno(): void {
+    const dialogRef = this.dialog.open(EditarAlunoComponent, {
+      panelClass: "second-modal-backdrop",
+      width:  this.isMobile? "100%" : "80%",
+      data: {
+        usuario: this.usuario
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      var teste: any = dialogRef.componentRef;
+      // if(result.data){
+      //   this.carregando = true;
+      //   this.pegarUsuarios();
+      // }
+    });
   }
 
   direciona(destino = ''){

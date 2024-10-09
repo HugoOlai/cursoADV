@@ -1,168 +1,170 @@
-<div *ngIf="!isMobile" class="imagem">
-  <div class="box">
+<div class="{{isMobile? '' : 'imagem'}} col-12">
+  <div class="box" style="padding-top: 7rem !important;" [style]="isMobile?'': 'height: 69rem'">
+    <div class="col-12 d-flex flex-wrap justify-content-center">
+      <div class="w-100 d-flex flex-wrap justify-content-center">
+        <img src="../../../../assets/imgs/logo.png"  alt="" height="100">
+      </div>
+      <div class="pt-3 mb-3">
+        <span style="color: white;" class="fs-4">ÁREA DE CADASTRO DO ALUNO</span>
+      </div>
+    </div>
 
+    <div class="col-12 d-flex flex-wrap justify-content-center {{isMobile? '': 'defineTamanhoTela'}}">
+        <div class="{{isMobile?'col-12':'col-7'}} d-flex flex-wrap" style="background-color: white; border-radius: 10px;">
+          <h1 class="px-4 pt-4 fontTitulo3"><strong>INFORME SEUS DADOS</strong></h1>
+          <form [formGroup]="formularioCadastro" class="pt-4 px-4 col-12 d-flex flex-wrap">
+            <div class="{{isMobile?'col-12':'col-6 pe-2'}}">
+              <mat-form-field class="example-full-width w-100 pt-2">
+                <mat-label>Nome completo</mat-label>
+                <input required matInput (change)="confereCampos('Nome', 'Digite o nome')" formControlName="Nome">
+              </mat-form-field>
+              <div class="ps-3" *ngIf="!Nome" style="color: red; position: relative; top:-15px; font-size: 12px;">{{errorMessage['Nome']}}</div>
+            </div>
+            <div class="{{isMobile?'col-12':'col-6'}}">
+              <mat-form-field class="example-full-width w-100 pt-2">
+                <mat-label>CPF / CNPJ</mat-label>
+                <input matInput (change)="confereCampos('CpfCnpj')" required formControlName="CpfCnpj">
+              </mat-form-field>
+              <div class="ps-3" *ngIf="!CpfCnpj" style="color: red; position: relative; top:-15px; font-size: 12px;">{{errorMessage['CpfCnpj']}}</div>
+            </div>
+            <div class="{{isMobile?'col-12':'col-6 pe-2'}}">
+              <mat-form-field class="example-full-width w-100 pt-2">
+                <mat-label>Seu e-mail</mat-label>
+                <input required matInput (change)="confereCampos('Email')" formControlName="Email">
+                <!-- <mat-error *ngIf="!emailValido" >{{errorMessage['Email']}}</mat-error> -->
+              </mat-form-field>
+              <div class="ps-3" *ngIf="!Email" style="color: red; position: relative; top:-15px; font-size: 12px;">{{errorMessage['Email']}}</div>
+            </div>
+            <div class="{{isMobile?'col-12':'col-6'}}">
+              <mat-form-field class="example-full-width w-100 pt-2">
+                <mat-label>Confirme o seu e-mail</mat-label>
+                <input matInput (change)="confereCampos('Email')" required formControlName="ConfirmaEmail">
+              </mat-form-field>
+              <div class="ps-3" *ngIf="!Email" style="color: red; position: relative; top:-15px; font-size: 12px;">{{errorMessage['Email']}}</div>
+            </div>
+
+            <div class="{{isMobile?'col-12':'col-3 pe-2'}}">
+              <mat-form-field class="example-full-width w-100 pt-2">
+                <mat-label>Telefone</mat-label>
+                <input matInput (change)="confereCampos('Telefone')" required formControlName="Telefone">
+              </mat-form-field>
+              <div class="ps-3" *ngIf="!Telefone" style="color: red; position: relative; top:-15px; font-size: 12px;">{{errorMessage['Telefone']}}</div>
+            </div>
+
+            <div class="{{isMobile?'col-12':'col-9'}}">
+              <mat-form-field class="example-full-width w-100 pt-2">
+                <mat-label>Rua</mat-label>
+                <input matInput required formControlName="Rua">
+              </mat-form-field>
+            </div>
+
+            <div class="{{isMobile?'col-12':'col-4 pe-2'}}">
+              <mat-form-field class="example-full-width w-100 pt-2">
+                <mat-label>Complemento</mat-label>
+                <input matInput required formControlName="Complemento">
+              </mat-form-field>
+            </div>
+
+            <div class="{{isMobile?'col-12':'col-4 pe-2'}}">
+              <mat-form-field class="example-full-width w-100 pt-2">
+                <mat-label>Cep</mat-label>
+                <input matInput required placeholder="00000-000" maxlength="9" formControlName="Cep">
+              </mat-form-field>
+            </div>
+
+            <div class="{{isMobile?'col-12':'col-4'}}">
+              <mat-form-field class="example-full-width w-100 pt-2">
+                <mat-label>Numero</mat-label>
+                <input matInput required formControlName="Numero">
+              </mat-form-field>
+            </div>
+
+            <div class="{{isMobile?'col-12':'col-6 pe-2'}}">
+              <mat-form-field class=" w-100">
+                <mat-label>Senha</mat-label>
+                <input matInput (change)="confereCampos('Senha', 'Digite a senha')" required type="{{visivel? 'text':'password'}}" formControlName="Senha">
+                <button *ngIf="visivel == true" matSuffix mat-icon-button (click)="visivel=false">
+                  <span class="material-icons">
+                    lock_open
+                  </span>
+                </button>
+                <button *ngIf="visivel == false" matSuffix mat-icon-button (click)="visivel=true">
+                  <span class="material-icons">
+                    lock
+                  </span>
+                </button>
+              </mat-form-field>
+              <div class="ps-3" *ngIf="!Senha" style="color: red; position: relative; top:-15px; font-size: 12px;">{{errorMessage['Senha']}}</div>
+            </div>
+
+            <div class="{{isMobile?'col-12':'col-6'}}">
+              <mat-form-field class="w-100">
+                <mat-label>Confirmar Senha</mat-label>
+                <input matInput (change)="confereCampos('Senha', 'Senhas devem ser iguais')" required type="{{visivel? 'text':'password'}}" formControlName="ConfirmaSenha">
+                <button *ngIf="visivel == true" matSuffix mat-icon-button (click)="visivel=false">
+                  <span class="material-icons">
+                    lock_open
+                  </span>
+                </button>
+                <button *ngIf="visivel == false" matSuffix mat-icon-button (click)="visivel=true">
+                  <span class="material-icons">
+                    lock
+                  </span>
+                </button>
+              </mat-form-field>
+              <div class="ps-3" *ngIf="!Senha" style="color: red; position: relative; top:-15px; font-size: 12px;">{{errorMessage['ConfirmaSenha']}}</div>
+            </div>
+          </form>
+          <div class="col-12 d-flex justify-content-end px-4 pb-4" >
+            <input (change)="upload($event)" type="file" class="upload_btn" multiple/>
+
+            <div>
+              <button type="button"  class="btn btn-success rounded-pill">
+                ADICIONAR IMAGEM
+              </button>
+              <button type="button" (click)="Limpar()" class="btn btn-danger rounded-pill text-light ms-2">
+                <span class="material-icons mt-1">
+                  delete
+                </span>
+              </button>
+            </div>
+            <div>
+
+            </div>
+          </div>
+          <div *ngIf="imagemSelecionada != null" class="col-12 pb-2  d-flex justify-content-center">
+            <img src="{{imagemSelecionada}}" style="border-radius: 100%;" alt="" width="100" height="100">
+          </div>
+
+          <div class="col-12" *ngIf="carregando">
+            <div class="clearfix d-flex justify-content-center">
+              <p class="fs-6"> Carregando </p>
+              <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+                <span class="sr-only"></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 d-flex mb-4">
+            <div class="col-6 justify-content-start ps-4">
+              <button type="button" (click)="voltar()" class="btn btn-info text-light"><strong>VOLTAR</strong></button>
+            </div>
+            <div class="col-6 d-flex flex-wrap justify-content-end pe-4">
+              <div>
+                <button type="button" (click)="cadastrar()" class="btn  {{carregando?'btn-secundary':'btn-warning'}} text-light"><strong>CADASTRAR</strong></button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
   </div>
+</div>
+<div class="col-12" style="">
+  <app-roda-pe></app-roda-pe>
 </div>
 <div *ngIf="isMobile" style="position: absolute; z-index: -2;" class="box">
 
 </div>
 
-<div class="col-12 d-flex flex-wrap justify-content-center" style="padding-top: 2rem !important;">
-  <div class="w-100 d-flex flex-wrap justify-content-center">
-    <img src="../../../../assets/imgs/logo.png"  alt="" height="100">
-  </div>
-  <div class="pt-3">
-    <span style="color: white;" class="fs-4">ÁREA DE CADASTRO DO ALUNO</span>
-  </div>
-</div>
 
 
-<div class="col-12 d-flex flex-wrap justify-content-center {{isMobile? '': 'defineTamanhoTela'}}" [style]="isMobile?'padding-top: 2rem !important;':'padding-top: 2rem !important;'">
-    <div class="{{isMobile?'col-12':'col-7'}} d-flex flex-wrap" style="background-color: white; border-radius: 10px;">
-      <h1 class="px-4 pt-4 fontTitulo3"><strong>INFORME SEUS DADOS</strong></h1>
-      <form [formGroup]="formularioCadastro" class="pt-4 px-4 col-12 d-flex flex-wrap">
-        <div class="{{isMobile?'col-12':'col-6 pe-2'}}">
-          <mat-form-field class="example-full-width w-100 pt-2">
-            <mat-label>Nome completo</mat-label>
-            <input required matInput (change)="confereCampos('Nome', 'Digite o nome')" formControlName="Nome">
-          </mat-form-field>
-          <div class="ps-3" *ngIf="!Nome" style="color: red; position: relative; top:-15px; font-size: 12px;">{{errorMessage['Nome']}}</div>
-        </div>
-        <div class="{{isMobile?'col-12':'col-6'}}">
-          <mat-form-field class="example-full-width w-100 pt-2">
-            <mat-label>CPF / CNPJ</mat-label>
-            <input matInput (change)="confereCampos('CpfCnpj')" required formControlName="CpfCnpj">
-          </mat-form-field>
-          <div class="ps-3" *ngIf="!CpfCnpj" style="color: red; position: relative; top:-15px; font-size: 12px;">{{errorMessage['CpfCnpj']}}</div>
-        </div>
-        <div class="{{isMobile?'col-12':'col-6 pe-2'}}">
-          <mat-form-field class="example-full-width w-100 pt-2">
-            <mat-label>Seu e-mail</mat-label>
-            <input required matInput (change)="confereCampos('Email')" formControlName="Email">
-            <!-- <mat-error *ngIf="!emailValido" >{{errorMessage['Email']}}</mat-error> -->
-          </mat-form-field>
-          <div class="ps-3" *ngIf="!Email" style="color: red; position: relative; top:-15px; font-size: 12px;">{{errorMessage['Email']}}</div>
-        </div>
-        <div class="{{isMobile?'col-12':'col-6'}}">
-          <mat-form-field class="example-full-width w-100 pt-2">
-            <mat-label>Confirme o seu e-mail</mat-label>
-            <input matInput (change)="confereCampos('Email')" required formControlName="ConfirmaEmail">
-          </mat-form-field>
-          <div class="ps-3" *ngIf="!Email" style="color: red; position: relative; top:-15px; font-size: 12px;">{{errorMessage['Email']}}</div>
-        </div>
 
-        <div class="{{isMobile?'col-12':'col-3 pe-2'}}">
-          <mat-form-field class="example-full-width w-100 pt-2">
-            <mat-label>Telefone</mat-label>
-            <input matInput (change)="confereCampos('Telefone')" required formControlName="Telefone">
-          </mat-form-field>
-          <div class="ps-3" *ngIf="!Telefone" style="color: red; position: relative; top:-15px; font-size: 12px;">{{errorMessage['Telefone']}}</div>
-        </div>
-
-        <div class="{{isMobile?'col-12':'col-9'}}">
-          <mat-form-field class="example-full-width w-100 pt-2">
-            <mat-label>Rua</mat-label>
-            <input matInput required formControlName="Rua">
-          </mat-form-field>
-        </div>
-
-        <div class="{{isMobile?'col-12':'col-4 pe-2'}}">
-          <mat-form-field class="example-full-width w-100 pt-2">
-            <mat-label>Complemento</mat-label>
-            <input matInput required formControlName="Complemento">
-          </mat-form-field>
-        </div>
-
-        <div class="{{isMobile?'col-12':'col-4 pe-2'}}">
-          <mat-form-field class="example-full-width w-100 pt-2">
-            <mat-label>Cep</mat-label>
-            <input matInput required placeholder="00000-000" maxlength="9" formControlName="Cep">
-          </mat-form-field>
-        </div>
-
-        <div class="{{isMobile?'col-12':'col-4'}}">
-          <mat-form-field class="example-full-width w-100 pt-2">
-            <mat-label>Numero</mat-label>
-            <input matInput required formControlName="Numero">
-          </mat-form-field>
-        </div>
-
-        <div class="{{isMobile?'col-12':'col-6 pe-2'}}">
-          <mat-form-field class=" w-100">
-            <mat-label>Senha</mat-label>
-            <input matInput (change)="confereCampos('Senha', 'Digite a senha')" required type="{{visivel? 'text':'password'}}" formControlName="Senha">
-            <button *ngIf="visivel == true" matSuffix mat-icon-button (click)="visivel=false">
-              <span class="material-icons">
-                lock_open
-              </span>
-            </button>
-            <button *ngIf="visivel == false" matSuffix mat-icon-button (click)="visivel=true">
-              <span class="material-icons">
-                lock
-              </span>
-            </button>
-          </mat-form-field>
-          <div class="ps-3" *ngIf="!Senha" style="color: red; position: relative; top:-15px; font-size: 12px;">{{errorMessage['Senha']}}</div>
-        </div>
-
-        <div class="{{isMobile?'col-12':'col-6'}}">
-          <mat-form-field class="w-100">
-            <mat-label>Confirmar Senha</mat-label>
-            <input matInput (change)="confereCampos('Senha', 'Senhas devem ser iguais')" required type="{{visivel? 'text':'password'}}" formControlName="ConfirmaSenha">
-            <button *ngIf="visivel == true" matSuffix mat-icon-button (click)="visivel=false">
-              <span class="material-icons">
-                lock_open
-              </span>
-            </button>
-            <button *ngIf="visivel == false" matSuffix mat-icon-button (click)="visivel=true">
-              <span class="material-icons">
-                lock
-              </span>
-            </button>
-          </mat-form-field>
-          <div class="ps-3" *ngIf="!Senha" style="color: red; position: relative; top:-15px; font-size: 12px;">{{errorMessage['ConfirmaSenha']}}</div>
-        </div>
-      </form>
-      <div class="col-12 d-flex justify-content-end px-4 pb-4" >
-        <input (change)="upload($event)" type="file" class="upload_btn" multiple/>
-
-        <div>
-          <button type="button"  class="btn btn-success rounded-pill">
-            ADICIONAR IMAGEM
-          </button>
-          <button type="button" (click)="Limpar()" class="btn btn-danger rounded-pill text-light ms-2">
-            <span class="material-icons mt-1">
-              delete
-            </span>
-          </button>
-        </div>
-        <div>
-
-        </div>
-      </div>
-      <div *ngIf="imagemSelecionada != null" class="col-12 pb-2  d-flex justify-content-center">
-        <img src="{{imagemSelecionada}}" style="border-radius: 100%;" alt="" width="100" height="100">
-      </div>
-
-      <div class="col-12" *ngIf="carregando">
-        <div class="clearfix d-flex justify-content-center">
-          <p class="fs-6"> Carregando </p>
-          <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
-            <span class="sr-only"></span>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 d-flex mb-4">
-        <div class="col-6 justify-content-start ps-4">
-          <button type="button" (click)="voltar()" class="btn btn-info text-light"><strong>VOLTAR</strong></button>
-        </div>
-        <div class="col-6 d-flex flex-wrap justify-content-end pe-4">
-          <div>
-            <button type="button" (click)="cadastrar()" class="btn  {{carregando?'btn-secundary':'btn-warning'}} text-light"><strong>CADASTRAR</strong></button>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
-
-<app-roda-pe></app-roda-pe>

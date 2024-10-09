@@ -113,7 +113,6 @@ export class alunosComponent {
     this.listaAlunosFiltrada = [];
 
     this.usuarioService.listaUsuarios().subscribe((res: Array<Usuario>)=>{
-      console.log(res)
       res.forEach(usuario => {
         this.listaAlunosFiltrada.push(usuario)
         this.listaAlunosCompleta.push(usuario)
@@ -147,7 +146,6 @@ export class alunosComponent {
   }
 
   filtro(valor: any){
-    console.log(valor.target.value)
     this.listaAlunosFiltrada = [];
 
     if(valor.target.value.length > 2){

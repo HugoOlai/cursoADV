@@ -7,20 +7,20 @@
   </div>
 </div>
 
-<div class=" d-flex flex-wrap scroll" *ngIf="!carregando">
-  <div class="m-4 d-flex flex-wrap">
+<div class=" d-flex flex-wrap {{isMobile? 'scrollMobile': 'scroll'}} " *ngIf="!carregando">
+  <div class="m-4 d-flex flex-wrap pb-5">
     <div class="col-6 d-flex">
-      <h1 mat-dialog-title>{{data.usuario.nome.length > 20? data.usuario.nome.substring(0, 20).toLocaleUpperCase() + "..." : data.usuario.nome.toLocaleUpperCase()}}</h1>
-      <h1 *ngIf="data.usuario.tipo != null" mat-dialog-title class="ms-2"> - {{data.usuario.tipo}}</h1>
+      <h1 mat-dialog-title>{{data.usuario.nome.length > 10 && isMobile? data.usuario.nome.substring(0, 10).toLocaleUpperCase() + "..." : data.usuario.nome.toLocaleUpperCase()}}</h1>
+      <!-- <h1 *ngIf="data.usuario.tipo != null" mat-dialog-title class="ms-2"> - {{data.usuario.tipo}}</h1> -->
 
     </div>
     <div class="col-6 d-flex justify-content-end" [formGroup]="formularioUsuario">
-      <mat-form-field class="w-50 pt-2 ">
+      <!-- <mat-form-field class="w-50 pt-2 ">
         <mat-label>Tipo</mat-label>
         <mat-select [(value)]="tipoSelecionado" formControlName="Tipo">
           <mat-option [value]="item.nome" *ngFor="let item of tipos">{{ item.nome }}</mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> -->
 
       <!-- <mat-form-field class="w-100" appearance="outline">
         <mat-label>Tipo</mat-label>
@@ -29,8 +29,12 @@
         </mat-select>
       </mat-form-field> -->
 
-      <div title="Adicione uma imagem" class="circle pointer" style="height: 80px !important; width: 80px !important;">
-        <img src="{{data.usuario.src}}">
+      <div class="d-flex {{isMobile? 'w-100':'w-25'}} justify-content-center">
+        <input (change)="uploadImgCurso($event)" type="file" class="uploadImgCurso" multiple/>
+        <div class="circle" style="height: 80px !important; width: 80px !important;">
+
+          <img src="{{data.usuario.src}}">
+        </div>
       </div>
     </div>
 
@@ -92,7 +96,7 @@
           </mat-form-field>
         </div>
 
-        <span class="fs-6">CARTÃO</span>
+        <!-- <span class="fs-6">CARTÃO</span>
         <hr class="w-100" />
         <div class="{{isMobile? 'col-12':'col-6'}}">
 
@@ -118,46 +122,15 @@
             <mat-label>Bandeira</mat-label>
             <input matInput formControlName="Bandeira">
           </mat-form-field>
-        </div>
-
-        <!-- <div class="{{isMobile? 'col-12':'col-6'}}">
-          <mat-form-field class="w-100 {{isMobile? '':'pe-2'}}">
-            <mat-label>Nova Senha</mat-label>
-            <input type="{{visivel? 'text':'password'}}" matInput formControlName="NovaSenha">
-            <button *ngIf="visivel == true" matSuffix mat-icon-button (click)="visivel=false">
-              <span class="material-icons">
-                lock_open
-              </span>
-            </button>
-            <button *ngIf="visivel == false" matSuffix mat-icon-button (click)="visivel=true">
-              <span class="material-icons">
-                lock
-              </span>
-            </button>
-          </mat-form-field>
-        </div>
-        <div class="{{isMobile? 'col-12':'col-6'}}">
-          <mat-form-field class="w-100">
-            <mat-label>Confirmar Senha</mat-label>
-            <input type="{{visivel2? 'text':'password'}}" matInput formControlName="ConfirmarSenha">
-            <button *ngIf="visivel2 == true" matSuffix mat-icon-button (click)="visivel2=false">
-              <span class="material-icons">
-                lock_open
-              </span>
-            </button>
-            <button *ngIf="visivel2 == false" matSuffix mat-icon-button (click)="visivel2=true">
-              <span class="material-icons">
-                lock
-              </span>
-            </button>
-          </mat-form-field>
         </div> -->
       </form>
     </div>
     <div class="w-100" mat-dialog-actions>
       <div class="d-flex flex-wrap">
         <span class="fs-6">CURSOS</span>
-        <div class="ms-auto d-flex">
+        <hr class="w-100" />
+
+        <!-- <div class="ms-auto d-flex">
           <mat-form-field class="me-3">
             <mat-label>Adicione um curso ao usuario</mat-label>
             <mat-select>
@@ -169,31 +142,56 @@
               ADICIONAR
             </button>
           </div>
-        </div>
+        </div> -->
         <strong class="fontTitulo w-100 d-flex justify-content-center mt-5 {{isMobile? 'fs-5':' fs-3'}} text-center" *ngIf="listaCursosFiltrada == null || listaCursosFiltrada.length == 0">
           USUARIO NÃO POSSUI CURSO
         </strong>
-        <app-table class="w-100" *ngIf="listaCursosFiltrada != null && listaCursosFiltrada.length > 0"
+
+        <div class="col-12 d-flex flex-wrap {{isMobile? 'justify-content-center': ''}}">
+          <div *ngFor="let curso of listaCursosFiltrada">
+            <div *ngIf="curso.statusPago" class="card me-2 {{isMobile? 'mb-2':''}}" (click)="assistirAula(curso)" style="width: 18rem; cursor: pointer;">
+              <h4 class="text-center textImagem">
+                <p class="text defineFont mt-3" style="width: 100%;">
+                  <strong class="">{{curso.titulo.toLocaleUpperCase()}}</strong>
+                </p>
+              </h4>
+              <!-- <img src="{{curso.src}}" class="card-img-top" alt="..."> -->
+              <img *ngIf="curso.src == ''" src="assets/imgs/site proinf quem somos e cursos/6.png" class="card-img-top" alt="...">
+
+              <img *ngIf="curso.src != ''" src="{{curso.src}}" class="card-img-top" alt="...">
+            </div>
+
+            <div *ngIf="!curso.statusPago" class="card me-2" style="width: 18rem;">
+              <h4 class="text-center textImagem">
+                <p class="text defineFont mt-2" style="width: 100%;">
+                  <strong class="">AGUARDANDO CONFIRMAÇÃO DE PAGAMENTO</strong>
+                </p>
+              </h4>
+              <img src="assets/imgs/site proinf quem somos e cursos/6.png" class="card-img-top" alt="...">
+            </div>
+          </div>
+
+        </div>
+        <!-- <app-table class="w-100" *ngIf="listaCursosFiltrada != null && listaCursosFiltrada.length > 0"
           [lista]="listaCursosFiltrada"
           [header]="header"
           [options]="options"
           [actions]="actions">
-        </app-table>
+        </app-table> -->
 
       </div>
 
+      <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>ok</button> -->
       <div class="col-12 d-flex mt-5">
         <div class="col-6">
           <button *ngIf="!carregando" class="btn btn-danger rounded-pill" (click)="fechar()">FECHAR</button>
 
         </div>
         <div class="col-6 d-flex justify-content-end">
-          <button *ngIf="!carregando" class="btn btn-danger rounded-pill" (click)="deletar()">DELETAR USUÁRIO</button>
-          <button *ngIf="!carregando" class="btn btn-success rounded-pill ms-3" (click)="editar()">SALVAR ALTERAÇÕES</button>
+          <button *ngIf="!carregando" class="btn btn-success rounded-pill ms-3" (click)="editar()">ATUALIZAR</button>
 
         </div>
       </div>
-      <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>ok</button> -->
     </div>
   </div>
 </div>

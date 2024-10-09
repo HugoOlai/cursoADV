@@ -13,8 +13,8 @@
   </div>
 
   <!-- menu de aulas para mobile -->
-  <div  class="{{isMobile? 'col-12':'col-4'}}" *ngIf="curso.tipoCurso != 'GRUPOESTUDOS' && !carregando && isMobile">
-    <div class="w-100 {{isMobile? 'm-2':''}} modulos mt-5 pt-4 pb-3" s >
+  <div  class="col-12" *ngIf="curso.tipoCurso != 'GRUPOESTUDOS' && !carregando && isMobile">
+    <div class="w-100 modulos mt-5 pt-4 pb-3" s >
       <h1 class="px-4"><b>Aulas</b></h1>
           <hr class="w-100" />
 
@@ -27,7 +27,7 @@
             <source  type="video/mp4" >
           </video> -->
           <span class="mt-2 ms-3">
-            <h3>{{item.nome}}</h3>
+            <h3>{{item.nome.length > 24? item.nome.substring(0, 25).toLocaleUpperCase() + '...': item.nome.toLocaleUpperCase()}}</h3>
           </span>
         </div>
       </div>
@@ -92,7 +92,7 @@
       </div>
 
       <div *ngIf="this.arquivoAula.length > 0 && !carregandoArq" class="d-flex flex-wrap w-100 mt-4">
-        <span *ngFor="let arquivo of this.arquivoAula">
+        <span class="{{!isMobile? '' : 'col-4'}}" *ngFor="let arquivo of this.arquivoAula">
           <div title="{{arquivo.nome}}" class="flex-wrap pointer d-flex justify-content-center mb-4" (click)="download(arquivo)">
             <img src="assets/imgs/pdf.png" class="" height="100">
             <!-- <span > {{arquivo.nome}} </span> -->
@@ -202,13 +202,13 @@
             <div class="mt-2">
               <button type="button" (click)="Adicionar()" class="btn btn-warning rounded-pill text-light"><strong>POSTAR</strong></button>
             </div>
-            <div>
+            <!-- <div>
               <button type="button" (click)="Limpar()" class="btn btn-danger rounded-pill text-light ms-2">
                 <span class="material-icons mt-1">
                   delete
                 </span>
               </button>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -284,7 +284,7 @@
             <source  type="video/mp4" >
           </video> -->
           <span class="mt-2 ms-3">
-            <h3>{{item.nome}}</h3>
+            <h3 class="" style="font-size: 15px;">{{item.nome.toUpperCase()}}</h3>
           </span>
         </div>
       </div>

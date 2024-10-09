@@ -36,7 +36,7 @@
   <div class="mt-2" *ngIf="!loading">
     <table class="mat-elevation-z8" mat-table [dataSource]="dataSource" matSort (matSortChange)="ordenaLista($event)">
       <ng-container matColumnDef="{{head.description}}" *ngFor="let head of header">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="{{head.description == 'Ações' || head.description == 'Ação'? 'centralizaHead': ''}}" [ngClass]="head.class" [style]="head.style">
+        <th id="{{head.description}}" mat-header-cell *matHeaderCellDef mat-sort-header class="" [ngClass]="head.class" [style]="head.style">
           <div class="form-check" *ngIf="head.selectAll">
             <input
               class="form-check-input position-static"
@@ -48,7 +48,10 @@
             />
           </div>
 
-          {{head.description}}
+          <div class="w-100 {{head.description == 'Ações' || head.description == 'Ação'? 'centralizaHead': ''}}">
+            {{head.description}}
+
+          </div>
 
         </th>
         <td mat-cell *matCellDef="let element" (click)="options.trFunction && !checkboxSelecionada && !botaoAcaoSelecionado? options.handle != undefined? options.handle.call(options.handle, element) : '' :''"

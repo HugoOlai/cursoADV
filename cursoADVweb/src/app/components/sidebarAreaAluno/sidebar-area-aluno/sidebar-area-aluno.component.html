@@ -38,7 +38,7 @@
       </div>
     </button>
     <mat-menu #beforeMenu="matMenu" xPosition="before">
-      <button class="d-flex flex-wrap" mat-menu-item >
+      <button (click)="visualizarAluno()" class="d-flex flex-wrap" mat-menu-item >
         <div class="w-100 d-flex">
           <div class="" style="width: 30%;">
             <img src="{{usuario.src == null? 'assets/imgs/usuarioGenerico.png': usuario.src}}" height="50" width="50" alt="" style="border-radius: 54px;">

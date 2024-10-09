@@ -19,6 +19,14 @@ export class UsuarioService {
       );
   }
 
+  deletar(id: any) : Observable<any> {
+    return this.http.post(`${environment.baseUrl}/usuario/deletar`, {id: id})
+      .pipe(
+        take(1),
+        map(result => result)
+      );
+  }
+
   atualizar(usuario: any) : Observable<any> {
     return this.http.post(`${environment.baseUrl}/usuario/atualizar`, usuario)
       .pipe(

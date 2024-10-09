@@ -37,7 +37,6 @@ export class CursosComponent {
         this.usuario.listaCursos?.forEach((cursoContratado: Curso) => {
           listaIdsCursos.push(cursoContratado.id)
         })
-        console.log(res)
 
         res.forEach((curso: Curso) => {
 
@@ -84,7 +83,6 @@ export class CursosComponent {
                 }
 
                 this.listaGrupoEstudos.push(curso);
-                console.log(this.listaGrupoEstudos)
 
               }
             });

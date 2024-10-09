@@ -1,0 +1,76 @@
+.circle {
+  background-color: #aaa;
+  border-radius: 50%;
+  z-index: 2;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+  border: 10px solid white;
+}
+
+.circle img {
+  position: absolute;
+  top: -11%;
+  bottom: 0;
+  width: 100%;
+}
+
+.scrollMobile{
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 815px;
+
+  &::-webkit-scrollbar {
+    width: 0em !important;
+  }
+
+  &::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background: brown;
+  }
+}
+
+.scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 815px;
+
+  &::-webkit-scrollbar {
+    width: 1em !important;
+  }
+
+  &::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background: brown;
+  }
+}
+
+.textImagem {
+  position: absolute;
+  top: 34%;
+  left: 16%;
+  right: 12%;
+  backdrop-filter: blur(10px);
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 30px;
+}
+
+.uploadImgCurso{
+  position: relative;
+  width: 34%;
+  left: 50%;
+  height: 71px !important;
+  z-index: 10;
+  opacity: 0;
+}
+
+.upload_btn {
+  position: relative;
+  width: 23%;
+  left: 24%;
+  height: 50px !important;
+  z-index: 10;
+  opacity: 0;
+}

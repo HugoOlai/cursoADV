@@ -176,6 +176,7 @@ export class CursoEditarAdicionarComponent {
 
       if(this.data.curso.listaArquivosApoio != null)
         this.listaArquivosApoio = [...this.data.curso.listaArquivosApoio]
+
       this.carregandoArquivos = true;
       this.arquivosService.pegarArquivos(this.data.curso.id).subscribe(res=>{
         res.forEach((arquivo: any) => {
@@ -342,13 +343,15 @@ export class CursoEditarAdicionarComponent {
 
   download(arquivo: Arquivo){
     // 'data:application/octet-stream;base64,' +
-    var linkSource = arquivo.base64;
-    const downloadLink = document.createElement('a');
-    const fileName = `${arquivo.nome}`;
+    this.arquivosService.pegarArquivo(arquivo.id).subscribe(arq => {
+      var linkSource = arq.base64;
+      const downloadLink = document.createElement('a');
+      const fileName = `${arquivo.nome}`;
 
-    downloadLink.href = linkSource;
-    downloadLink.download = fileName;
-    downloadLink.click();
+      downloadLink.href = linkSource;
+      downloadLink.download = fileName;
+      downloadLink.click();
+    });
 
   }
 

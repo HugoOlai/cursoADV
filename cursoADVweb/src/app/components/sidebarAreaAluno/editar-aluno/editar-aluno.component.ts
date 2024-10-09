@@ -3,23 +3,27 @@ import { Util } from '../../../class/util.class';
 import { Component, Inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DialogDataUsuario } from '../alunos.component';
 import { Curso } from '../../../shared/class/Curso.class';
 import { AuthService } from '../../../services/auth.service';
 import { CursosService } from './../../../services/cursos.service';
 import { UsuarioService } from '../../../services/usuario.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogDataUsuario } from './../../../area-professor/alunos/alunos.component';
 import { SnackBarComponent } from '../../../components/snack-bar/snack-bar.component';
 import { ActionsTable, HeaderTable, OptionsTable } from '../../../components/table/table.class';
 import { ConfirmaItemComponent } from '../../../components/confirma-item/confirma-item.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { ArquivosService } from '../../../services/arquivos.service';
+import { SelectedFiles } from '../../../Admin/admin/admin.component';
+import { AsyncSubject } from 'rxjs';
 
 @Component({
-  selector: 'app-visualizar-aluno',
-  templateUrl: './visualizar-aluno.component.html',
-  styleUrl: './visualizar-aluno.component.scss'
+  selector: 'app-editar-aluno',
+  templateUrl: './editar-aluno.component.html',
+  styleUrl: './editar-aluno.component.scss'
 })
-export class VisualizarAlunoComponent {
+
+export class EditarAlunoComponent {
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   // usuario: Usuario;
@@ -41,6 +45,7 @@ export class VisualizarAlunoComponent {
     }
   ]
 
+  email: any;
   bandeira: any;
   mesExpira: any;
   nomeCartao: any;
@@ -123,16 +128,17 @@ export class VisualizarAlunoComponent {
 
 
   constructor(
-    private fb: FormBuilder,
-    private _snackBar: MatSnackBar,
-    private service: AuthService,
     private router: Router,
+    private fb: FormBuilder,
     public dialog: MatDialog,
+    private service: AuthService,
     private cookie: CookieService,
+    private _snackBar: MatSnackBar,
     private cursosService: CursosService,
     public usuarioService: UsuarioService,
+    private arquivosService: ArquivosService,
     @Inject(MAT_DIALOG_DATA) public data: DialogDataUsuario,
-    public dialogRef: MatDialogRef<VisualizarAlunoComponent>,
+    public dialogRef: MatDialogRef<EditarAlunoComponent>,
   ){
     this.formularioUsuario = this.fb.group({
       Nome: [data.usuario.nome],
@@ -161,10 +167,12 @@ export class VisualizarAlunoComponent {
     this.nomeCartao = this.formularioUsuario.get('NomeCartao')
     this.mesExpira = this.formularioUsuario.get('MesExpira')
     this.bandeira = this.formularioUsuario.get('Bandeira')
+    this.email = this.formularioUsuario.get('Email')
     this.numeroCartao.disable()
     this.nomeCartao.disable()
     this.mesExpira.disable()
     this.bandeira.disable()
+    this.email.disable()
 
     this.carregando = true;
     this.cursosService.pegarTodos().subscribe((cursos: Array<Curso>)=>{
@@ -178,6 +186,13 @@ export class VisualizarAlunoComponent {
           //cursosIds.push(curso.id)
           var cursoEncontrado = cursos.find((curso: Curso)=> curso.id == cursoUsuario.id);
           if(cursoEncontrado != null){
+            this.arquivosService.pegarArquivo(cursoEncontrado.idImg).subscribe((res: any)=>{
+              if(cursoEncontrado != undefined)
+                cursoEncontrado.src = res.base64;
+
+              this.carregando = false;
+
+            });
             if(cursoUsuario.dataContratacao)
               cursoEncontrado.dataContratacaoFormatada = Util.dataFormatada(cursoUsuario.dataContratacao);
 
@@ -212,27 +227,46 @@ export class VisualizarAlunoComponent {
 
   }
 
-  deletar(){
-    const dialogRef = this.dialog.open(ConfirmaItemComponent, {
-      panelClass: "second-modal-backdrop",
-      width: "450px",
-      data: {
-        mensagem: "ATENÇÃO VOCÊ ESTA TENTANDO DELETAR O USUÁRIO!",
-        subMensagem: "ESSA AÇÃO IRÁ DELETAR O USUÁRIO DO SISTEMA MAS NÃO AFETARA O SISTEMA DE PAGAMENTO. PARA EDITAR O PAGAMENTO DOS USUÁRIOS, ACESSE A FERRAMENTA DE PAGAMENTO"
-      }
+  assistirAula(curso: Curso){
+    this.router.navigate([`areaAluno/inicio`]);
+    this.router.navigate([`areaAluno/aula/${curso.id}`]);
+    setTimeout(() => {
+      this.fechar(true);
+
+    }, 1000);
+  }
+
+  uploadImgCurso(event: any){
+    const keys = Object.keys(event.target.files);
+    var files = event.target.files
+    var reader = new FileReader();
+    const result = new AsyncSubject<SelectedFiles[]>();
+
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = (event) => { // called once readAsDataURL is completed
+      // if(event.target != null)
+        //this.imagemSelecionada = reader.result;
+    }
+
+    Object.keys(files)?.forEach(async (file, i) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(files[i]);
+      reader.onload = (e) => {
+        //this.listaArquivosApoio = this.listaArquivosApoio?.filter(f => f?.name != files[i]?.name)
+        // this.listaArquivosApoio.push(files[i])
+        var imgCurso = { nome: files[i]?.name, file: "",
+          base64: reader?.result as string }
+        this.data.usuario.src = imgCurso.base64;
+
+        //result.next(imgCurso);
+        if (files?.length === (i + 1)) {
+          result.complete();
+        }
+
+      };
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.usuarioService.deletar(this.data.usuario.id).subscribe(res=>{
-          SnackBarComponent.prototype.texto = "USUÁRIO DELETADO";
-          SnackBarComponent.prototype.tipo = 'success';
-          this.openSnackBar('success');
-          this.fechar(true)
-
-        })
-      }
-    })
+    //this.imagemSelecionada = event.target.files[0]
   }
 
   adicionar(){
@@ -306,7 +340,7 @@ export class VisualizarAlunoComponent {
     const dialogRef = this.dialog.open(ConfirmaItemComponent, {
       panelClass: "second-modal-backdrop",
       width: "450px",
-      data:{ mensagem: "Deseja realmente atualizar esse usuario?"}
+      data:{ mensagem: "Deseja realmente atualizar suas informações?"}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -315,6 +349,7 @@ export class VisualizarAlunoComponent {
         var obj = {
           Id: this.data.usuario.id,
           Nome: item.Nome,
+          Src: this.data.usuario.src,
           Email: item.Email,
           Telefone: item.Telefone,
           CpfCnpj: item.CpfCnpj,

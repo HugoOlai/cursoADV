@@ -2,3 +2,33 @@
   font-size: 20px !important;
   padding-right: 5px;
 }
+
+#Ação{
+  ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    align-items: center;
+    letter-spacing: normal;
+    outline: 0;
+  }
+}
+
+#Ações{
+  ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    align-items: center;
+    letter-spacing: normal;
+    outline: 0;
+  }
+}
+
+// ::ng-deep .mat-sort-header-container {
+
+//   cursor: pointer;
+//   align-items: center;
+//   letter-spacing: normal;
+//   outline: 0;
+// }

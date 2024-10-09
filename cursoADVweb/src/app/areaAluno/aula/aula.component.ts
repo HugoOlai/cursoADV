@@ -190,6 +190,7 @@ export class AulaComponent {
                   this.carregando = false;
                 })
 
+                this.arquivoAula = []
                 this.arquivosService.pegarArquivos(this.curso.id).subscribe(res=>{
                   res.forEach((arquivo: any) => {
                     if(arquivo.nome != "Capa")
@@ -328,14 +329,16 @@ export class AulaComponent {
 
   download(arquivo: Arquivo){
     // 'data:application/octet-stream;base64,' +
-    var linkSource = arquivo.base64;
-    const downloadLink = document.createElement('a');
-    const fileName = `${arquivo.nome}`;
+    this.arquivosService.pegarArquivo(arquivo.id).subscribe(arq => {
+      var linkSource = arq.base64;
+      const downloadLink = document.createElement('a');
+      const fileName = `${arquivo.nome}`;
 
-    downloadLink.href = linkSource;
-    downloadLink.download = fileName;
-    downloadLink.click();
+      downloadLink.href = linkSource;
+      downloadLink.download = fileName;
+      downloadLink.click();
 
+    });
   }
 
   selecionaCurso(novoVideo: any){

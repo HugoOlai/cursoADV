@@ -207,7 +207,7 @@ export class tarefaComponent {
     this.tarefaService.pegarTodos().subscribe((res: Array<Tarefa>) =>{
       res.forEach((tarefa: Tarefa) => {
         tarefa.dataLancamentoFormatada = Util.dataFormatada(tarefa.dataLancamento)
-        tarefa.nomeVideo = this.listaNomesVideos.find(v=> v.id == tarefa.idVideo).nome;
+        //tarefa.nomeVideo = this.listaNomesVideos.find(v=> v.id == tarefa.idVideo).nome;
         this.listaTarefas.push(tarefa)
       });
       this.carregando = false;

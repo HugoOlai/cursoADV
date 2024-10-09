@@ -18,6 +18,8 @@ import { Usuario } from '../../../shared/class/Usuario.class';
 export interface DialogData {
   animal: string;
   name: string;
+  mensagem: string;
+  subMensagem: string;
 }
 
 @Component({
@@ -86,7 +88,7 @@ export class LoginComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(RecuperarComponent, {
       panelClass: "second-modal-backdrop",
-      width: '55%',
+      width: this.isMobile? '100%': '55%',
       data: {name: 'teste', animal: 'teste'},
     });
 

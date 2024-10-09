@@ -1,8 +1,9 @@
-<h2 mat-dialog-title>Deseja realmente atualizar esse usuario?</h2>
-<!-- <mat-dialog-content>
-  Would you like to delete cat.jpeg?
-</mat-dialog-content> -->
+<h2 mat-dialog-title>{{mensagem}}</h2>
+<!-- <spam >{{subMensagem}}</spam> -->
+<mat-dialog-content>
+  {{subMensagem}}
+</mat-dialog-content>
 <mat-dialog-actions>
-  <button (click)="validaResposta(false)" mat-button mat-dialog-close>NÃO</button>
-  <button [mat-dialog-close]="true" mat-button mat-dialog-close cdkFocusInitial>SIM</button>
+  <button (click)="validaResposta(false)" mat-button mat-dialog-close>CANCELAR</button>
+  <button [mat-dialog-close]="true" mat-button mat-dialog-close cdkFocusInitial>COMTINUAR</button>
 </mat-dialog-actions>

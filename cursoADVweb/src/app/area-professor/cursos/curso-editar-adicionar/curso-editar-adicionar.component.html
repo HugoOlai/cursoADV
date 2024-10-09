@@ -18,12 +18,12 @@
 
     </div>
     <div class="col-6 d-flex justify-content-end" [formGroup]="formularioCurso">
-      <mat-form-field class="w-50 pt-2 " >
+      <!-- <mat-form-field class="w-50 pt-2 " >
         <mat-label>Tipo</mat-label>
         <mat-select [(value)]="tipoSelecionado" formControlName="Tipo">
           <mat-option [value]="item.nome" *ngFor="let item of tipos">{{ item.nome }}</mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> -->
 
       <!-- <mat-form-field class="w-100" appearance="outline">
         <mat-label>Tipo</mat-label>
@@ -151,7 +151,7 @@
         </div>
 
         <div *ngIf="this.listaArquivosApoio.length > 0" class="d-flex flex-wrap w-100">
-          <span *ngFor="let arquivo of this.listaArquivosApoio">
+          <span class="col-2" *ngFor="let arquivo of this.listaArquivosApoio">
             <div title="{{arquivo.nome}}" class="flex-wrap pointer d-flex justify-content-center mb-4" (click)="download(arquivo)">
               <img src="assets/imgs/pdf.png" class="" height="100">
               <!-- <span > {{arquivo.nome}} </span> -->

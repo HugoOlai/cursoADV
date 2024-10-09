@@ -42,8 +42,7 @@ export class AlunoComponent {
       next: (res: any) =>{
         this.usuario = res;
         this.service.setCliente(res)
-
-        if(this.usuario.listaCursos != undefined) {
+        if(this.usuario.listaCursos != undefined && this.usuario.listaCursos.length != 0) {
 
           this.cursosService.pegarTodos().subscribe({
             next: (cursos: Array<Curso>) =>{

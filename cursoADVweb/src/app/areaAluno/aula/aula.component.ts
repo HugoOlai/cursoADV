@@ -20,6 +20,7 @@ import { ArquivosService } from '../../services/arquivos.service';
 import { VideoService } from '../../services/videos.service';
 import { Pergunta, Video } from '../../shared/class/Video';
 import { SelectedFiles } from '../../Admin/admin/admin.component';
+import { UsuarioService } from '../../services/usuario.service';
 
 interface FoodNode {
   nome: string;
@@ -99,6 +100,7 @@ export class AulaComponent {
     private service: AuthService,
     private _snackBar: MatSnackBar,
     private cursosService: CursosService,
+    private usuarioService: UsuarioService,
     private activedRoute: ActivatedRoute,
     private videoService: VideoService,
     private arquivosService: ArquivosService,
@@ -186,6 +188,8 @@ export class AulaComponent {
                       }
                       });
                       this.arquivoAula = listaArq;
+                      this.selecionaCurso(this.usuario.ultimaAulaAssistida)
+
                   }
                   this.carregando = false;
                 })
@@ -270,7 +274,6 @@ export class AulaComponent {
               }
 
 
-
               //   this.arquivoAula = this.curso.listaArquivosApoio;
               //   if(this.curso.listaArquivosApoio.length != null){
               //     this.curso.listaArquivosApoio.forEach((arquivo: any) => {
@@ -343,7 +346,9 @@ export class AulaComponent {
 
   selecionaCurso(novoVideo: any){
     var novaLista: Array<any> = [];
-    if(this.curso.listaVideos != null && this.curso.listaVideos != undefined){
+    var ultimaAulaAssistida = null;
+    console.log(novoVideo)
+    if(this.curso.listaVideos != null && this.curso.listaVideos != undefined && novoVideo != null){
       this.curso.listaVideos.forEach(video => {
           if(video.nome == novoVideo.nome){
             this.arquivoAula = []
@@ -361,6 +366,8 @@ export class AulaComponent {
                 this.arquivoAula.push(arq)
             });
 
+            ultimaAulaAssistida = video;
+
           }else
             video.aulaAtual = false;
 
@@ -368,6 +375,16 @@ export class AulaComponent {
       });
 
       this.curso.listaVideos = novaLista;
+
+      if(ultimaAulaAssistida != null){
+        this.usuario['ultimaAulaAssistida'] = ultimaAulaAssistida;
+        this.service.setCliente(this.usuario);
+
+        this.usuarioService.atualizar(this.usuario).subscribe(res => {
+
+        })
+
+      }
     }
   }
 

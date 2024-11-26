@@ -12,6 +12,7 @@ export interface Usuario {
   endereco: endereco;
   cartao: cartao;
   tipo: string;
+  ultimaAulaAssistida?: any;
 }
 
 interface endereco {

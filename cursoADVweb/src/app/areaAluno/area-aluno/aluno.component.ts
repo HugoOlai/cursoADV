@@ -38,8 +38,10 @@ export class AlunoComponent {
 
   ngOnInit() {
     this.usuario = this.service.getUser();
+    console.log(this.usuario)
     this.usuarioService.pegarUsuario().subscribe({
       next: (res: any) =>{
+        res.ultimaAulaAssistida = this.usuario.ultimaAulaAssistida;
         this.usuario = res;
         this.service.setCliente(res)
         if(this.usuario.listaCursos != undefined && this.usuario.listaCursos.length != 0) {
@@ -51,6 +53,7 @@ export class AlunoComponent {
                 this.carregando = true;
 
                 var cursoInformacoesCompletas = cursos.find(curs => curs.id == cursoContratado.id);
+                console.log(cursoInformacoesCompletas)
 
                 if(cursoInformacoesCompletas){
                   this.arquivosService.pegarArquivo(cursoInformacoesCompletas.idImg).subscribe(res=>{
@@ -88,6 +91,8 @@ export class AlunoComponent {
                 }
 
               });
+
+
               if(this.temPagamentoPendente)
                 this.pegarCursosPagamentoAtualizado();
 
@@ -175,6 +180,9 @@ export class AlunoComponent {
 
   assistirAula(curso: Curso){
     this.router.navigate([`areaAluno/aula/${curso.id}`]);
+  }
+  assistirAulaPeloId(id: string){
+    this.router.navigate([`areaAluno/aula/${id}`]);
   }
 
 }

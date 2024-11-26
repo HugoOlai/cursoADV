@@ -134,6 +134,7 @@ export class CursoEditarAdicionarComponent {
     this.formularioCurso = this.fb.group({
       Nome: [data.curso.titulo],
       Titulo: [data.curso.titulo],
+      Link: [data.curso.link],
       Tipo: [data.curso.tipoCurso == null? "CURSO" : data.curso.tipoCurso],
       Status: [data.curso.status == null || data.curso.status == false? "INATIVO" : "ATIVO"],
       Subtitulo: [data.curso.subtitulo],
@@ -143,10 +144,10 @@ export class CursoEditarAdicionarComponent {
       Objetivo: [data.curso.objetivo],
       Topico: [null],
       Cupom: [data.curso.cupom],
-      ValorCupom: [data.curso.valorCupom],
-      ValorCupomFormatado: [Util.formataValor(data.curso.valorCupom)],
-      Valor: [data.curso.valor],
-      ValorFormatado: [Util.formataValor(data.curso.valor)],
+      ValorCupom: [data.curso.valorCupom.toString()],
+      ValorCupomFormatado: [Util.formataValor(data.curso.valorCupom).toString()],
+      Valor: [data.curso.valor.toString()],
+      ValorFormatado: [Util.formataValor(data.curso.valor).toString()],
     })
   }
 
@@ -185,6 +186,9 @@ export class CursoEditarAdicionarComponent {
 
         this.carregandoArquivos = false;
       })
+    } else {
+      this.carregandoArquivos = false;
+
     }
 
   }

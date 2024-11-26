@@ -162,7 +162,6 @@ export class EditarAlunoComponent {
   }
 
   ngOnInit(): void {
-
     this.numeroCartao = this.formularioUsuario.get('NumeroCartao')
     this.nomeCartao = this.formularioUsuario.get('NomeCartao')
     this.mesExpira = this.formularioUsuario.get('MesExpira')
@@ -182,6 +181,7 @@ export class EditarAlunoComponent {
       });
       if(this.data.usuario.listaCursos != null)
         this.data.usuario.listaCursos.forEach((cursoUsuario: Curso) => {
+          this.carregando = true;
 
           //cursosIds.push(curso.id)
           var cursoEncontrado = cursos.find((curso: Curso)=> curso.id == cursoUsuario.id);
@@ -189,8 +189,6 @@ export class EditarAlunoComponent {
             this.arquivosService.pegarArquivo(cursoEncontrado.idImg).subscribe((res: any)=>{
               if(cursoEncontrado != undefined)
                 cursoEncontrado.src = res.base64;
-
-              this.carregando = false;
 
             });
             if(cursoUsuario.dataContratacao)
@@ -210,9 +208,11 @@ export class EditarAlunoComponent {
           //     this.listaCursos.push(curso)
           //   }
           // });
+
+          this.carregando = false;
         });
 
-      this.carregando = false;
+        this.carregando = false;
 
 
       // console.log(this.listaCursos)

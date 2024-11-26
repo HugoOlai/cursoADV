@@ -14,7 +14,7 @@
 
   <!-- menu de aulas para mobile -->
   <div  class="col-12" *ngIf="curso.tipoCurso != 'GRUPOESTUDOS' && !carregando && isMobile">
-    <div class="w-100 modulos mt-5 pt-4 pb-3" s >
+    <div class="w-100 modulos scroll mt-5 pt-4 pb-3" >
       <h1 class="px-4"><b>Aulas</b></h1>
           <hr class="w-100" />
 
@@ -26,7 +26,7 @@
           <!-- <video id="{{item.nome}}" width="60" height="50" controlsList=" nodownload nofullscreen noremoteplayback" src="https://centroproinf.com.br/assets/videos/{{item.nomeArquivo}}.mp4">
             <source  type="video/mp4" >
           </video> -->
-          <span class="mt-2 ms-3">
+          <span class="mt-2 ms-1">
             <h3>{{item.nome.length > 24? item.nome.substring(0, 25).toLocaleUpperCase() + '...': item.nome.toLocaleUpperCase()}}</h3>
           </span>
         </div>
@@ -35,8 +35,8 @@
   </div>
 
 
-  <div *ngIf="!carregando" class="{{tipoCurso != 'GRUPOESTUDOS'? isMobile? 'col-12':'col-8':'col-12'}}">
-    <video *ngIf="tipoCurso != 'GRUPOESTUDOS'" width="100%" height="515" controls controlsList="nodownload" src="https://centroproinf.com.br/video/{{ModuloSelecionado}}.mp4">
+  <div *ngIf="!carregando" class="{{tipoCurso != 'GRUPOESTUDOS'? isMobile? 'col-12 mt-3':'col-8':'col-12'}}">
+    <video *ngIf="tipoCurso != 'GRUPOESTUDOS'" width="100%" height="auto" controls controlsList="nodownload" src="https://centroproinf.com.br/video/{{ModuloSelecionado}}.mp4">
       <source  type="video/mp4" >
     </video>
     <h2 *ngIf="tipoCurso != 'GRUPOESTUDOS'" ><small><b>{{curso.titulo}}</b></small> | <small><b>{{nomeModulo}}</b></small></h2>
@@ -271,20 +271,20 @@
   </div>
   <!-- menu de aulas para pc -->
   <div  class="{{isMobile? 'col-12':'col-4'}}" *ngIf="curso.tipoCurso != 'GRUPOESTUDOS' && !carregando && !isMobile">
-    <div class="w-100 {{isMobile? '':'m-2'}}  modulos mt-5 pt-4 pb-3" s >
+    <div class="w-100 {{isMobile? '':'m-2 mt-0'}}  modulos pt-4 pb-3 scroll">
       <h1 class="px-4"><b>Aulas</b></h1>
           <hr class="w-100" />
 
       <div *ngFor="let item of curso.listaVideos" class="col-12 d-flex px-4 {{item.aulaAtual?'aulaSelecionada':'aula'}}">
         <div class="col-12 d-flex flex-wrap" (click)="selecionaCurso(item)">
-          <span class="material-icons fs-2 mt-2">
+          <span class="material-icons fs-3 mt-2">
             play_circle_filled
             </span>
           <!-- <video id="{{item.nome}}" width="60" height="50" controlsList=" nodownload nofullscreen noremoteplayback" src="https://centroproinf.com.br/assets/videos/{{item.nomeArquivo}}.mp4">
             <source  type="video/mp4" >
           </video> -->
-          <span class="mt-2 ms-3">
-            <h3 class="" style="font-size: 15px;">{{item.nome.toUpperCase()}}</h3>
+          <span class="mt-2 ms-1">
+            <h3 class="" style="font-size: 13px;">{{item.nome.toUpperCase()}}</h3>
           </span>
         </div>
       </div>

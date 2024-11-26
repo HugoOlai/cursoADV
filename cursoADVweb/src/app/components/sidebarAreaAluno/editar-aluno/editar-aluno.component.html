@@ -7,14 +7,14 @@
   </div>
 </div>
 
-<div class=" d-flex flex-wrap {{isMobile? 'scrollMobile': 'scroll'}} " *ngIf="!carregando">
-  <div class="m-4 d-flex flex-wrap pb-5">
-    <div class="col-6 d-flex">
-      <h1 mat-dialog-title>{{data.usuario.nome.length > 10 && isMobile? data.usuario.nome.substring(0, 10).toLocaleUpperCase() + "..." : data.usuario.nome.toLocaleUpperCase()}}</h1>
+<div class="w-100 d-flex flex-wrap {{isMobile? 'scrollMobile pb-5 defineBottom': 'scroll'}} " *ngIf="!carregando">
+  <div class="w-100 m-4 d-flex flex-wrap">
+    <div class="{{isMobile? 'col-8':'col-6'}} d-flex">
+      <h1 mat-dialog-title>{{data.usuario.nome.length > 19 && isMobile? data.usuario.nome.substring(0, 19).toLocaleUpperCase() + "..." : data.usuario.nome.toLocaleUpperCase()}}</h1>
       <!-- <h1 *ngIf="data.usuario.tipo != null" mat-dialog-title class="ms-2"> - {{data.usuario.tipo}}</h1> -->
 
     </div>
-    <div class="col-6 d-flex justify-content-end" [formGroup]="formularioUsuario">
+    <div class="{{isMobile? 'col-4':'col-6'}} d-flex justify-content-end" [formGroup]="formularioUsuario">
       <!-- <mat-form-field class="w-50 pt-2 ">
         <mat-label>Tipo</mat-label>
         <mat-select [(value)]="tipoSelecionado" formControlName="Tipo">
@@ -182,16 +182,19 @@
       </div>
 
       <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>ok</button> -->
-      <div class="col-12 d-flex mt-5">
-        <div class="col-6">
-          <button *ngIf="!carregando" class="btn btn-danger rounded-pill" (click)="fechar()">FECHAR</button>
 
-        </div>
-        <div class="col-6 d-flex justify-content-end">
-          <button *ngIf="!carregando" class="btn btn-success rounded-pill ms-3" (click)="editar()">ATUALIZAR</button>
+    </div>
+  </div>
+  <div class="w-100 d-flex mt-5 m-4 ">
+    <div class="col-6">
+      <button *ngIf="!carregando" class="btn btn-danger rounded-pill" (click)="fechar()">FECHAR</button>
 
-        </div>
+    </div>
+    <div class="col-6 d-flex justify-content-end">
+      <div>
+        <button *ngIf="!carregando" class="btn btn-success rounded-pill ms-3" (click)="editar()">ATUALIZAR</button>
       </div>
+
     </div>
   </div>
 </div>

@@ -22,6 +22,32 @@
       <strong>INSCREVER-SE EM UM CURSO</strong>
     </button>
   </div>
+  <div class="col-12 d-flex flex-wrap {{isMobile?'justify-content-center':''}} " *ngIf="usuario.ultimaAulaAssistida != null && !carregando">
+    <h1 class="col-12 fontTitulo d-flex {{isMobile?'justify-content-center':''}} " >
+      <strong style="font-size: 33px;">Continue de onde parou</strong>
+    </h1>
+    <div class=" d-flex align-items-center {{isMobile?'col-12':'col-5 p-4 ps-0'}}">
+      <video width="100%" height="auto" controls controlsList="nodownload" src="https://centroproinf.com.br/video/{{usuario.ultimaAulaAssistida.nomeArquivo}}.mp4">
+        <source  type="video/mp4" >
+      </video>
+    </div>
+    <div class="{{isMobile?'col-12':'col-7 p-4 ps-0'}}">
+      <h2 class="col-12 d-flex {{isMobile?'justify-content-center':''}} " >
+        <strong >{{usuario.ultimaAulaAssistida.nome}}</strong>
+      </h2>
+      <h4 class="col-12 d-flex {{isMobile?'justify-content-center':''}} " >
+        <strong>{{usuario.ultimaAulaAssistida.descricao}}</strong>
+      </h4>
+      <button type="button" (click)="assistirAulaPeloId(usuario.ultimaAulaAssistida.idCurso)"
+        class="{{isMobile? 'w-100':'ps-3'}} justify-content-center overlay-layer btn btn-sm btn-outline-dark icon-button d-flex text-start shadow-sm rounded">
+          <strong class="defineFontBtns ps-2 pt-1" style="font-size: 24px;">
+            Continuar...
+          </strong>
+          <img src="../../../../assets/imgs/setaVermelha.png" height="40">
+      </button>
+    </div>
+  </div>
+  <hr class="mt-4 mb-4" *ngIf="usuario.ultimaAulaAssistida != null && !carregando">
 
   <div class="col-12 d-flex flex-wrap {{isMobile?'justify-content-center':''}} " *ngIf="meusCursos && !carregando">
     <div class="col-12 pb-2">
@@ -52,6 +78,7 @@
       </div>
     </div>
   </div>
+  <hr class="mt-4 mb-4" *ngIf="!carregando">
 
   <div class="col-12 d-flex flex-wrap {{isMobile?'justify-content-center':''}}  mt-4" *ngIf="meusGruposEstudo && !carregando">
     <div class="col-12 pb-2">

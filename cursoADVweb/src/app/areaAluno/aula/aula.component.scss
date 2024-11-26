@@ -2,8 +2,23 @@
   border: 1px solid #ee5c55;
   border-radius: 10px;
   background-color: #ffb5b1;
+  max-height: 32rem;
 }
 
+.scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 815px;
+
+  &::-webkit-scrollbar {
+    width: 0.7em !important;
+  }
+
+  &::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background: brown;
+  }
+}
 
 .step-title {
   @media screen and (max-width: 900px) {

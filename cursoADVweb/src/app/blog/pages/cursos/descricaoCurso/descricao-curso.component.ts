@@ -83,7 +83,9 @@ export class DescricaoCursoComponent {
   }
 
   redirecionar(){
-    this.router.navigate([`areaAluno/contratacao/${this.curso?.id}`]);
+    console.log(this.curso)
+    window.location.href = this.curso.link;
+    //this.router.navigate([`areaAluno/contratacao/${this.curso?.id}`]);
 
   }
 

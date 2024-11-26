@@ -40,7 +40,7 @@ export class SidebarAreaAlunoComponent {
 
   visualizarAluno(): void {
     const dialogRef = this.dialog.open(EditarAlunoComponent, {
-      panelClass: "second-modal-backdrop",
+      panelClass: this.isMobile? "second-modal-backdropMobile" : "second-modal-backdrop",
       width:  this.isMobile? "100%" : "80%",
       data: {
         usuario: this.usuario

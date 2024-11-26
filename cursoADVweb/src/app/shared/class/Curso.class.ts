@@ -5,6 +5,7 @@ export interface Curso {
 
   cupom?: string,
   titulo: string,
+  link: string,
   objetivo: string,
   parcelas?: string,
   subtitulo: string,

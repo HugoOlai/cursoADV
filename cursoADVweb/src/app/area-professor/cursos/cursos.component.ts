@@ -107,6 +107,7 @@ export class cursosComponent {
     this.curso = {
       id: "",
       titulo: "",
+      link: "",
       tipoCurso: "CURSO",
       status: false,
       subtitulo: "",

@@ -77,8 +77,10 @@ export class BlogComponent implements OnInit {
   }
 
   redirecionarLogin() {
-    location.assign('#/acesso/login')
-    window.location.reload();
+    window.location.href = "https://centroproinf.curseduca.pro/login"
+
+    // location.assign('#/acesso/login')
+    // window.location.reload();
   }
 
   ngAfterViewInit(): void {

@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { CursosService } from '../../../../services/cursos.service';
 import { AuthService } from '../../../../services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Curso } from '../../../../shared/class/Curso.class';
 import { Usuario } from '../../../../shared/class/Usuario.class';
 import { Util } from '../../../../class/util.class';
 import { HttpClient } from '@angular/common/http';
 import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
+import { identifierName } from '@angular/compiler';
+import { ArquivosService } from '../../../../services/arquivos.service';
 
 @Component({
   selector: 'app-descricao-curso',
@@ -15,6 +17,7 @@ import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-socia
 })
 export class DescricaoCursoComponent {
   isMobile = Util.isMobile();
+  carregando = true;
   private accessToken: any;
   usuario?: Usuario;
   curso: Curso;
@@ -60,6 +63,8 @@ export class DescricaoCursoComponent {
     private service: AuthService,
     public router: Router,
     public cursosService: CursosService,
+    private activedRoute: ActivatedRoute,
+    private arquivosService: ArquivosService,
     private authService: SocialAuthService,
     private httpClient: HttpClient
   ) {
@@ -68,22 +73,46 @@ export class DescricaoCursoComponent {
   }
 
   ngOnInit() {
-    if(this.curso == undefined || this.curso == null){
-      this.router.navigate(['blog/cursos']);
+    this.activedRoute.params.subscribe((params: any) => {
+      if(params['id'] != undefined){
+        var obj: any = {
+          id: params['id']
+        }
 
-    } else{
-      var divisao = this.curso.valor/12;
-          this.curso.parcelas = `12x de ${Util.formataValor(divisao)}`
+        this.cursosService.pegar(obj).subscribe(res=>{
+          this.curso = res;
+          var divisao = this.curso.valor/12;
+          this.curso.parcelas = `12x de ${Util.formataValor(divisao)}`;
           this.curso.valorFormatado = Util.formataValor(this.curso.valor) ;
-          this.curso.valorComDesconto = Util.formataValor(this.curso.valor - 200)
-    }
+          this.curso.valorComDesconto = Util.formataValor(this.curso.valor - 200);
+          this.arquivosService.pegarArquivo(this.curso.idImg).subscribe(res=>{
+            this.curso.src = res.base64;
+            this.curso.idImg = res.id;
+          })
+
+          this.carregando = false;
+        })
+      } else {
+        this.carregando = false;
+
+        if(this.curso == undefined || this.curso == null){
+          this.router.navigate(['blog/cursos']);
+
+        } else{
+          var divisao = this.curso.valor/12;
+              this.curso.parcelas = `12x de ${Util.formataValor(divisao)}`
+              this.curso.valorFormatado = Util.formataValor(this.curso.valor) ;
+              this.curso.valorComDesconto = Util.formataValor(this.curso.valor - 200)
+        }
+      }
+    })
 
     // this.getAccessToken()
 
   }
 
   redirecionar(){
-    console.log(this.curso)
+    console.log(this.curso.link)
     window.location.href = this.curso.link;
     //this.router.navigate([`areaAluno/contratacao/${this.curso?.id}`]);
 

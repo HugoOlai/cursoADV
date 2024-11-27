@@ -23,8 +23,10 @@ export class SidebarComponent implements OnInit {
   }
 
   redirecionar() {
-    location.assign('#/acesso/login')
-    window.location.reload();
+    window.location.href = "https://centroproinf.curseduca.pro/login"
+
+    // location.assign('#/acesso/login')
+    // window.location.reload();
   }
 
   buscar(){

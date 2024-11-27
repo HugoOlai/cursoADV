@@ -19,6 +19,7 @@ const routes: Routes = [
       { path: 'quemSomos', component: QuemSomosComponent},
       { path: 'cursos', component: CursosComponent},
       { path: 'cursos/descricao', component: DescricaoCursoComponent},
+      { path: 'cursos/descricao/:id', component: DescricaoCursoComponent},
       { path: 'noticias', component: NoticiasComponent},
       { path: 'foruns', component: ForunsComponent},
       { path: 'faleConosco', component: FaleConoscoComponent},

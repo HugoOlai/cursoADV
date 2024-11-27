@@ -1,8 +1,18 @@
-<div class="col-12 flex-wrap">
+<div class="col-12" *ngIf="carregando">
+  <div class="clearfix d-flex justify-content-center">
+    <p class="fs-6"> Carregando </p>
+    <div class="spinner-border spinner-border-sm ms-2 " style="width: 1rem; height: 1rem;" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+</div>
+
+<div class="col-12 flex-wrap" *ngIf="!carregando">
+
   <div class="col-12 d-flex flex-wrap fundoLaranja defineFont"
     [style]="isMobile? 'height: 25.75rem;':'padding-left: 7rem; height: 14.75rem;'">
     <div class="{{isMobile? 'col-12 px-3':'col-8 d-flex flex-wrap'}}">
-      <div class="col-10 pt-4 ">
+      <div class="col-12 pt-4 ">
         <h1><strong class="fontTitulo2 fs-1" style="color: rgb(3, 3, 3);">{{curso.titulo}}</strong></h1>
       </div>
       <!-- <div class="col-12">
@@ -17,7 +27,7 @@
           <small style="font-size:medium;">{{curso.valorFormatado}} à vista</small>
         </h1>
       </div> -->
-      <div class="col-2" *ngIf="true">
+      <div class="col-12" *ngIf="true">
         <P class="fs-5 formataParagrafos" >
           {{curso.subtitulo}}
         </P>

@@ -144,7 +144,7 @@ export class CursoEditarAdicionarComponent {
       Objetivo: [data.curso.objetivo],
       Topico: [null],
       Cupom: [data.curso.cupom],
-      ValorCupom: [data.curso.valorCupom.toString()],
+      ValorCupom: [data.curso.valorCupom == null? "" : data.curso.valorCupom.toString()],
       ValorCupomFormatado: [Util.formataValor(data.curso.valorCupom).toString()],
       Valor: [data.curso.valor.toString()],
       ValorFormatado: [Util.formataValor(data.curso.valor).toString()],
